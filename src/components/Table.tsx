@@ -6,6 +6,8 @@ import { ArrowUp, ArrowDown } from "tabler-icons-react"
 import { compareValues } from "@/utils/compareValues"
 import Filters from "./Filters"
 import { MouseEvent } from "react"
+import { parseQueryString } from "@/utils/parseQueryString"
+import { serializeFilters } from "@/utils/filters/serializeFilters"
 
 
 type Props = {
@@ -13,11 +15,6 @@ type Props = {
 }
 
 
-type Query = {
-    fil: string,
-    col: number
-    asc: boolean // ascending order if true (default)
-}
 
 export default function Table({ rows }: Props) {
 
@@ -26,17 +23,7 @@ export default function Table({ rows }: Props) {
     // Get filters and sorting from query string
     const router = useRouter()
 
-    const query: Query = {
-        col: router.query?.col ? Number(router.query.col) : 0,
-        asc: router.query?.asc==="false" ? false : true,
-        fil: typeof router.query?.fil === "string" ? router.query.fil : "",
-        // order: router.query?.sort === "decr" ? "decr" : "incr",
-    }
-
-    // const {
-    //     sort="incr",
-    //     col="0"
-    // } = router.query
+    const query = parseQueryString(router.query)
 
     const sortKey = Object.values(header)[query.col] as keyof CoolerLP
 
@@ -51,7 +38,7 @@ export default function Table({ rows }: Props) {
 
     // The URL is replaced with JS instead of using the actual anchor.
     // This way we prevent losing the scroll position.
-    function handleHeaderClick(e: MouseEvent<HTMLAnchorElement>, newQuery: Query) {
+    function handleHeaderClick(e: MouseEvent<HTMLAnchorElement>, newQuery: Record<string,string|number|boolean>) {
         e.preventDefault()
         // console.log({ newQuery })
         router.replace({
@@ -70,12 +57,18 @@ export default function Table({ rows }: Props) {
                         {
                             header.map((label,i) => {
 
-                                const newQuery: Query = { ...query, col: i, asc: query.col===i ? !query.asc : query.asc }
+                                const newQuery = {
+                                    asc: query.col===i ? !query.asc : query.asc,
+                                    col: i,
+                                    fil: serializeFilters(query.fil),
+                                }
 
                                 return <th key={ i } data-active={ query.col===i }>
-                                    <Link href={{
-                                        query: newQuery,
-                                    }} replace={ true } onClick={(e) => handleHeaderClick(e, newQuery)}>
+                                    <Link
+                                        href={{ query: newQuery }}
+                                        replace={ true }
+                                        onClick={(e) => handleHeaderClick(e, newQuery)}
+                                    >
                                         <span>{ label }</span>
                                         {
                                             query.col===i &&
