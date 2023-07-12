@@ -1,12 +1,21 @@
 import { Filters } from "./serializeFilters"
 
 
+
+export type Options = Record<string, (string|number)[]>
+
+export function deserializeFilters(queryString: string, options: Options) {
+    const numericalFilters = parseFiltersString(queryString)
+    return numericalFilters
+}
+
+
 /**
- * Extract filters from query string
+ * Extract filters from query string as numbers
  * @example 0:1,2; 10:3,4 -> header 0 has options 1 & 2; header 10 has options 3 & 4
  * @param queryString 
  */
-export function deserializeFilters(queryString: string): Filters {
+export function parseFiltersString(queryString: string): Filters {
 
     if(!queryString.includes(":")) {
         return {}

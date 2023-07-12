@@ -2,20 +2,18 @@ import { CoolerLP } from "@/types"
 import { css } from "@emotion/react"
 import { useRouter } from "next/router"
 import Select, { type MultiValue } from "react-select"
-import { serializeFilters } from "@/utils/filters/serializeFilters"
-import { parseQueryString } from "@/utils/parseQueryString"
+import { serializeFilters } from "@/utils/queryString/serializeFilters"
+import { Query, parseQueryString } from "@/utils/queryString/parseQueryString"
 import Filter from "./Filter"
+import Slider from "./slider/MultiSlider"
+import MultiSlider from "./slider/MultiSlider"
+import { Options } from "@/utils/queryString/deserializeFilters"
 
 
 type Option = {
     value: number,
     label: string|number,
 }
-
-function sortAlphanumeric(a: string|number, b: string|number): number {
-    return (a.toString()).localeCompare(b.toString())
-}
-
 
 function isNumberColumn(values: (string|number)[]) {
     return values.some(value => typeof value === "number")
@@ -39,53 +37,25 @@ function getMinMax(values: (string|number)[]) {
 }
 
 
-function getPossibleValues<RowType>(rows: Record<string,string|number>[]) {
-
-    const possibleValues: Record<string,Set<string|number>> = {}
-
-    rows.forEach(row => {
-        for(const [key,value] of Object.entries(row)) {
-            // Ignore "null" values
-            // if(value === "-" || value === "" || value === "?") {
-            //     return
-            // }
-            if(!(key in possibleValues)) {
-                possibleValues[key] = new Set<string|number>()
-            }
-            // console.log("add",key,value)
-            possibleValues[key].add(value)
-        }
-    })
-
-    // const possibleValuesArrays: [string,(string|number)[]][] = []
-    const possibleValuesArrays: Record<string, (string|number)[]> = {}
-
-    for(const [key,set] of Object.entries(possibleValues)) {
-        // possibleValuesArrays.push([key, Array.from(set)])
-        possibleValuesArrays[key] = Array.from(set).sort(sortAlphanumeric)
-    }
-
-    return possibleValuesArrays
-}
-
 
 
 
 type Props = {
-    rows: Partial<CoolerLP>[],
+    // rows: Partial<CoolerLP>[],
+    query: Query,
+    options: Options,
 }
 
-export default function Filters({ rows }: Props) {
+export default function FilterControls({ query, options }: Props) {
 
     // const header = Object.keys(rows[0])
-
-    const possibleValues = getPossibleValues(rows)
 
     // console.log(possibleValues)
 
     // Get filters
-    const router = useRouter()
-    const { fil: filters } = parseQueryString(router.query)
+    // const router = useRouter()
+    // const { fil: filters } = parseQueryString(router.query)
+    // const { fil: filters } = query
     /*
     <select>
         <option value="null">-</option>
@@ -120,13 +90,14 @@ export default function Filters({ rows }: Props) {
 
     return (
         <div css={ style }>
+            <MultiSlider domain={ [0,10] } minValue={ 1 } maxValue={ 10 } tickCount={ 1 } onChange={ (values) => console.log(values) }/>
             {
-                Object.keys(possibleValues).map((key, headerIndex) => (
+                Object.keys(options).map((key, headerIndex) => (
                     <Filter
                         label={ key }
-                        values={ possibleValues[key] }
+                        values={ options[key] }
                         headerIndex={ headerIndex }
-                        filters={ filters }
+                        filters={ query.fil }
                         key={ key }
                     />
                 ))
@@ -137,15 +108,27 @@ export default function Filters({ rows }: Props) {
 }
 
 const style = css`
-    display: grid;
-    flex-wrap: wrap;
+    /* display: grid; */
+    display: flex;
+    flex-direction: column;
+    /* min-height: 100vh; */
+    /* height: 100vh; */
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* position: fixed; */
+    /* left: 0; */
+    /* top: 0; */
+    /* max-width: 500px; */
+    /* border: 1px solid brown; */
+    /* flex-wrap: wrap; */
     gap: 1em;
-    grid-template-columns: repeat(3, 1fr);
-    max-height: min(50vh, 500px);
-    overflow: auto;
+    /* grid-template-columns: repeat(3, 1fr); */
+    /* max-height: min(50vh, 500px); */
+    /* overflow: auto; */
     padding: 1em;
-    margin-bottom: 3vh;
-    padding-bottom: 10em;
+    /* margin-bottom: 3vh; */
+    /* padding-bottom: 10em; */
+    width: 100%;
     /* position: relative; */
     /* z-index: 1; */
 `

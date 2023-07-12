@@ -4,17 +4,36 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import { ArrowUp, ArrowDown } from "tabler-icons-react"
 import { compareValues } from "@/utils/compareValues"
-import Filters from "./Filters"
 import { MouseEvent } from "react"
-import { parseQueryString } from "@/utils/parseQueryString"
-import { serializeFilters } from "@/utils/filters/serializeFilters"
+import { Query, parseQueryString } from "@/utils/queryString/parseQueryString"
+import { Filters, serializeFilters } from "@/utils/queryString/serializeFilters"
+import { getOptions } from "@/utils/getOptions"
+import FilterControls from "./FilterControls"
+
+
+
+function filterRow(row: Partial<CoolerLP>, filters: Filters, header: string[]) {
+    /*
+    fil = {
+        0: [1,2],
+        3: [10,11],
+    }
+    */
+
+    for(const headerIndex of Object.keys(filters)) {
+        const headerKey = header[Number(headerIndex)]
+        
+    }
+    
+    const key = header[0]
+    // fil.
+    return true
+}
 
 
 type Props = {
     rows: Partial<CoolerLP>[],
 }
-
-
 
 export default function Table({ rows }: Props) {
 
@@ -23,15 +42,18 @@ export default function Table({ rows }: Props) {
     // Get filters and sorting from query string
     const router = useRouter()
 
-    const query = parseQueryString(router.query)
+    const options = getOptions(rows)
+
+    const query = parseQueryString(router.query, options)
+
 
     const sortKey = Object.values(header)[query.col] as keyof CoolerLP
 
-    const sortedRows = rows.sort((a,b) => {
-
-        return compareValues(a[sortKey], b[sortKey], query.asc)
-        
-    })
+    const sortedRows = rows
+        .filter(row => filterRow(row, query.fil, header))
+        .sort((a,b) => {
+            return compareValues(a[sortKey], b[sortKey], query.asc)
+        })
 
     // console.log({ asc: sort.asc, col: sort.col, sortKey })
     // console.log(sortedRows)
@@ -47,80 +69,93 @@ export default function Table({ rows }: Props) {
     }
 
     return (
-        <div className="table-container" css={ style }>
+        <div className="container" css={ style }>
 
-            <Filters rows={ rows }/>
+            <FilterControls query={ query } options={ options }/>
             
-            <table>
-                <thead>
-                    <tr>
+            <div className="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            {
+                                header.map((label,i) => {
+
+                                    const newQuery = {
+                                        asc: query.col===i ? !query.asc : query.asc,
+                                        col: i,
+                                        fil: serializeFilters(query.fil),
+                                    }
+
+                                    return <th key={ i } data-active={ query.col===i }>
+                                        <Link
+                                            href={{ query: newQuery }}
+                                            replace={ true }
+                                            onClick={(e) => handleHeaderClick(e, newQuery)}
+                                        >
+                                            <span>{ label }</span>
+                                            {
+                                                query.col===i &&
+                                                (query.asc ? <ArrowDown/> : <ArrowUp/>)
+                                            }
+                                        </Link>
+                                    </th>
+                                })
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
-                            header.map((label,i) => {
-
-                                const newQuery = {
-                                    asc: query.col===i ? !query.asc : query.asc,
-                                    col: i,
-                                    fil: serializeFilters(query.fil),
-                                }
-
-                                return <th key={ i } data-active={ query.col===i }>
-                                    <Link
-                                        href={{ query: newQuery }}
-                                        replace={ true }
-                                        onClick={(e) => handleHeaderClick(e, newQuery)}
-                                    >
-                                        <span>{ label }</span>
-                                        {
-                                            query.col===i &&
-                                            (query.asc ? <ArrowDown/> : <ArrowUp/>)
-                                        }
-                                    </Link>
-                                </th>
-                            })
+                            sortedRows.map((row,i) => (
+                                <tr key={ i }>
+                                    {
+                                        Object.values(row).map((value,j) => (
+                                            <td key={ j }>{ value || "-" }</td>
+                                        ))
+                                    }
+                                </tr>
+                            ))
                         }
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        sortedRows.map((row,i) => (
-                            <tr key={ i }>
-                                {
-                                    Object.values(row).map((value,j) => (
-                                        <td key={ j }>{ value || "-" }</td>
-                                    ))
-                                }
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
 
 const style = css`
 
-    max-width: 100%;
-    overflow-x: auto;
+    width: 100%;
+    /* overflow-x: auto; */
+    display: grid;
+    grid-template-columns: 20rem 1fr;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
 
-    table {
-        border-collapse: collapse;
+    .table-container {
+        overflow: auto;
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 0 5px;
-        }
-        th[data-active=true] {
-            color: dodgerblue;
-        }
-        td {
-            height: 1.5em;
+        table {
+            border-collapse: collapse;
+            width: 100%;
+    
+            th, td {
+                border: 1px solid #ddd;
+                padding: 0 5px;
+            }
+            th[data-active=true] {
+                color: dodgerblue;
+            }
+            td {
+                height: 1.5em;
+            }
+            
+            a {
+                text-decoration: none;
+                color: inherit;
+                font-weight: 600;
+            }
         }
     }
 
-    a {
-        text-decoration: none;
-        color: inherit;
-        font-weight: 600;
-    }
 `

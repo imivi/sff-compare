@@ -20,6 +20,11 @@ body {
 }
 
 main {
-    max-width: 1200px;
-    border: 1px solid #ddd;
+    /* max-width: 1200px; */
+    /* border: 1px solid #ddd; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
 }

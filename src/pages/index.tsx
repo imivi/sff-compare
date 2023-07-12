@@ -22,8 +22,8 @@ export default function Home({ rows }: Props) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <h1>Home</h1>
-                <a href="https://docs.google.com/spreadsheets/d/10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps/edit#gid=1839148703">Google sheets link</a>
+                {/* <h1>Home</h1> */}
+                {/* <a href="https://docs.google.com/spreadsheets/d/10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps/edit#gid=1839148703">Google sheets link</a> */}
                 <Table rows={ rows }/>
             </main>
         </>

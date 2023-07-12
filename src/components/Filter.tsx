@@ -1,7 +1,7 @@
 import { css } from "@emotion/react"
 import { useRouter } from "next/router"
 import Select, { type MultiValue } from "react-select"
-import { Filters, serializeFilters } from "@/utils/filters/serializeFilters"
+import { Filters, serializeFilters } from "@/utils/queryString/serializeFilters"
 
 
 type Option = {
@@ -81,7 +81,7 @@ export default function Filter({ values, label, headerIndex, filters }: Props) {
 
     return (
         <label css={ style }>
-            <span>{ label } ({ options.length })</span>
+            <span>{ label } ({ options.length }) { isNumberColumn(values) && "(slider)" }</span>
             <Select
                 instanceId="react-select-id"
                 isMulti

@@ -1,4 +1,4 @@
-import { deserializeFilters } from "@/utils/filters/deserializeFilters";
+import { deserializeFilters } from "@/utils/queryString/deserializeFilters";
 import { useRouter } from "next/router";
 
 export default function useQueryString() {
