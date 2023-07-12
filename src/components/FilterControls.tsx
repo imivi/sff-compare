@@ -2,12 +2,12 @@ import { CoolerLP } from "@/types"
 import { css } from "@emotion/react"
 import { useRouter } from "next/router"
 import Select, { type MultiValue } from "react-select"
-import { serializeFilters } from "@/utils/queryString/serializeFilters"
 import { Query, parseQueryString } from "@/utils/queryString/parseQueryString"
-import Filter from "./Filter"
+import Filter from "./unused/Filter"
 import Slider from "./slider/MultiSlider"
 import MultiSlider from "./slider/MultiSlider"
 import { Options } from "@/utils/queryString/deserializeFilters"
+import FilterControl from "./FilterControl"
 
 
 type Option = {
@@ -88,15 +88,18 @@ export default function FilterControls({ query, options }: Props) {
     )
     */
 
+    // console.log("Filters:", query.fil)
+
     return (
         <div css={ style }>
             <MultiSlider domain={ [0,10] } minValue={ 1 } maxValue={ 10 } tickCount={ 1 } onChange={ (values) => console.log(values) }/>
             {
-                Object.keys(options).map((key, headerIndex) => (
-                    <Filter
+                Object.keys(options).map((key, i) => (
+                    <FilterControl
                         label={ key }
                         values={ options[key] }
-                        headerIndex={ headerIndex }
+                        options={ options }
+                        // headerIndex={ headerIndex }
                         filters={ query.fil }
                         key={ key }
                     />

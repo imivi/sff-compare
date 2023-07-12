@@ -6,7 +6,7 @@ function sortAlphanumeric(a: string|number, b: string|number): number {
 }
 
 
-export function getOptions<RowType>(rows: Record<string,string|number>[]): Options {
+export function getOptions(rows: Array<Record<string,string|number>>): Options {
 
     const possibleValues: Record<string,Set<string|number>> = {}
 

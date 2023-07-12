@@ -1,15 +1,15 @@
-import { Options, deserializeFilters } from "./deserializeFilters"
-import { Filters } from "./serializeFilters"
+import { DeserializedFilters, Options, deserializeFilters } from "./deserializeFilters"
+import {  } from "./stringifyFilters"
 
 export type Query = {
-    fil: Filters,
     col: number
     asc: boolean // ascending order if true (default)
+    fil: DeserializedFilters
 }
 
 export function parseQueryString(query: Record<string,unknown>, options: Options): Query {
 
-    const filterQuery = query?.fil || query?.fil
+    const filterQuery = query?.fil || query?.f
 
     return {
         col: query?.col ? Number(query.col) : 0,

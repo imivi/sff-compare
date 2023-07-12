@@ -6,13 +6,14 @@ import { ArrowUp, ArrowDown } from "tabler-icons-react"
 import { compareValues } from "@/utils/compareValues"
 import { MouseEvent } from "react"
 import { Query, parseQueryString } from "@/utils/queryString/parseQueryString"
-import { Filters, serializeFilters } from "@/utils/queryString/serializeFilters"
 import { getOptions } from "@/utils/getOptions"
 import FilterControls from "./FilterControls"
+import { DeserializedFilters } from "@/utils/queryString/deserializeFilters"
+import { stringifyFilters } from "@/utils/queryString/stringifyFilters"
 
 
 
-function filterRow(row: Partial<CoolerLP>, filters: Filters, header: string[]) {
+function filterRow(row: Partial<CoolerLP>, filters: DeserializedFilters, header: string[]) {
     /*
     fil = {
         0: [1,2],
@@ -80,11 +81,15 @@ export default function Table({ rows }: Props) {
                             {
                                 header.map((label,i) => {
 
-                                    const newQuery = {
+                                    const newQuery: Record<string,string|number|boolean> = {
+                                        ...router.query,
                                         asc: query.col===i ? !query.asc : query.asc,
                                         col: i,
-                                        fil: serializeFilters(query.fil),
+                                        // fil: stringifyFilters(query.fil),
                                     }
+                                    // if(typeof router.query?.fil === "string") {
+                                    //     newQuery.fil = router.query.fil
+                                    // }
 
                                     return <th key={ i } data-active={ query.col===i }>
                                         <Link

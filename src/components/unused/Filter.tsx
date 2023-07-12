@@ -1,7 +1,7 @@
 import { css } from "@emotion/react"
 import { useRouter } from "next/router"
 import Select, { type MultiValue } from "react-select"
-import { Filters, serializeFilters } from "@/utils/queryString/serializeFilters"
+import { Filters, serializeFilters } from "@/utils/queryString/stringifyFilters"
 
 
 type Option = {
