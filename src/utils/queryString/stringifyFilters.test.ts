@@ -1,5 +1,7 @@
 import { DeserializedFilters, Options } from "./deserializeFilters"
 import { NumericalFilters, serializeFilters, stringifyFilters, stringifyNumericalFilters } from "./stringifyFilters"
+import test_options from "./test_options.json"
+
 
 describe("stringify filters", () => {
 
@@ -62,5 +64,33 @@ describe("stringify filters", () => {
         expect(serializeFilters(filters, options)).toMatchObject(output)
     })
 
+
+    test("serialize to numerical 3", () => {
+
+        const filters: DeserializedFilters = {
+            "Brand": [
+                "AMD",
+            ],
+            "Width (mm)": [
+                "100"
+            ]
+        }
+        const output: NumericalFilters = {
+            0: [1],
+            4: [1],
+        }
+        expect(serializeFilters(filters, test_options)).toMatchObject(output)
+    })
+
+
+    test("test stringifyFilters", () => {
+        const filters = {
+            "Width (mm)": [
+                "100"
+            ]
+        }
+        const output = "4:1"
+        expect(stringifyFilters(filters, test_options)).toBe(output)
+    })
 
 })

@@ -25,14 +25,27 @@ export function stringifyNumericalFilters(numericalFilters: NumericalFilters): s
  * @returns 
  */
 export function serializeFilters(filters: DeserializedFilters, options: Options): NumericalFilters {
+
+    if(Object.keys(filters).length === 0) {
+        return {}
+    }
+    
     const output: NumericalFilters = {}
 
     for (const key of Object.keys(filters)) {
-        if (options[key]) {
+        const allOptions = options[key]
+        // console.log({ key, allOptions })
+        if (allOptions) {
+            const selectedLabels = filters[key]
             const index = Object.keys(options).indexOf(key)
-            const indices = filters[key].map(label => options[key].indexOf(label))
+            const indices = selectedLabels.map(label => allOptions.indexOf(Number(label) || label))
+            // console.log({ selectedLabels, index, indices, allOptions })
             output[index] = indices
         }
+    }
+
+    if(Object.keys(filters).length === 0) {
+        throw Error("serializeFilters returning zero on a non-empty filter")
     }
 
     return output
