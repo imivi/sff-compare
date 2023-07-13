@@ -22,9 +22,10 @@ type Props = {
      * @param the new values
      */
     onChange: (newValues: readonly number[]) => unknown,
+    onDrag?:  (newValues: readonly number[]) => unknown,
 }
 
-export default function MultiSlider({ domain, minValue, maxValue, tickCount=1, onChange }: Props) {
+export default function MultiSlider({ domain, minValue, maxValue, tickCount=1, onChange, onDrag }: Props) {
 
     // Fires continuously while the handles are dragged
     // function onUpdate(values: readonly number[]) {
@@ -45,6 +46,7 @@ export default function MultiSlider({ domain, minValue, maxValue, tickCount=1, o
                 rootStyle={sliderStyle}
                 // onUpdate={ (values) => onUpdate(values) }
                 onChange={ onChange }
+                onUpdate={ onDrag }
                 values={ [minValue,maxValue] }
             >
                 <Rail>

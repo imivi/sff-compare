@@ -20,3 +20,15 @@ fil=1:3,4,5;10:11,12,13
     "Brand": ["Alpenfohn", "AMD", "Arctic],
     "Fan size": [...],
 }
+
+## Range filters from query string
+
+example.com/ ?r={"0":[0,1,true]}
+
+{
+    "0": {
+        "min": 0,
+        "max": 1,
+        "unknown": true
+    }
+}

@@ -7,8 +7,10 @@ import { compareValues } from "@/utils/compareValues"
 import { MouseEvent } from "react"
 import { parseQueryString } from "@/utils/queryString/parseQueryString"
 import { getOptions } from "@/utils/getOptions"
-import FilterControls from "./FilterControls"
+import FilterControls from "./Sidebar"
 import { DeserializedFilters } from "@/utils/queryString/deserializeFilters"
+import { Range } from "@/utils/queryString/range"
+import Sidebar from "./Sidebar"
 
 
 
@@ -44,6 +46,34 @@ function filterRow(row: Record<string,string|number>, filters: DeserializedFilte
 }
 
 
+/**
+ * Check all columns of a row to see if the are within a certain range (min-max).
+ * Returns false if any of the values are outside the range.
+ * Also returns false if a value is a string, and "includeUnknown" is false.
+ * Otherwise returns true.
+ * @param row 
+ * @param ranges 
+ * @returns 
+ */
+function filterRowByRange(row: Record<string,string|number>, ranges: Record<string,Range>) {
+    
+    for(const [optionLabel, { min,max,includeUnknown }] of Object.entries(ranges)) {
+
+        const rowValue = row[optionLabel]
+
+        if(typeof rowValue === "string") {
+            if(!includeUnknown) {
+                return false
+            }
+        }
+        else if(rowValue < min || rowValue > max) {
+            return false
+        }
+    }
+    return true
+}
+
+
 type Props = {
     rows: Partial<CoolerLP>[],
 }
@@ -59,11 +89,14 @@ export default function Table({ rows }: Props) {
 
     const query = parseQueryString(router.query, options)
 
+    // console.log(query)
+
 
     const sortKey = Object.values(header)[query.col] as keyof CoolerLP
 
     const sortedRows = rows
         .filter(row => filterRow(row, query.fil))
+        .filter(row => filterRowByRange(row, query.r))
         .sort((a,b) => {
             return compareValues(a[sortKey], b[sortKey], query.asc)
         })
@@ -84,7 +117,7 @@ export default function Table({ rows }: Props) {
     return (
         <div className="container" css={ style }>
 
-            <FilterControls query={ query } options={ options }/>
+            <Sidebar query={ query } options={ options }/>
             
             <div className="table-container">
                 <table>
@@ -144,10 +177,10 @@ const style = css`
     width: 100%;
     /* overflow-x: auto; */
     display: grid;
-    grid-template-columns: 20rem 1fr;
+    grid-template-columns: 25rem 1fr;
     position: absolute;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 
     .table-container {
         overflow: auto;

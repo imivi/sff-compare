@@ -8,6 +8,8 @@ import Slider from "./slider/MultiSlider"
 import MultiSlider from "./slider/MultiSlider"
 import { Options } from "@/utils/queryString/deserializeFilters"
 import FilterControl from "./FilterControl"
+import { useState } from "react"
+import { CaretDown, CaretUp, ChevronDown, ChevronRight } from "tabler-icons-react"
 
 
 type Option = {
@@ -38,6 +40,24 @@ function getMinMax(values: (string|number)[]) {
 
 
 
+/**
+ * Options that should be hidden in the sidebar
+ */
+const blacklist = new Set([
+    "Remarks",
+])
+
+const hiddenFilters = new Set([
+    "AMD FM1 / FM2(+) / AM2(+) / AM3(+)",
+    "AMD AM4 / AM5",
+    "Intel 115X / 1200",
+    "Intel 1366",
+    "Intel 1700",
+    "Intel 2011 / 2066",
+    "Intel 775",
+    "Heatsink Material",
+])
+
 
 
 type Props = {
@@ -46,7 +66,9 @@ type Props = {
     options: Options,
 }
 
-export default function FilterControls({ query, options }: Props) {
+export default function Sidebar({ query, options }: Props) {
+
+    const [showAllOptions, setShowAllOptions] = useState(false)
 
     // const header = Object.keys(rows[0])
 
@@ -90,22 +112,36 @@ export default function FilterControls({ query, options }: Props) {
 
     // console.log("Filters:", query.fil)
 
+    const basicOptions  = Object.keys(options).filter(option => !hiddenFilters.has(option)).sort()
+    const hiddenOptions = showAllOptions ? Object.keys(options).filter(option => hiddenFilters.has(option)).sort() : []
+
     return (
         <div css={ style }>
-            <MultiSlider domain={ [0,10] } minValue={ 1 } maxValue={ 10 } tickCount={ 1 } onChange={ (values) => console.log(values) }/>
+
+            <h1>SFF Compare</h1>
+            
+            {/* <MultiSlider domain={ [0,10] } minValue={ 1 } maxValue={ 10 } tickCount={ 1 } onChange={ (values) => console.log(values) }/> */}
             {
-                Object.keys(options).map((key, i) => (
-                    <FilterControl
-                        label={ key }
-                        values={ options[key] }
-                        options={ options }
-                        // headerIndex={ headerIndex }
-                        filters={ query.fil }
-                        key={ key }
-                    />
-                ))
+                [...basicOptions, ...hiddenOptions]
+                    .filter(optionLabel => !blacklist.has(optionLabel))
+                    .map(optionLabel => (
+                        <FilterControl
+                            label={ optionLabel }
+                            values={ options[optionLabel] }
+                            options={ options }
+                            // headerIndex={ headerIndex }
+                            filters={ query.fil }
+                            ranges={ query.r }
+                            key={ optionLabel }
+                        />
+                    ))
             }
             {/* <pre>{ JSON.stringify(possibleValues,null,4) }</pre> */}
+
+            <button className="btn-show-more" onClick={ () => setShowAllOptions(!showAllOptions) }>
+                {/* { showAllOptions ? <ChevronRight size={ 18 }/> : <ChevronDown size={ 18 }/> } */}
+                { showAllOptions ? "Show fewer options" : "Show more options" }
+            </button>
         </div>
     )
 }
@@ -124,7 +160,7 @@ const style = css`
     /* max-width: 500px; */
     /* border: 1px solid brown; */
     /* flex-wrap: wrap; */
-    gap: 1em;
+    /* gap: 1em; */
     /* grid-template-columns: repeat(3, 1fr); */
     /* max-height: min(50vh, 500px); */
     /* overflow: auto; */
@@ -134,4 +170,24 @@ const style = css`
     width: 100%;
     /* position: relative; */
     /* z-index: 1; */
+    position: relative;
+
+    .btn-show-more {
+        margin: 1em auto;
+        font-size: .9em;
+        font-family: inherit;
+        padding: .5em;
+        background-color: #0077ff;
+        border: none;
+        border-radius: .3em;
+        color: white;
+        position: relative;
+        z-index: 10;
+        display: flex;
+        cursor: pointer;
+
+        &:hover {
+            opacity: .8;
+        }
+    }
 `
