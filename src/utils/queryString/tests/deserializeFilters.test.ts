@@ -1,4 +1,4 @@
-import { deserializeFilters, parseFiltersString } from "./deserializeFilters";
+import { deserializeFilters, parseFiltersString } from "../deserializeFilters";
 
 describe("Deseralize query string", () => {
 

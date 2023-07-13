@@ -1,5 +1,5 @@
-import { DeserializedFilters, Options } from "./deserializeFilters"
-import { NumericalFilters, serializeFilters, stringifyFilters, stringifyNumericalFilters } from "./stringifyFilters"
+import { DeserializedFilters, Options } from "../deserializeFilters"
+import { NumericalFilters, serializeFilters, stringifyFilters, stringifyNumericalFilters } from "../stringifyFilters"
 import test_options from "./test_options.json"
 
 

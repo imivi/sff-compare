@@ -39,7 +39,7 @@ export function serializeFilters(filters: DeserializedFilters, options: Options)
             const selectedLabels = filters[key]
             const index = Object.keys(options).indexOf(key)
             const indices = selectedLabels.map(label => allOptions.indexOf(Number(label) || label))
-            // console.log({ selectedLabels, index, indices, allOptions })
+            // console.log({ selectedLabels, index, indices, allOptions }
             output[index] = indices
         }
     }

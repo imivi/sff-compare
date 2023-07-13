@@ -72,7 +72,7 @@ export default function FilterControl({ label, filters, options, values }: Props
             ...router.query,
             fil: stringifyFilters(newFilters,options),
         }
-        console.log({ label, selectedOptions, oldFilters: filters, newFilters, newQuery, options })
+        // console.log({ label, selectedOptions, oldFilters: filters, newFilters, newQuery, options })
         
         router.replace({
             query: newQuery,

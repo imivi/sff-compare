@@ -5,15 +5,24 @@ import Link from "next/link"
 import { ArrowUp, ArrowDown } from "tabler-icons-react"
 import { compareValues } from "@/utils/compareValues"
 import { MouseEvent } from "react"
-import { Query, parseQueryString } from "@/utils/queryString/parseQueryString"
+import { parseQueryString } from "@/utils/queryString/parseQueryString"
 import { getOptions } from "@/utils/getOptions"
 import FilterControls from "./FilterControls"
 import { DeserializedFilters } from "@/utils/queryString/deserializeFilters"
-import { stringifyFilters } from "@/utils/queryString/stringifyFilters"
 
 
 
-function filterRow(row: Partial<CoolerLP>, filters: DeserializedFilters, header: string[]) {
+/**
+ * Check if a row satisfies the filters.
+ * Return false if any filter is not empty and
+ * the row does not have any of the required values.
+ * Otherwise return true.
+ * @param row 
+ * @param filters 
+ * @param header 
+ * @returns 
+ */
+function filterRow(row: Record<string,string|number>, filters: DeserializedFilters) {
     /*
     fil = {
         0: [1,2],
@@ -21,13 +30,16 @@ function filterRow(row: Partial<CoolerLP>, filters: DeserializedFilters, header:
     }
     */
 
-    for(const headerIndex of Object.keys(filters)) {
-        const headerKey = header[Number(headerIndex)]
-        
+    for(const [key,allowedValues] of Object.entries(filters)) {
+
+        if(allowedValues.length > 0) {
+            const rowValue = row[key]
+            if(allowedValues.indexOf(rowValue) < 0) {
+                return false
+            }
+        }
     }
     
-    const key = header[0]
-    // fil.
     return true
 }
 
@@ -51,7 +63,7 @@ export default function Table({ rows }: Props) {
     const sortKey = Object.values(header)[query.col] as keyof CoolerLP
 
     const sortedRows = rows
-        .filter(row => filterRow(row, query.fil, header))
+        .filter(row => filterRow(row, query.fil))
         .sort((a,b) => {
             return compareValues(a[sortKey], b[sortKey], query.asc)
         })
