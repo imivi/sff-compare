@@ -23,7 +23,7 @@ const railInnerStyle: CSSProperties = {
     transform: "translate(0%, -50%)",
     borderRadius: 7,
     pointerEvents: "none",
-    backgroundColor: "#ccc"
+    backgroundColor: "#ddd"
 }
 
 export function SliderRail({ getRailProps }: any) {
@@ -78,12 +78,12 @@ export function Handle({ domain, handle, disabled, getHandleProps }: HandleProps
                     position: "absolute",
                     transform: "translate(-50%, -50%)",
                     zIndex: 2,
-                    width: 20,
-                    height: 20,
+                    width: 16,
+                    height: 16,
                     aspectRatio: 1,
                     borderRadius: "50%",
                     // boxShadow: "1px 1px 1px 1px rgba(0, 0, 0, 0.3)",
-                    backgroundColor: disabled ? "#999" : "#0077ff",
+                    backgroundColor: disabled ? "#999" : "#2684ff",
                 }}
             />
         </Fragment>
@@ -144,9 +144,9 @@ export function Track({ source, target, getTrackProps, disabled }: any) {
             style={{
                 position: "absolute",
                 transform: "translate(0%, -50%)",
-                height: 12,
+                height: 8,
                 zIndex: 1,
-                backgroundColor: disabled ? "#999" : "#91bfe4",
+                backgroundColor: disabled ? "#999" : "#afd0ec",
                 borderRadius: 7,
                 cursor: "pointer",
                 left: `${source.percent}%`,

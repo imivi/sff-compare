@@ -143,10 +143,9 @@ export default function Table({ rows }: Props) {
                                             onClick={(e) => handleHeaderClick(e, newQuery)}
                                         >
                                             <span>{ label }</span>
-                                            {
-                                                query.col===i &&
-                                                (query.asc ? <ArrowDown/> : <ArrowUp/>)
-                                            }
+                                            <span style={{ visibility: query.col===i ? "unset" : "hidden" }}>
+                                                { query.asc ? <ArrowDown/> : <ArrowUp/> }
+                                            </span>
                                         </Link>
                                     </th>
                                 })
@@ -178,9 +177,11 @@ const style = css`
     /* overflow-x: auto; */
     display: grid;
     grid-template-columns: 25rem 1fr;
-    position: absolute;
+    gap: 1vw;
     width: 100%;
     height: 100%;
+
+    /* outline: 1px solid brown; */
 
     .table-container {
         overflow: auto;
@@ -188,10 +189,16 @@ const style = css`
         table {
             border-collapse: collapse;
             width: 100%;
-    
-            th, td {
-                border: 1px solid #ddd;
+
+            td {
+                border: 1px solid #eee;
+                border-bottom: 1px solid #ddd;
                 padding: 0 5px;
+            }
+            th {
+                background-color: #e8eff5;
+                border: 1px solid #afd0ec;
+                padding: 5px;
             }
             th[data-active=true] {
                 color: dodgerblue;
@@ -199,11 +206,21 @@ const style = css`
             td {
                 height: 1.5em;
             }
+            tr:nth-of-type(even) {
+                background-color: #f8f8f8;
+            }
+
+            td:first-of-type() {
+                border-left: none;
+                border-right: none;
+            }
             
-            a {
+            th a {
                 text-decoration: none;
                 color: inherit;
                 font-weight: 600;
+                display: flex;
+                flex-direction: column;
             }
         }
     }

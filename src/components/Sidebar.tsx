@@ -9,7 +9,8 @@ import MultiSlider from "./slider/MultiSlider"
 import { Options } from "@/utils/queryString/deserializeFilters"
 import FilterControl from "./FilterControl"
 import { useState } from "react"
-import { CaretDown, CaretUp, ChevronDown, ChevronRight } from "tabler-icons-react"
+import { Box, CaretDown, CaretUp, ChevronDown, ChevronRight } from "tabler-icons-react"
+import Footer from "./Footer"
 
 
 type Option = {
@@ -118,42 +119,42 @@ export default function Sidebar({ query, options }: Props) {
     return (
         <div css={ style }>
 
-            <h1>SFF Compare</h1>
-            
-            {/* <MultiSlider domain={ [0,10] } minValue={ 1 } maxValue={ 10 } tickCount={ 1 } onChange={ (values) => console.log(values) }/> */}
-            {
-                [...basicOptions, ...hiddenOptions]
-                    .filter(optionLabel => !blacklist.has(optionLabel))
-                    .map(optionLabel => (
-                        <FilterControl
-                            label={ optionLabel }
-                            values={ options[optionLabel] }
-                            options={ options }
-                            // headerIndex={ headerIndex }
-                            filters={ query.fil }
-                            ranges={ query.r }
-                            key={ optionLabel }
-                        />
-                    ))
-            }
-            {/* <pre>{ JSON.stringify(possibleValues,null,4) }</pre> */}
+            <div>
+                <h1><Box size={ 40 } strokeWidth={1}/>SFF Compare</h1>
+                
+                {/* <MultiSlider domain={ [0,10] } minValue={ 1 } maxValue={ 10 } tickCount={ 1 } onChange={ (values) => console.log(values) }/> */}
+                {
+                    [...basicOptions, ...hiddenOptions]
+                        .filter(optionLabel => !blacklist.has(optionLabel))
+                        .map(optionLabel => (
+                            <FilterControl
+                                label={ optionLabel }
+                                values={ options[optionLabel] }
+                                options={ options }
+                                // headerIndex={ headerIndex }
+                                filters={ query.fil }
+                                ranges={ query.r }
+                                key={ optionLabel }
+                            />
+                        ))
+                }
+                {/* <pre>{ JSON.stringify(possibleValues,null,4) }</pre> */}
 
-            <button className="btn-show-more" onClick={ () => setShowAllOptions(!showAllOptions) }>
-                {/* { showAllOptions ? <ChevronRight size={ 18 }/> : <ChevronDown size={ 18 }/> } */}
-                { showAllOptions ? "Show fewer options" : "Show more options" }
-            </button>
+                <button className="btn-show-more" onClick={ () => setShowAllOptions(!showAllOptions) }>
+                    {/* { showAllOptions ? <ChevronRight size={ 18 }/> : <ChevronDown size={ 18 }/> } */}
+                    { showAllOptions ? "Show fewer options" : "Show more options" }
+                </button>
+            </div>
+
+            <Footer/>
         </div>
     )
 }
 
 const style = css`
     /* display: grid; */
-    display: flex;
-    flex-direction: column;
     /* min-height: 100vh; */
     /* height: 100vh; */
-    overflow-x: hidden;
-    overflow-y: auto;
     /* position: fixed; */
     /* left: 0; */
     /* top: 0; */
@@ -164,13 +165,40 @@ const style = css`
     /* grid-template-columns: repeat(3, 1fr); */
     /* max-height: min(50vh, 500px); */
     /* overflow: auto; */
-    padding: 1em;
     /* margin-bottom: 3vh; */
     /* padding-bottom: 10em; */
     width: 100%;
+    height: 100%;
     /* position: relative; */
     /* z-index: 1; */
-    position: relative;
+    /* position: relative; */
+    background-color: #f4f4f4;
+
+    border-right: 1px solid #ddd;
+    box-shadow: 5px 0 15px rgba(0,0,0, 0.1);
+
+    display: grid;
+    grid-template-rows: 1fr auto;
+
+    overflow-y: auto;
+
+    & > div {
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        height: 100%;
+        padding: 0 1em;
+    }
+
+    h1 {
+        display: flex;
+        place-content: center;
+        place-items: center;
+        gap: .3em;
+        font-weight: normal;
+    }
 
     .btn-show-more {
         margin: 1em auto;
