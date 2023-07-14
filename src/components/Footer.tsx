@@ -1,7 +1,7 @@
 import { ExternalLink } from "tabler-icons-react"
 import { css } from "@emotion/react"
+import { googleSheetsLink } from "@/utils/googleSheetsUrls"
 
-const googleSheetsLink = "https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4/edit#gid=0"
 
 
 export default function Footer() {
@@ -9,7 +9,7 @@ export default function Footer() {
     return (
         <footer css={style}>
             <span>Data from</span>
-            <a href={googleSheetsLink} rel="noreferrer" target="_blank">
+            <a href={ googleSheetsLink } rel="noreferrer" target="_blank">
                 SFF PC Master List <ExternalLink size={ 16 }/>
             </a>
             {/* <span>by u/prayogahs with contribution from u/ermac-318</span> */}

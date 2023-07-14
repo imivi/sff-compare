@@ -1,24 +1,21 @@
 import type { GetStaticPaths, GetStaticProps } from "next"
-import Head from 'next/head'
-import { Row, readSheet } from '@/utils/read-public-sheet'
-import { CoolerLP, Sheet } from "@/types"
-import Table from "@/components/Table"
-import { css } from "@emotion/react"
-import { Box } from "tabler-icons-react"
+import { readSheet } from '@/utils/read-public-sheet'
+import { CoolerLP } from "@/types"
+import Layout from "@/components/Layout"
+import { Pages, googleSheetsTabs } from "@/utils/googleSheetsUrls"
 
 
 
 type Props = {
-    title: string,
+    title: string
+    rows: CoolerLP[]
 }
 
-export default function Home({ title }: Props) {
+export default function Home({ title, rows }: Props) {
 
     
     return (
-        <main>
-            <h1>{ title }</h1>
-        </main>
+        <Layout title={ "SFF Compare - "+title } rows={ rows }/>
     )
 }
 
@@ -27,11 +24,17 @@ export default function Home({ title }: Props) {
 // https://stackoverflow.com/a/73884736
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
-    // const rows = await readSheet<CoolerLP>("CPU Cooler <70mm")
+    // const page = params?.category as keyof Pages
+    // const sheetName = googleSheetsTabs[params.]
+
+    const pageName = typeof params?.category === "string" ? params.category : null
+    
+    const rows = pageName ? await readSheet(googleSheetsTabs[pageName], true) : []
 
     return {
         props: {
-            title: params?.category || "undefined title",
+            title: pageName,
+            rows,
             // examples: await readSheet("example"),
         },
         // revalidate: 60 * 60, // 1 hour, in seconds (60s*60m)
@@ -43,10 +46,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     // const rows = await readSheet<CoolerLP>("CPU Cooler <70mm")
 
-    const titles = ["apple","banana","coconut"]
+    const categories = Object.keys(googleSheetsTabs)
 
     return {
-        paths: titles.map(title => ({ params: { category: title }})),
+        paths: categories.map(category => ({ params: { category }})),
         fallback: false,
     }
 }

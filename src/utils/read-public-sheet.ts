@@ -1,51 +1,111 @@
 // const PublicGoogleSheetsParser = require('public-google-sheets-parser')
 import { CoolerLP, type Sheet } from "@/types"
 import PublicGoogleSheetsParser from "public-google-sheets-parser"
-import coolers_lp from "./coolers_lp.json"
+import coolers_lp from "../dumps/coolers_lp.json"
+import aio from "../dumps/aio.json"
+import fans from "../dumps/fans.json"
+import ram from "../dumps/ram.json"
+import { SheetName, googleSheetsId } from "./googleSheetsUrls"
 
 // https://docs.google.com/spreadsheets/d/10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps/edit#gid=1839148703
 // const spreadsheetId = '10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps'
 // const sheetName = "Sheet1"
 
-const sheetUrl = "https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4/edit#gid=200663719"
-const sheetId = "1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4"
+// const sheetUrl = "https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4/edit#gid=200663719"
+// const sheetId = "1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4"
 
 // console.log({ sheetId })
 
 
-export type Row = {
-
-}
+export type Row = Record<string, string|number|undefined>
 
 
 // DOCUMENTATION: https://github.com/fureweb-com/public-google-sheets-parser
 
 // 1. You can pass spreadsheetId when instantiating the parser:
-const parser = new PublicGoogleSheetsParser(sheetId)
+// const parser = new PublicGoogleSheetsParser(googleSheetsId)
+const parser = new PublicGoogleSheetsParser()
 
-export async function readSheet<RowType>(sheetName: keyof Sheet): Promise<RowType[]> {
 
-  /*
-    const header = Object.keys(coolers_lp[0]) as (keyof RowType)[]
-    // const rows: typeof coolers_lp = []
+/**
+ * Make sure all objects (rows) have the same columns (keys).
+ * If an object is missing a key, add it and set the value to 
+ * @param rows 
+ */
+function normalizeRows(rows: Row[]) {
+    const allKeys = new Set<string>()
+    for(const row of rows) {
+        for(const key of Object.keys(row)) {
+            allKeys.add(key)
+        }
+    }
 
-    for(const row of coolers_lp) {
-      for(const key of header) {
-        if(!(key in row)) {
-          row[key] = null
+    // Initialize an empty row with "-" strings on all columns
+    const emptyRow: Row = {}
+    for(const key of Array.from(allKeys)) {
+        emptyRow[key] = "-"
+    }
+    
+    // Add missing keys to each row
+    return rows.map(row => ({
+        ...emptyRow,
+        ...row,
+    }))
+
+}
+
+
+// 4. You can also retrieve a specific sheet to get by either passing the sheet name as a string (since v1.1.0):
+// parser.parse(spreadsheetId, 'Sheet2').then((items) => {
+// items should be [{"a":10,"b":20,"c":30},{"a":40,"b":50,"c":60},{"a":70,"b":80,"c":90}]
+// })
+export async function readSheet(sheetName: SheetName, debug = false): Promise<Row[]> {
+
+    if(debug) {
+        return new Promise((resolve,reject) => {
+            let rows: Row[] = []
+            if(sheetName === "CPU Cooler <70mm") {
+                rows = coolers_lp
+            }
+            else if(sheetName === "AIO") {
+                rows = aio
+            }
+            else if(sheetName === "RAM Height") {
+                rows = ram
+            }
+            else if(sheetName === "Fans") {
+                rows = fans
+            }
+            return resolve(normalizeRows(rows))
+        })
+    }
+
+    const rows = await parser.parse(googleSheetsId, sheetName)
+    return rows
+
+    /*
+      const header = Object.keys(coolers_lp[0]) as (keyof RowType)[]
+      // const rows: typeof coolers_lp = []
+  
+      for(const row of coolers_lp) {
+        for(const key of header) {
+          if(!(key in row)) {
+            row[key] = null
+          }
         }
       }
-    }
-    */
+      */
 
-    return coolers_lp as RowType[]
-  
+
     /*
     const rows = await parser.parse(sheetId, sheetName)
     // items should be [{"a":1,"b":2,"c":3},{"a":4,"b":5,"c":6},{"a":7,"b":8,"c":9}]
     return rows as RowType[]
     */
 }
+
+
+
 
 // parser.parse().then((items) => {
 // })

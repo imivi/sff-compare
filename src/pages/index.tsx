@@ -7,6 +7,7 @@ import { css } from "@emotion/react"
 import { Box } from "tabler-icons-react"
 import Footer from "@/components/Footer"
 import Layout from "@/components/Layout"
+import Link from "next/link"
 
 
 
@@ -18,7 +19,8 @@ type Props = {
 export default function Home({ rows }: Props) {
 
     return (
-        <Layout title="SFF Compare" rows={ rows }/>
+        // <Layout title="SFF Compare" rows={ rows }/>
+        <Link href="/coolers">Go to coolers</Link>
     )
 }
 

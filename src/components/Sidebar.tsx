@@ -11,6 +11,10 @@ import FilterControl from "./FilterControl"
 import { useState } from "react"
 import { Box, CaretDown, CaretUp, ChevronDown, ChevronRight } from "tabler-icons-react"
 import Footer from "./Footer"
+import { Pages, blacklist, googleSheetsTabs, hiddenFilters } from "@/utils/googleSheetsUrls"
+import Image from "next/image"
+import Logo from "../../public/cube.png"
+import { GithubLink } from "./GithubLink"
 
 
 type Option = {
@@ -41,25 +45,6 @@ function getMinMax(values: (string|number)[]) {
 
 
 
-/**
- * Options that should be hidden in the sidebar
- */
-const blacklist = new Set([
-    "Remarks",
-])
-
-const hiddenFilters = new Set([
-    "AMD FM1 / FM2(+) / AM2(+) / AM3(+)",
-    "AMD AM4 / AM5",
-    "Intel 115X / 1200",
-    "Intel 1366",
-    "Intel 1700",
-    "Intel 2011 / 2066",
-    "Intel 775",
-    "Heatsink Material",
-])
-
-
 
 type Props = {
     // rows: Partial<CoolerLP>[],
@@ -68,6 +53,8 @@ type Props = {
 }
 
 export default function Sidebar({ query, options }: Props) {
+
+    const router = useRouter()
 
     const [showAllOptions, setShowAllOptions] = useState(false)
 
@@ -116,34 +103,56 @@ export default function Sidebar({ query, options }: Props) {
     const basicOptions  = Object.keys(options).filter(option => !hiddenFilters.has(option)).sort()
     const hiddenOptions = showAllOptions ? Object.keys(options).filter(option => hiddenFilters.has(option)).sort() : []
 
+    // const pages = Object.keys(googleSheetsTabs)
+    // const pageLinks = pages.map(key => googleSheetsTabs[key])
+
     return (
         <div css={ style }>
 
             <div>
-                <h1><Box size={ 40 } strokeWidth={1}/>SFF Compare</h1>
-                
-                {/* <MultiSlider domain={ [0,10] } minValue={ 1 } maxValue={ 10 } tickCount={ 1 } onChange={ (values) => console.log(values) }/> */}
-                {
-                    [...basicOptions, ...hiddenOptions]
-                        .filter(optionLabel => !blacklist.has(optionLabel))
-                        .map(optionLabel => (
-                            <FilterControl
-                                label={ optionLabel }
-                                values={ options[optionLabel] }
-                                options={ options }
-                                // headerIndex={ headerIndex }
-                                filters={ query.fil }
-                                ranges={ query.r }
-                                key={ optionLabel }
-                            />
-                        ))
-                }
-                {/* <pre>{ JSON.stringify(possibleValues,null,4) }</pre> */}
+                <h1>
+                    <GithubLink/>
+                    {/* <Box size={ 40 } strokeWidth={1}/> */}
+                    <Image src={ Logo } alt="SFF Compare logo" width={ 32 }/>
+                    SFF Compare
+                </h1>
 
-                <button className="btn-show-more" onClick={ () => setShowAllOptions(!showAllOptions) }>
-                    {/* { showAllOptions ? <ChevronRight size={ 18 }/> : <ChevronDown size={ 18 }/> } */}
-                    { showAllOptions ? "Show fewer options" : "Show more options" }
-                </button>
+                <div className="controls">
+
+                    <select onChange={ (e) => router.push(e.target.value) }>
+                        {
+                            Object.keys(googleSheetsTabs).map((page,i) => (
+                                <option value={ "/"+page } key={ i }>
+                                    { googleSheetsTabs[page] }
+                                </option>
+                            ))
+                        }
+                    </select>
+                    
+                    {/* <MultiSlider domain={ [0,10] } minValue={ 1 } maxValue={ 10 } tickCount={ 1 } onChange={ (values) => console.log(values) }/> */}
+                    {
+                        [...basicOptions, ...hiddenOptions]
+                            .filter(optionLabel => !blacklist.has(optionLabel))
+                            .map(optionLabel => (
+                                <FilterControl
+                                    label={ optionLabel }
+                                    values={ options[optionLabel] }
+                                    options={ options }
+                                    // headerIndex={ headerIndex }
+                                    filters={ query.fil }
+                                    ranges={ query.r }
+                                    key={ optionLabel }
+                                />
+                            ))
+                    }
+                    {/* <pre>{ JSON.stringify(possibleValues,null,4) }</pre> */}
+
+                    <button className="btn-show-more" onClick={ () => setShowAllOptions(!showAllOptions) }>
+                        {/* { showAllOptions ? <ChevronRight size={ 18 }/> : <ChevronDown size={ 18 }/> } */}
+                        { showAllOptions ? "Show fewer options" : "Show more options" }
+                    </button>
+
+                </div>
             </div>
 
             <Footer/>
@@ -182,6 +191,7 @@ const style = css`
 
     overflow-y: auto;
 
+
     & > div {
         display: flex;
         flex-direction: column;
@@ -189,7 +199,6 @@ const style = css`
         overflow-y: auto;
         width: 100%;
         height: 100%;
-        padding: 0 1em;
     }
 
     h1 {
@@ -198,6 +207,13 @@ const style = css`
         place-items: center;
         gap: .3em;
         font-weight: normal;
+        padding: 1em;
+        margin: 0;
+        position: relative;
+    }
+
+    .controls {
+        padding: 0 1em;
     }
 
     .btn-show-more {

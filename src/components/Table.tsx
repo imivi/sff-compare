@@ -80,11 +80,17 @@ type Props = {
 
 export default function Table({ rows }: Props) {
 
-    const header = Object.keys(rows[0])
-
     // Get filters and sorting from query string
     const router = useRouter()
 
+    if(rows.length < 1) {
+        console.info("Rows:", rows)
+        return <p>Error: table received zero rows</p>
+    }
+    
+    const header = Object.keys(rows[0])
+
+    
     const options = getOptions(rows)
 
     const query = parseQueryString(router.query, options)
