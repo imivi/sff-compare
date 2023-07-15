@@ -1,0 +1,1150 @@
+[
+    {
+        "Brand": "ADATA",
+        "Model": "AD4X266638G19-BP",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 18.75,
+        "RGB": "-"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG CASTER DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 37.5,
+        "RGB": "-"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG CASTER RGB DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 43,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG GAMMIX D10",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 36,
+        "RGB": "-"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG GAMMIX D20",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 34,
+        "RGB": "-"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG GAMMIX D30",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 44.7,
+        "RGB": "-"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG GAMMIX D45",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39.17,
+        "RGB": "-"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG HUNTER",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 33,
+        "RGB": "-"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG HUNTER DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 33,
+        "RGB": "-"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG LANCER DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 40,
+        "RGB": "-"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG LANCER RGB DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 40,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG SPECTRIX D41",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 45.8,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG SPECTRIX D45G",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 45.26,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG SPECTRIX D50",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 40,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG SPECTRIX D50 Xtreme",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 40,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG SPECTRIX D55",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 40,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG SPECTRIX D60G",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 45.93,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG SPECTRIX D80",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 46.65,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "ADATA",
+        "Model": "XPG Z1",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 42.65,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Apacer",
+        "Model": "NOX DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 32.9,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Avexir",
+        "Model": "Blitz",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 48,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Avexir",
+        "Model": "Budget",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 34,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Avexir",
+        "Model": "Core",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 40,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Avexir",
+        "Model": "Core 2",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 45,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Avexir",
+        "Model": "Raiden",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 63,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Avexir",
+        "Model": "Solid",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Dominator Platinum",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 55,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Dominator Platinum RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 56,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Dominator Platinum RGB DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 56,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Dominator Platinum RGB DDR5 for AMD",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 56,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "ValueSelect",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 35,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance DDR5 for AMD",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 35,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance LPX",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 33.53,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance LED",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 49,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 49,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance RGB DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance RGB DDR5 for AMD",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance RGB Pro",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 51,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance RGB Pro SL",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 44.8,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance RGB RT",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 44.8,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Corsair",
+        "Model": "Vengeance RGB RS",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 45,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39.17,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39.17,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix MAX",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39.17,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix MAX RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39.17,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix Elite",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 40,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix Sport",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix Sport AT",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 34,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix Sport LT",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 34,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix Tactical",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 36.5,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix Tactical Tracer",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 41,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "Ballistix Tactical Tracer RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 41,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Crucial",
+        "Model": "CT16G4XFD8266 (S)",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 18.75,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Aegis",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Flare X",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 40,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Flare X5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 33,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Fortis",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Ripjaws 4",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 40,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Ripjaws S5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 33,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Ripjaws V",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 42,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Sniper X",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 43,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z Neo",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z RGB DC",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 59,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z Royal",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z Royal Collector Edition",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z Royal Elite",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z5 Neo",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "-"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z5 Neo RGB",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Trident Z5 RGB",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "G.Skill",
+        "Model": "Value",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Galax",
+        "Model": "Boomstar",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 57,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Galax",
+        "Model": "HOF II",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 58,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Galax",
+        "Model": "HOF Extreme",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 48.5,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Galax",
+        "Model": "HOF OC Lab Arduino",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 48,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Galax",
+        "Model": "HOF OC Lab Aurora",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 48,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Galax",
+        "Model": "HOF OC Lab Master",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 48,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Geil",
+        "Model": "Evo X",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 60,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Geil",
+        "Model": "Evo X II",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 60,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Geil",
+        "Model": "Orion",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Geil",
+        "Model": "Orion AMD",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Geil",
+        "Model": "Orion RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Geil",
+        "Model": "Orion RGB AMD",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Gigabyte",
+        "Model": "AORUS DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 39.86,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Gigabyte",
+        "Model": "AORUS RGB (GP-AR32C16S8K2HU416R)",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Gigabyte",
+        "Model": "AORUS RGB (GP-AR36C18S8K2HU416R)",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Gigabyte",
+        "Model": "AORUS RGB (GP-ARS16G44)",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39.8,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Gigabyte",
+        "Model": "AORUS RGB DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 39.86,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Gigabyte",
+        "Model": "DESIGNARE",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 32,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Gigabyte",
+        "Model": "GP-GR26C16S8K2HU416",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 32,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "FURY Beast",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 34.1,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "FURY Beast Special Edition",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 45.8,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "FURY Beast DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 34.9,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "FURY Beast DDR5 RGB",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 42.23,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "FURY Beast RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 41.24,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "FURY Renegade",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 42.2,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "FURY Renegade DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 39.2,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "FURY Renegade DDR5 RGB",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 44,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "FURY Renegade RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 42.2,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "HyperX Fury",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 34.1,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "HyperX Fury RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 41.24,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "HyperX Predator",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 42.2,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "HyperX Predator RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 42.2,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "HyperX Savage",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 34.57,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "KVR24N17S4L/4",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 18.75,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "KVR24N17S8L/8",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 18.75,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "KVR26N19S8L/8",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 18.75,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Kingston",
+        "Model": "ValueRAM",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Klevv",
+        "Model": "Bolt",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 33,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Klevv",
+        "Model": "Bolt X",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 33,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Klevv",
+        "Model": "Bolt XR",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 36.7,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Klevv",
+        "Model": "CRAS",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 56,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Klevv",
+        "Model": "CRAS II",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 51,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Klevv",
+        "Model": "CRAS II RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 51,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Klevv",
+        "Model": "CRAS X RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 51,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Klevv",
+        "Model": "CRAS XR RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 42.5,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Klevv",
+        "Model": "CRAS XR5 RGB",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 42.5,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Klevv",
+        "Model": "FIT4",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 33,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Lexar",
+        "Model": "ARES DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 43.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Lexar",
+        "Model": "ARES RGB DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 43.3,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Micron",
+        "Model": "MTA18ADF2G72AZ-2G6E1",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 18.75,
+        "RGB": "-"
+    },
+    {
+        "Brand": "OLOy",
+        "Model": "Blade Aura Sync RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39.12,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "OLOy",
+        "Model": "Blade DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 39.12,
+        "RGB": "-"
+    },
+    {
+        "Brand": "OLOy",
+        "Model": "Warhawk",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 60,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Patriot",
+        "Model": "Signature Line",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Patriot",
+        "Model": "Signature Line Premium",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 37,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Patriot",
+        "Model": "Viper 4",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 43,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Patriot",
+        "Model": "Viper 4 Blackout",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 43,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Patriot",
+        "Model": "Viper Elite",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 43,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Patriot",
+        "Model": "Viper RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 46,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Patriot",
+        "Model": "Viper Steel",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 44.4,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Patriot",
+        "Model": "Viper Venom DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 43,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Patriot",
+        "Model": "Viper Venom RGB DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 43,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "PNY",
+        "Model": "XLR8 Gaming MAKO",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 35,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Silicon Power",
+        "Model": "XPOWER AirCool",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Silicon Power",
+        "Model": "XPOWER Turbine",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 38.2,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Silicon Power",
+        "Model": "XPOWER Turbine RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 40.8,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Silicon Power",
+        "Model": "XPOWER Zenith",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 38.5,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Silicon Power",
+        "Model": "XPOWER Zenith RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 38.5,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Silicon Power",
+        "Model": "XPOWER Zenith DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 38.5,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Silicon Power",
+        "Model": "XPOWER Zenith DDR5 RGB",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 38.5,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "ELITE",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "ELITE PLUS DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Dark",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 39,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Dark Pro",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 45,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Dark Z",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 43.5,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Dark Zα",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 43.5,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Delta RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 49,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Delta RGB DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 45.5,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Night Hawk (RGB)",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 53,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force T1",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 31.25,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Xcalibur RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 48,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Xtreem",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 48,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Xtreem ARGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 48.7,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Vulcan",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 32,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Vulcan DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 32.7,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Vulcanα DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 32.7,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Team Group",
+        "Model": "T-Force Vulcan Z",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 32,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Thermaltake",
+        "Model": "TOUGHRAM RC DDR5",
+        "Memory Type": "DDR5",
+        "Height incl contact pins (mm)": 42,
+        "RGB": "-"
+    },
+    {
+        "Brand": "Zadak",
+        "Model": "Shield RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 50,
+        "RGB": "Y"
+    },
+    {
+        "Brand": "Zadak",
+        "Model": "Spark RGB",
+        "Memory Type": "DDR4",
+        "Height incl contact pins (mm)": 50,
+        "RGB": "Y"
+    }
+]

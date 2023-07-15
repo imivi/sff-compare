@@ -1,20 +1,16 @@
-import { CoolerLP } from "@/types"
 import { css } from "@emotion/react"
 import { useRouter } from "next/router"
-import Select, { type MultiValue } from "react-select"
-import { Query, parseQueryString } from "@/utils/queryString/parseQueryString"
-import Filter from "./unused/Filter"
-import Slider from "./slider/MultiSlider"
-import MultiSlider from "./slider/MultiSlider"
+import { Query } from "@/utils/queryString/parseQueryString"
 import { Options } from "@/utils/queryString/deserializeFilters"
 import FilterControl from "./FilterControl"
 import { useState } from "react"
-import { Box, CaretDown, CaretUp, ChevronDown, ChevronRight } from "tabler-icons-react"
 import Footer from "./Footer"
-import { Pages, blacklist, googleSheetsTabs, hiddenFilters } from "@/utils/googleSheetsUrls"
+import { blacklist, googleSheetsTabs, hiddenFilters } from "@/utils/googleSheetsUrls"
 import Image from "next/image"
 import Logo from "../../public/cube.png"
 import { GithubLink } from "./GithubLink"
+import Link from "next/link"
+import { pages, tabNames } from "@/data"
 
 
 type Option = {
@@ -114,16 +110,16 @@ export default function Sidebar({ query, options }: Props) {
                     <GithubLink/>
                     {/* <Box size={ 40 } strokeWidth={1}/> */}
                     <Image src={ Logo } alt="SFF Compare logo" width={ 32 }/>
-                    SFF Compare
+                    <Link href={ "/"+pages[0] }>SFF Compare</Link>
                 </h1>
 
                 <div className="controls">
 
                     <select onChange={ (e) => router.push(e.target.value) }>
                         {
-                            Object.keys(googleSheetsTabs).map((page,i) => (
-                                <option value={ "/"+page } key={ i }>
-                                    { googleSheetsTabs[page] }
+                            Object.entries(tabNames).map(([page,tabName]) => (
+                                <option value={ "/"+page } key={ page }>
+                                    { tabName }
                                 </option>
                             ))
                         }
@@ -133,24 +129,32 @@ export default function Sidebar({ query, options }: Props) {
                     {
                         [...basicOptions, ...hiddenOptions]
                             .filter(optionLabel => !blacklist.has(optionLabel))
-                            .map(optionLabel => (
-                                <FilterControl
-                                    label={ optionLabel }
-                                    values={ options[optionLabel] }
-                                    options={ options }
-                                    // headerIndex={ headerIndex }
-                                    filters={ query.fil }
-                                    ranges={ query.r }
-                                    key={ optionLabel }
-                                />
-                            ))
+                            .map(optionLabel => {
+
+                                const values = options[optionLabel]
+                                
+                                return (
+                                    <FilterControl
+                                        label={optionLabel}
+                                        values={ options[optionLabel] }
+                                        options={options}
+                                        // headerIndex={ headerIndex }
+                                        filters={query.fil}
+                                        ranges={query.r}
+                                        key={optionLabel}
+                                    />
+                                )
+                            })
                     }
                     {/* <pre>{ JSON.stringify(possibleValues,null,4) }</pre> */}
 
-                    <button className="btn-show-more" onClick={ () => setShowAllOptions(!showAllOptions) }>
-                        {/* { showAllOptions ? <ChevronRight size={ 18 }/> : <ChevronDown size={ 18 }/> } */}
-                        { showAllOptions ? "Show fewer options" : "Show more options" }
-                    </button>
+                    {
+                        hiddenOptions.length > 0 &&
+                        <button className="btn-show-more" onClick={ () => setShowAllOptions(!showAllOptions) }>
+                            {/* { showAllOptions ? <ChevronRight size={ 18 }/> : <ChevronDown size={ 18 }/> } */}
+                            { showAllOptions ? "Show fewer options" : "Show more options" }
+                        </button>
+                    }
 
                 </div>
             </div>
@@ -210,6 +214,11 @@ const style = css`
         padding: 1em;
         margin: 0;
         position: relative;
+
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
     }
 
     .controls {

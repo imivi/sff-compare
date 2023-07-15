@@ -1,0 +1,234 @@
+[
+    {
+        "SFF PC Master List Sheets": "SFF Case <10L",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Cases smaller than 10L Volume",
+        "Currency": "CNY/USD",
+        "Value": 0.14003444
+    },
+    {
+        "SFF PC Master List Sheets": "SFF Case 10L-20L",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Cases between 10L and 20L Volume",
+        "Currency": "CNY/GBP",
+        "Value": 0.10697410110000001
+    },
+    {
+        "SFF PC Master List Sheets": "MFF Case >20L",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Cases larger than 20L Volume",
+        "Currency": "CNY/EUR",
+        "Value": 0.1245116223
+    },
+    {
+        "SFF PC Master List Sheets": "Taobao Agents",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Taobao / Tmall / JD English Agents"
+    },
+    {
+        "SFF PC Master List Sheets": "CPU Cooler <70mm",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Low profile CPU coolers up to 70mm height"
+    },
+    {
+        "SFF PC Master List Sheets": "CPU Cooler >70mm",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of recommended CPU coolers above 70mm height"
+    },
+    {
+        "SFF PC Master List Sheets": "AIO",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of All-in-one radiators"
+    },
+    {
+        "SFF PC Master List Sheets": "Slim Fan",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Fans less than 25mm height or thickness"
+    },
+    {
+        "SFF PC Master List Sheets": "Fans",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of 92mm, 120mm and 140mm Fans"
+    },
+    {
+        "SFF PC Master List Sheets": "RAM Height",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of RAM models with heights. Useful for CPU coolers with limited RAM clearance"
+    },
+    {
+        "SFF PC Master List Sheets": "PCIe Riser",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of PCIe Risers"
+    },
+    {
+        "SFF PC Master List Sheets": "SFF GPU <215mm",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of GPU that are less than 215mm length"
+    },
+    {
+        "SFF PC Master List Sheets": "GPU >215mm",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of GPU that are more than 215mm length"
+    },
+    {
+        "SFF PC Master List Sheets": "GPU Spec",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of GPU specifications from AMD, Intel and Nvidia"
+    },
+    {
+        "SFF PC Master List Sheets": "mITX Boards",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Mini ITX boards for AMD and Intel CPUs",
+        "": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            "
+    },
+    {
+        "SFF PC Master List Sheets": "mDTX & mATX Boards",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Mini DTX and Micro ATX boards for AMD and Intel CPUs"
+    },
+    {
+        "SFF PC Master List Sheets": "PSU",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Power Supply Units in Flex ATX, SFX and SFX-L form factors"
+    },
+    {
+        "SFF PC Master List Sheets": "CPU",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of AMD AM4/AM5 and Intel 1151/1200/1700 CPUs"
+    },
+    {
+        "SFF PC Master List Sheets": "Chipset",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of AMD AM4/AM5 and Intel 1151/1200/1700 Chipsets"
+    },
+    {
+        "SFF PC Master List Sheets": "Console & Pre-Built",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of consoles and pre-builts with dimensions for reference"
+    },
+    {
+        "SFF PC Master List Sheets": "Each Sheet has pre-defined Filters (not available on mobile). How to find them:"
+    },
+    {
+        "SFF PC Master List Sheets": "1. Go to Data"
+    },
+    {
+        "SFF PC Master List Sheets": "2. Select Filter views"
+    },
+    {
+        "SFF PC Master List Sheets": "3. Select a pre-defined filter"
+    },
+    {
+        "SFF PC Master List Sheets": "To create a custom filter. Select \"Create a new temporary filter view\" under Filter views and customise it"
+    },
+    {
+        "SFF PC Master List Sheets": "Feel free to add comments for suggestions for new components/cases or mistakes in the spreadsheet"
+    },
+    {
+        "SFF PC Master List Sheets": "Other links, spreadsheets and websites (credit to the owners of these links, sheets and websites):"
+    },
+    {
+        "SFF PC Master List Sheets": "Comparesffpc.com",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Compare SFF Cases based from this list in 3D"
+    },
+    {
+        "SFF PC Master List Sheets": "SFF PC Wiki",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official r/sffpc Wiki"
+    },
+    {
+        "SFF PC Master List Sheets": "r/sffpc Reddit",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official SFFPC Subreddit"
+    },
+    {
+        "SFF PC Master List Sheets": "SFF.Network",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Dedicated website and forum for SFFPC"
+    },
+    {
+        "SFF PC Master List Sheets": "Caseend.com",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Website of ITX cases with pictures for easy viewing"
+    },
+    {
+        "SFF PC Master List Sheets": "Pcpartpicker.com",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Recommended website to build your parts list"
+    },
+    {
+        "SFF PC Master List Sheets": "PSU Tier List",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "PSU Tier List by Cultists.Network"
+    },
+    {
+        "SFF PC Master List Sheets": "Cybenetics.com",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Cybenetics website"
+    },
+    {
+        "SFF PC Master List Sheets": "80 Plus",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "80 Plus website"
+    },
+    {
+        "SFF PC Master List Sheets": "r/sffpc Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official r/sffpc Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "SFF Gurus Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official SFF Gurus Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "SFF.Network Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official SFF.Network Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "J-Hack Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official J-Hack Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "JM Customized Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official JM Customized / JIMU Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "Louqe Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official Loque Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "NFC Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official NFC Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "Sliger Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official Sliger Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "Winter Design Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official Winter Design Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "Cultists.Network Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official Cultists.Network Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "Hardware Busters Discord",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Official Hardware Busters Discord"
+    },
+    {
+        "SFF PC Master List Sheets": "DreambigByRay",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Cheap and affordable custom sleeved and unsleeved cables. Contact them for price"
+    },
+    {
+        "SFF PC Master List Sheets": "CableMod",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Premium custom cables that can be customised with their web configurator"
+    },
+    {
+        "SFF PC Master List Sheets": "pslatecustoms",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Exceptional premium custom cables that is tailor made for each case and components"
+    },
+    {
+        "SFF PC Master List Sheets": "SSD",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of SATA and NVMe SSDs with info of DRAM, Controller, NAND Type etc."
+    },
+    {
+        "SFF PC Master List Sheets": "CPU Cooler Chart",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of good CPU coolers"
+    },
+    {
+        "SFF PC Master List Sheets": "Thermalright Coolers & Fans",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Thermalright CPU Coolers and Case Fans"
+    },
+    {
+        "SFF PC Master List Sheets": "Radiators",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Radiators"
+    },
+    {
+        "SFF PC Master List Sheets": "Recommended Components for SFF Cases",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "Recommended components guide for popular SFF cases. Good starting point"
+    },
+    {
+        "SFF PC Master List Sheets": "1151 v2 Motherboard List",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Intel 1151 v2 socket motherboards"
+    },
+    {
+        "SFF PC Master List Sheets": "AM4 Motherboard List",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of AMD AM4 socket motherboards"
+    },
+    {
+        "SFF PC Master List Sheets": "VLP RAM",
+        "Made by u/prayogahs with contribution from u/ermac-318 Description": "List of Very Low Profile RAMs (18mm height) for certain CPU coolers"
+    }
+]

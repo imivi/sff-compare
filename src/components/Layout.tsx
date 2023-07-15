@@ -1,15 +1,13 @@
 import { css } from "@emotion/react"
 import Head from "next/head"
-import { ReactNode } from "react"
 import Table from "./Table"
-import Footer from "./Footer"
-import { CoolerLP } from "@/types"
+import { Row } from "@/data"
 
 
 
 type Props = {
     title?: string
-    rows: CoolerLP[]
+    rows: Row[]
     // children?: ReactNode
 }
 

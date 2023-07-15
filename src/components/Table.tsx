@@ -11,6 +11,8 @@ import FilterControls from "./Sidebar"
 import { DeserializedFilters } from "@/utils/queryString/deserializeFilters"
 import { Range } from "@/utils/queryString/range"
 import Sidebar from "./Sidebar"
+import { blacklist } from "@/utils/googleSheetsUrls"
+import { Row } from "@/data"
 
 
 
@@ -75,7 +77,7 @@ function filterRowByRange(row: Record<string,string|number>, ranges: Record<stri
 
 
 type Props = {
-    rows: Partial<CoolerLP>[],
+    rows: Row[],
 }
 
 export default function Table({ rows }: Props) {
@@ -88,7 +90,7 @@ export default function Table({ rows }: Props) {
         return <p>Error: table received zero rows</p>
     }
     
-    const header = Object.keys(rows[0])
+    const header = Object.keys(rows[0]).filter(key => !blacklist.has(key))
 
     
     const options = getOptions(rows)
@@ -149,7 +151,7 @@ export default function Table({ rows }: Props) {
                                             onClick={(e) => handleHeaderClick(e, newQuery)}
                                         >
                                             <span>{ label }</span>
-                                            <span style={{ visibility: query.col===i ? "unset" : "hidden" }}>
+                                            <span className="icon-sort-arrow">
                                                 { query.asc ? <ArrowDown/> : <ArrowUp/> }
                                             </span>
                                         </Link>
@@ -163,8 +165,8 @@ export default function Table({ rows }: Props) {
                             sortedRows.map((row,i) => (
                                 <tr key={ i }>
                                     {
-                                        Object.values(row).map((value,j) => (
-                                            <td key={ j }>{ value || "-" }</td>
+                                        header.map((key,j) => (
+                                            <td key={ j }>{ row[key] || "-" }</td>
                                         ))
                                     }
                                 </tr>
@@ -196,18 +198,56 @@ const style = css`
             border-collapse: collapse;
             width: 100%;
 
+            thead {
+                position: sticky;
+                inset-block-start: 0; // top
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            th {
+                background-color: #e8eff5;
+                /* border: 1px solid #afd0ec; */
+                padding: 5px;
+                position: relative;
+
+                /* This is a hack to add a cell border on a sticky header */
+                &::after {
+                    outline: 1px solid #afd0ec;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    content: "";
+                    top: 0;
+                    left: 0;
+                }
+            }
+
+            .icon-sort-arrow {
+                opacity: 0;
+            }
+
+            th:hover,
+            th[data-active=true] {
+                color: dodgerblue;
+                .icon-sort-arrow {
+                    opacity: 1;
+                }
+            }
+            th a {
+                position: relative;
+                z-index: 1;
+                text-decoration: none;
+                color: inherit;
+                font-weight: 600;
+                display: flex;
+                flex-direction: column;
+                /* outline: 1px solid brown; */
+            }
+
             td {
                 border: 1px solid #eee;
                 border-bottom: 1px solid #ddd;
                 padding: 0 5px;
-            }
-            th {
-                background-color: #e8eff5;
-                border: 1px solid #afd0ec;
-                padding: 5px;
-            }
-            th[data-active=true] {
-                color: dodgerblue;
             }
             td {
                 height: 1.5em;
@@ -221,13 +261,6 @@ const style = css`
                 border-right: none;
             }
             
-            th a {
-                text-decoration: none;
-                color: inherit;
-                font-weight: 600;
-                display: flex;
-                flex-direction: column;
-            }
         }
     }
 

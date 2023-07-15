@@ -1,0 +1,127 @@
+import PublicGoogleSheetsParser from "public-google-sheets-parser"
+
+
+export type Row = Record<string, string|number|undefined>
+
+
+// DOCUMENTATION: https://github.com/fureweb-com/public-google-sheets-parser
+
+// 1. You can pass spreadsheetId when instantiating the parser:
+// const parser = new PublicGoogleSheetsParser(googleSheetsId)
+const parser = new PublicGoogleSheetsParser()
+
+
+/**
+ * Make sure all objects (rows) have the same columns (keys).
+ * If an object is missing a key, add it and set the value to 
+ * @param rows 
+ */
+function normalizeRows(rows: Row[]) {
+    const allKeys = new Set<string>()
+    for(const row of rows) {
+        for(const key of Object.keys(row)) {
+            allKeys.add(key)
+        }
+    }
+
+    // Initialize an empty row with "-" strings on all columns
+    const emptyRow: Row = {}
+    for(const key of Array.from(allKeys)) {
+        emptyRow[key] = "-"
+    }
+    
+    // Add missing keys to each row
+    return rows.map(row => ({
+        ...emptyRow,
+        ...row,
+    }))
+
+}
+
+
+/*
+export function getPages(): string[] {
+    return data.map(obj => obj.page)
+}
+
+export function getPageRows(page: string): Row[] {
+    const rows = data.filter(obj => obj.page === page)[0].rows
+    return rows
+}
+*/
+
+
+/*
+// 4. You can also retrieve a specific sheet to get by either passing the sheet name as a string (since v1.1.0):
+// parser.parse(spreadsheetId, 'Sheet2').then((items) => {
+// items should be [{"a":10,"b":20,"c":30},{"a":40,"b":50,"c":60},{"a":70,"b":80,"c":90}]
+// })
+export async function readSheet(sheetName: SheetName, debug = false): Promise<Row[]> {
+
+    if(debug) {
+        return new Promise((resolve,reject) => {
+
+            const rows = data.filter(obj => obj.page === sheetName)[0].rows
+            return resolve(normalizeRows(rows))
+          
+            // let rows: Row[] = []
+            // if(sheetName === "CPU Cooler <70mm") {
+            //     rows = data.fans
+            // }
+            // else if(sheetName === "AIO") {
+            //     rows = data.aio
+            // }
+            // else if(sheetName === "RAM Height") {
+            //     rows = data.ram
+            // }
+            // else if(sheetName === "Fans") {
+            //     rows = data.fans
+            // }
+            // return resolve(normalizeRows(rows))
+        })
+    }
+
+    const rows = await parser.parse(googleSheetsId, sheetName)
+    return rows
+}
+*/
+
+
+
+// parser.parse().then((items) => {
+// })
+
+/*
+// 2. You can change spreadsheetId on runtime:
+const anotherSpreadsheetId = '1oCgY0UHHRQ95snw7URFpOOL_DQcVG_wydlOoGiTof5E'
+parser.id = anotherSpreadsheetId
+parser.parse().then((items) => {
+//   items should be
+//   [
+//     {"id":1,"title":"This is a title of 1","description":"This is a description of 1","createdAt":"2020-11-12","modifiedAt":"2020-11-18"},
+//     {"id":2,"title":"This is a title of 2","description":"This is a description of 2","createdAt":"2020-11-12","modifiedAt":"2020-11-18"},
+//     ...
+//   ]
+})
+
+// 3. You can pass the spreadsheet ID when call parse method:
+parser.parse(spreadsheetId).then((items) => {
+  // items should be [{"a":1,"b":2,"c":3},{"a":4,"b":5,"c":6},{"a":7,"b":8,"c":9}]
+})
+
+
+// 4. You can also retrieve a specific sheet to get by either passing the sheet name as a string (since v1.1.0):
+parser.parse(spreadsheetId, 'Sheet2').then((items) => {
+  // items should be [{"a":10,"b":20,"c":30},{"a":40,"b":50,"c":60},{"a":70,"b":80,"c":90}]
+})
+// ...or as an object (since v1.3.0) that specifies the sheet's name or ID. If both are provided, sheet ID is used:
+parser.parse(spreadsheetId, { sheetId: '784337977' }).then((items) => {
+  // items should be [{"a":10,"b":20,"c":30},{"a":40,"b":50,"c":60},{"a":70,"b":80,"c":90}]
+})
+
+// Sheet name or sheet ID can also be passed during instantiation:
+const parser = new PublicGoogleSheetsParser(spreadsheetId, { sheetId: '784337977'})
+parser.parse().then((items) => {
+  // items should be [{"a":10,"b":20,"c":30},{"a":40,"b":50,"c":60},{"a":70,"b":80,"c":90}]
+})
+*/

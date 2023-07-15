@@ -1,14 +1,14 @@
 import type { GetStaticPaths, GetStaticProps } from "next"
-import { readSheet } from '@/utils/read-public-sheet'
 import { CoolerLP } from "@/types"
 import Layout from "@/components/Layout"
-import { Pages, googleSheetsTabs } from "@/utils/googleSheetsUrls"
+import { Row, data } from "@/data"
+import { pages } from "@/data"
 
 
 
 type Props = {
     title: string
-    rows: CoolerLP[]
+    rows: Row[]
 }
 
 export default function Home({ title, rows }: Props) {
@@ -28,8 +28,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     // const sheetName = googleSheetsTabs[params.]
 
     const pageName = typeof params?.category === "string" ? params.category : null
-    
-    const rows = pageName ? await readSheet(googleSheetsTabs[pageName], true) : []
+
+    // const rows = pageName ? await readSheet(googleSheetsTabs[pageName], true) : []
+    // const rows = pageName ? getPageRows(pageName) : []
+    const rows = data.filter(row => row.page === pageName)
 
     return {
         props: {
@@ -46,10 +48,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     // const rows = await readSheet<CoolerLP>("CPU Cooler <70mm")
 
-    const categories = Object.keys(googleSheetsTabs)
+    // const categories = Object.keys(googleSheetsTabs)
+
 
     return {
-        paths: categories.map(category => ({ params: { category }})),
+        paths: pages.map(category => ({ params: { category }})),
         fallback: false,
     }
 }

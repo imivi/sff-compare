@@ -8,7 +8,7 @@ const githubUrl = "https://www.github.com"
 export function GithubLink() {
     
     return (
-        <a css={ style } href={ githubUrl }>
+        <a css={ style } href={ githubUrl } target="_blank" rel="noreferrer">
             <BrandGithub size={ 24 } color="white"/>
         </a>
     )
@@ -28,4 +28,12 @@ const style = css`
     place-content: flex-start;
     place-items: flex-start;
     padding: 8px;
+    transition: background-color 100ms;
+
+    &:hover {
+        background-color: #555;
+    }
+    &:active {
+        background-color: #222;
+    }
 `

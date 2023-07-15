@@ -1,39 +1,39 @@
+import { Row, pages } from "@/data"
 import type { GetStaticProps } from "next"
-import Head from 'next/head'
-import { Row, readSheet } from '@/utils/read-public-sheet'
-import { CoolerLP, Sheet } from "@/types"
-import Table from "@/components/Table"
-import { css } from "@emotion/react"
-import { Box } from "tabler-icons-react"
-import Footer from "@/components/Footer"
-import Layout from "@/components/Layout"
 import Link from "next/link"
 
 
 
 
 type Props = {
-    rows: CoolerLP[]
+    // rows: Row[]
 }
 
-export default function Home({ rows }: Props) {
+export default function Home() {
 
     return (
-        // <Layout title="SFF Compare" rows={ rows }/>
-        <Link href="/coolers">Go to coolers</Link>
+        <ul>
+        {
+            pages.map(page => (
+                <li key={ page }>
+                    <Link href={ "/"+page }>Go to { page }</Link>
+                </li>
+            ))
+        }
+        </ul>
     )
 }
 
 
 
 // https://stackoverflow.com/a/73884736
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 
-    const rows = await readSheet<CoolerLP>("CPU Cooler <70mm")
+    // const rows = await readSheet("CPU Cooler <70mm")
 
     return {
         props: {
-            rows,
+            // rows,
             // examples: await readSheet("example"),
         },
         revalidate: 60 * 60, // 1 hour, in seconds (60s*60m)

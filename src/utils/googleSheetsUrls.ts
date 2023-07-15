@@ -35,9 +35,17 @@ export type SheetName = typeof googleSheetsTabsKeyed[Pages]
  */
 export const blacklist = new Set([
     "Remarks",
+    "id",
+    "page",
+    "Review by Aris",
 ])
 
 export const hiddenFilters = new Set([
+
+    // General
+    "Name",
+
+    // CPU
     "AMD FM1 / FM2(+) / AM2(+) / AM3(+)",
     "AMD AM4 / AM5",
     "Intel 115X / 1200",
@@ -46,4 +54,19 @@ export const hiddenFilters = new Set([
     "Intel 2011 / 2066",
     "Intel 775",
     "Heatsink Material",
+
+    // PSU
+    "12VHPWR (12+4pin) cable",
+    "12VHPWR (12+4pin) Connectors",
+    "Cybenetics ETA 115V",
+    "Cybenetics ETA 230V",
+    "Cybenetics Lambda 115V",
+    "Cybenetics Lambda 230V",
+    "Cybenetics Test Report",
+    "80 PLUS Test Report",
+    "24-pin (20+4) ATX cable",
+    "8-pin (4+4) EPS cable",
+    "8-pin (4+4) EPS Connectors",
+    "PCIe (6+2) cable",
+    "PCIe (6+2) Connectors",
 ])

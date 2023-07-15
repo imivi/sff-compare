@@ -4,8 +4,9 @@ import Select, { type MultiValue } from "react-select"
 import { stringifyFilters } from "@/utils/queryString/stringifyFilters"
 import { DeserializedFilters, Options } from "@/utils/queryString/deserializeFilters"
 import { Range, stringifyRange } from "@/utils/queryString/range"
-import { useMemo, useState } from "react"
-import MultiSlider from "./slider/MultiSlider"
+import { useEffect, useMemo, useState } from "react"
+import Slider from "./slider/Slider"
+import DualSlider from "./slider/DualSlider"
 
 
 type Option = {
@@ -41,7 +42,6 @@ function getMinMax(values: (string|number)[]): { min: number, max: number } {
 
 
 
-
 type Props = {
     label: string
     values: (string|number)[]
@@ -54,10 +54,22 @@ type Props = {
 
 export default function FilterControl({ label, filters, ranges, options, values }: Props) {
 
-    const [sliderValues, setSliderValues] = useState<readonly number[]>([])
     
     const router = useRouter()
 
+    const { min, max } = useMemo(() => getMinMax(values), [values])
+
+    // console.log({ min, max })
+    
+    const selectedRange = label in ranges ? ranges[label] : { min, max }
+    const [sliderValues, setSliderValues] = useState<[number,number]>([selectedRange.min, selectedRange.max])
+    
+
+
+    const step = (max-min > 10) ? 1 : 0.1
+    // const step = 1
+
+    const decimals = (max-min < 3) ? 1 : 0
 
     // If the header index is in filters (from the query string),
     // read the selected options. Otherwise, "selected options" is empty
@@ -107,10 +119,9 @@ export default function FilterControl({ label, filters, ranges, options, values 
     // console.log(values,isNumericalOption)
 
 
-    const { min, max } = useMemo(() => getMinMax(values), [values])
 
 
-    function handleChange(values: readonly number[]) {
+    function handleChange(values: number[]) {
 
         // if(typeof document === "undefined") {
         //     return
@@ -147,14 +158,13 @@ export default function FilterControl({ label, filters, ranges, options, values 
 
     if(isNumericalOption) {
         
-        const selectedRange = label in ranges ? ranges[label] : undefined
 
         // console.log(label, ranges, selectedRange)
         
         return <div css={ style } data-outline={ false }>
 
             <div>
-                <div className="label">{ label }</div>
+                <div className="label" title={ values.join(", ")+JSON.stringify({min,max,selectedRange,sliderValues}) }>{ label }</div>
                 <label>
                     <input type="checkbox"/>
                     <small> Include unknown</small>
@@ -162,11 +172,19 @@ export default function FilterControl({ label, filters, ranges, options, values 
             </div>
 
             <div className="slider">
-                <small>{ sliderValues[0] } - { sliderValues[1] }</small>
-                <MultiSlider
+                <small>{ sliderValues.map(value => value.toFixed(decimals)).join(" - ") }</small>
+                {/* <MultiSlider
                     domain={ [min, max] }
                     minValue={ selectedRange?.min || min }
                     maxValue={ selectedRange?.max || max }
+                    onChange={ (values) => handleChange(values) }
+                    tickCount={ Math.min(values.length+1, 5) }
+                    onDrag={ (values) => setSliderValues(values) }
+                /> */}
+                <DualSlider
+                    range={ [min, max] }
+                    values={ ranges[label] ? sliderValues : [min,max] }
+                    step={ step }
                     onChange={ (values) => handleChange(values) }
                     tickCount={ Math.min(values.length+1, 5) }
                     onDrag={ (values) => setSliderValues(values) }
