@@ -1,8 +1,7 @@
 import type { GetStaticPaths, GetStaticProps } from "next"
-import { CoolerLP } from "@/types"
-import Layout from "@/components/Layout"
 import { Row, data } from "@/data"
 import { pages } from "@/data"
+import Category from "@/components/layout/Category"
 
 
 
@@ -15,7 +14,7 @@ export default function Home({ title, rows }: Props) {
 
     
     return (
-        <Layout title={ "SFF Compare - "+title } rows={ rows }/>
+        <Category title={ "SFF Compare - "+title } rows={ rows }/>
     )
 }
 

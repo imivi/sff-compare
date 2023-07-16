@@ -1,17 +1,15 @@
 import { css } from "@emotion/react"
+import { ReactNode } from "react"
 import Head from "next/head"
-import Table from "./Table"
-import { Row } from "@/data"
 
 
 
 type Props = {
-    title?: string
-    rows: Row[]
-    // children?: ReactNode
+    title: string
+    children?: ReactNode
 }
 
-export default function Layout({ title, rows }: Props) {
+export default function Layout({ children, title }: Props) {
 
     return <>
         <Head>
@@ -20,20 +18,20 @@ export default function Layout({ title, rows }: Props) {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        <div css={ style }>
-            <Table rows={ rows }/>
-            {/* <Footer/> */}
+
+        <div className="container" css={ style }>
+            { children }
         </div>
     </>
 }
 
 const style = css`
-    position: fixed;
-    top: 0;
-    left: 0;
+
     width: 100%;
+    /* overflow-x: auto; */
     display: grid;
-    /* grid-template-rows: calc(100vh - 3rem) 1fr; */
-    display: block;
+    grid-template-columns: 25rem 1fr;
+    gap: 1vw;
+    width: 100%;
     height: 100%;
 `

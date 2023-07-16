@@ -3,13 +3,15 @@ import { css } from "@emotion/react"
 
 
 type Props = {
-    inline?: boolean
+    isInline?: boolean
 } & HTMLAttributes<HTMLButtonElement>
 
 export default function Button(props: Props) {
 
+    const inline = props?.isInline === true
+
     return (
-        <button css={ style } {...props} data-inline={ props?.inline ? true : false }/>
+        <button css={ style } {...props} data-inline={ inline }/>
     )
 
 }
