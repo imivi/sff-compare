@@ -15,6 +15,8 @@ import { blacklist } from "@/utils/googleSheetsUrls"
 import { Row } from "@/data"
 import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
+import Checkbox from "./utility/Checkbox"
+import Button from "./utility/Button"
 
 
 
@@ -136,6 +138,22 @@ export default function Table({ rows }: Props) {
                 <table>
                     <thead>
                         <tr>
+
+                            <th>
+                                <span>Compare</span>
+                                {
+                                    query.compareCount() > 0 &&
+                                    <Button onClick={ () => {
+                                        router.replace({
+                                            query: {
+                                                ...router.query,
+                                                c: query.clearCompare().stringifyCompare(),
+                                            }
+                                        })
+                                    }}>clear</Button>
+                                }
+                            </th>
+
                             {
                                 header.map((label,i) => {
 
@@ -169,6 +187,19 @@ export default function Table({ rows }: Props) {
                         {
                             sortedRows.map((row,i) => (
                                 <tr key={ i }>
+                                    <td>
+                                        <Checkbox
+                                            checked={ query.hasRowId(row.id) }
+                                            onChange={ () => {
+                                                router.replace({
+                                                    query: {
+                                                        ...router.query,
+                                                        c: query.toggleCompare(row.id).stringifyCompare(),
+                                                    }
+                                                })
+                                            }}
+                                        />
+                                    </td>
                                     {
                                         header.map((key,j) => (
                                             <td key={ j }>{ row[key] || "-" }</td>
@@ -205,6 +236,7 @@ const style = css`
 
             thead {
                 position: sticky;
+                z-index: 1;
                 inset-block-start: 0; // top
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             }
@@ -231,7 +263,7 @@ const style = css`
                 opacity: 0;
             }
 
-            th:hover,
+            th a:hover,
             th[data-active=true] {
                 color: dodgerblue;
                 .icon-sort-arrow {

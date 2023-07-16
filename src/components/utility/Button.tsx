@@ -2,10 +2,14 @@ import { type HTMLAttributes } from "react"
 import { css } from "@emotion/react"
 
 
-export default function Button(props: HTMLAttributes<HTMLButtonElement>) {
+type Props = {
+    inline?: boolean
+} & HTMLAttributes<HTMLButtonElement>
+
+export default function Button(props: Props) {
 
     return (
-        <button css={ style } {...props}/>
+        <button css={ style } {...props} data-inline={ props?.inline ? true : false }/>
     )
 
 }
@@ -23,6 +27,10 @@ const style = css`
     z-index: 10;
     display: flex;
     cursor: pointer;
+
+    &[data-inline=true] {
+        display: inline-flex;
+    }
 
     &:hover {
         opacity: .8;

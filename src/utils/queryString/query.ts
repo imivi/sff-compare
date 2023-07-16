@@ -11,6 +11,7 @@ type StrigifiedQuery = {
     col: number
     fil: string
     r:   string
+    c:   string
 }
 
 
@@ -20,8 +21,13 @@ export class Query {
     col: number
     fil: Record<string, (string|number)[]>
     r:   Record<string, Range>
+    c = new Set<string>() // compare row ids
 
     private options: Options
+
+    // Only re-stringify the query properties that
+    // have changed since they were first parsed.
+    // private recompute = new Set<keyof Query>()
 
     constructor(query: Record<string,unknown>, options: Options) {
         const { asc, col, fil, r } = parseQueryString(query, options.values)
@@ -29,6 +35,12 @@ export class Query {
         this.col = col
         this.fil = fil
         this.r   = r
+
+        if(typeof query?.c === "string" && query.c !== "") {
+            const ids_to_compare = typeof query?.c === "string" ? query.c.split(",") : []
+            this.c = new Set<string>(ids_to_compare)
+        }
+        
         this.options = options
     }
 
@@ -42,6 +54,35 @@ export class Query {
             col: this.col,
             fil: stringifyFilters(this.fil, this.options.values),
             r: stringifyRange(this.r, this.options.values),
+            c: this.stringifyCompare(),
+        }
+    }
+
+    clearCompare(): this {
+        this.c.clear()
+        return this
+    }
+
+    stringifyCompare(): string {
+        return Array.from(this.c).join(",")
+    }
+
+    compareCount(): number {
+        return this.c.size
+    }
+
+    hasRowId(rowId: string): boolean {
+        return this.c.has(rowId)
+    }
+
+    toggleCompare(rowId: string): this {
+        if(this.c.has(rowId)) {
+            this.c.delete(rowId)
+            return this
+        }
+        else {
+            this.c.add(rowId)
+            return this
         }
     }
 }

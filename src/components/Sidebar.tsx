@@ -113,7 +113,10 @@ export default function Sidebar({ query, options }: Props) {
 
                 {
                     process.env.NODE_ENV === "development" &&
-                    <Button onClick={ () => console.info(options) }>Log options</Button>
+                    <div style={{ display: "flex" }}>
+                        <Button inline onClick={ () => console.info(options) }>Log options</Button>
+                        <Button inline onClick={ () => console.info(query) }>Log query</Button>
+                    </div>
                 }
 
                 <div className="controls">
