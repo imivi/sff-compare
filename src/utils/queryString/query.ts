@@ -1,12 +1,14 @@
-import { Options } from "./deserializeFilters";
+// import { Options } from "./deserializeFilters";
+import { Options } from "../Options";
 import { parseQueryString } from "./parseQueryString";
-import { Range } from "./range";
+import { Range, stringifyRange } from "./range";
+import { stringifyFilters } from "./stringifyFilters";
 
 
 
 type StrigifiedQuery = {
-    asc: string
-    col: string
+    asc: boolean
+    col: number
     fil: string
     r:   string
 }
@@ -14,17 +16,20 @@ type StrigifiedQuery = {
 
 export class Query {
 
-    private asc: boolean
-    private col: number
-    private fil: Record<string, (string|number)[]>
-    private r:   Record<string, Range>
+    asc: boolean
+    col: number
+    fil: Record<string, (string|number)[]>
+    r:   Record<string, Range>
+
+    private options: Options
 
     constructor(query: Record<string,unknown>, options: Options) {
-        const { asc, col, fil, r } = parseQueryString(query, options)
+        const { asc, col, fil, r } = parseQueryString(query, options.values)
         this.asc = asc
         this.col = col
         this.fil = fil
         this.r   = r
+        this.options = options
     }
 
     deleteFilter(filter: string): void {
@@ -32,6 +37,11 @@ export class Query {
     }
 
     stringify(): StrigifiedQuery {
-        return "q="
+        return {
+            asc: this.asc,
+            col: this.col,
+            fil: stringifyFilters(this.fil, this.options.values),
+            r: stringifyRange(this.r, this.options.values),
+        }
     }
 }

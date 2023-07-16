@@ -1,7 +1,5 @@
 import { css } from "@emotion/react"
 import { useRouter } from "next/router"
-import { Query } from "@/utils/queryString/parseQueryString"
-import { Options } from "@/utils/queryString/deserializeFilters"
 import FilterControl from "./FilterControl"
 import { useState } from "react"
 import Footer from "./Footer"
@@ -11,6 +9,8 @@ import Logo from "../../public/cube.png"
 import { GithubLink } from "./GithubLink"
 import Link from "next/link"
 import { pages, tabNames } from "@/data"
+import { Query } from "@/utils/queryString/query"
+import { Options } from "@/utils/Options"
 
 
 type Option = {
@@ -96,8 +96,8 @@ export default function Sidebar({ query, options }: Props) {
 
     // console.log("Filters:", query.fil)
 
-    const basicOptions  = Object.keys(options).filter(option => !hiddenFilters.has(option)).sort()
-    const hiddenOptions = showAllOptions ? Object.keys(options).filter(option => hiddenFilters.has(option)).sort() : []
+    const basicOptions  = options.getKeys().filter(option => !hiddenFilters.has(option)).sort()
+    const hiddenOptions = showAllOptions ? options.getKeys().filter(option => hiddenFilters.has(option)).sort() : []
 
     // const pages = Object.keys(googleSheetsTabs)
     // const pageLinks = pages.map(key => googleSheetsTabs[key])
@@ -112,6 +112,11 @@ export default function Sidebar({ query, options }: Props) {
                     <Image src={ Logo } alt="SFF Compare logo" width={ 32 }/>
                     <Link href={ "/"+pages[0] }>SFF Compare</Link>
                 </h1>
+
+                {
+                    process.env.NODE_ENV === "development" &&
+                    <button onClick={ () => console.info(options) }>Log options</button>
+                }
 
                 <div className="controls">
 
@@ -130,17 +135,15 @@ export default function Sidebar({ query, options }: Props) {
                         [...basicOptions, ...hiddenOptions]
                             .filter(optionLabel => !blacklist.has(optionLabel))
                             .map(optionLabel => {
-
-                                const values = options[optionLabel]
-                                
                                 return (
                                     <FilterControl
                                         label={optionLabel}
-                                        values={ options[optionLabel] }
-                                        options={options}
+                                        values={ options.getValues(optionLabel) }
+                                        options={ options }
+                                        query={ query }
                                         // headerIndex={ headerIndex }
-                                        filters={query.fil}
-                                        ranges={query.r}
+                                        // filters={query.fil}
+                                        // ranges={query.r}
                                         key={optionLabel}
                                     />
                                 )

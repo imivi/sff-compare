@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import { ArrowUp, ArrowDown } from "tabler-icons-react"
 import { compareValues } from "@/utils/compareValues"
-import { MouseEvent } from "react"
+import { MouseEvent, useMemo } from "react"
 import { parseQueryString } from "@/utils/queryString/parseQueryString"
 import { getOptions } from "@/utils/getOptions"
 import FilterControls from "./Sidebar"
@@ -13,6 +13,8 @@ import { Range } from "@/utils/queryString/range"
 import Sidebar from "./Sidebar"
 import { blacklist } from "@/utils/googleSheetsUrls"
 import { Row } from "@/data"
+import { Query } from "@/utils/queryString/query"
+import { Options } from "@/utils/Options"
 
 
 
@@ -85,6 +87,9 @@ export default function Table({ rows }: Props) {
     // Get filters and sorting from query string
     const router = useRouter()
 
+    // const options = getOptions(rows)
+    const options = useMemo(() => new Options(rows), [rows])
+
     if(rows.length < 1) {
         console.info("Rows:", rows)
         return <p>Error: table received zero rows</p>
@@ -92,10 +97,10 @@ export default function Table({ rows }: Props) {
     
     const header = Object.keys(rows[0]).filter(key => !blacklist.has(key))
 
-    
-    const options = getOptions(rows)
 
-    const query = parseQueryString(router.query, options)
+    // const query = parseQueryString(router.query, options)
+
+    const query = new Query(router.query, options)
 
     // console.log(query)
 

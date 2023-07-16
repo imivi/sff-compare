@@ -2,24 +2,30 @@ import { css } from "@emotion/react"
 import { useRouter } from "next/router"
 import Select, { type MultiValue } from "react-select"
 import { stringifyFilters } from "@/utils/queryString/stringifyFilters"
-import { DeserializedFilters, Options } from "@/utils/queryString/deserializeFilters"
+import { DeserializedFilters } from "@/utils/queryString/deserializeFilters"
 import { Range, stringifyRange } from "@/utils/queryString/range"
 import { useEffect, useMemo, useState } from "react"
 import Slider from "./slider/Slider"
 import DualSlider from "./slider/DualSlider"
+import { Query } from "@/utils/queryString/query"
+import { Options } from "@/utils/Options"
 
 
-type Option = {
+type SelectOption = {
     value: number,
     label: string|number,
 }
 
 
-function isNumberColumn(values: (string|number)[]) {
-    return values.some(value => typeof value === "number")
-}
-
 function getMinMax(values: (string|number)[]): { min: number, max: number } {
+
+    if(!values) {
+        return {
+            min: 0,
+            max: 0,
+        }
+    }
+    
     let min = null
     let max = null
 
@@ -46,20 +52,28 @@ type Props = {
     label: string
     values: (string|number)[]
     // headerIndex: number
-    filters: DeserializedFilters
-    ranges: Record<string, Range>
+    // filters: DeserializedFilters
+    // ranges: Record<string, Range>
+    query: Query
     // onChange: (selectedOptions: MultiValue<Option>) => unknown
     options: Options
 }
 
-export default function FilterControl({ label, filters, ranges, options, values }: Props) {
+export default function FilterControl({ label, query, options, values }: Props) {
 
     
     const router = useRouter()
 
+    if(!values) {
+        console.error("No values")
+    }
+
     const { min, max } = useMemo(() => getMinMax(values), [values])
 
     // console.log({ min, max })
+
+    const ranges = query.r
+    const filters = query.fil
     
     const selectedRange = label in ranges ? ranges[label] : { min, max }
     const [sliderValues, setSliderValues] = useState<[number,number]>([selectedRange.min, selectedRange.max])
@@ -78,7 +92,7 @@ export default function FilterControl({ label, filters, ranges, options, values 
     // const selectedOptions = selectedOptionsIndices.map(index => options[index])
 
 
-    function handleSelect(selectedOptions: MultiValue<Option>) {
+    function handleSelect(newSelectedOptions: MultiValue<SelectOption>) {
 
         // const selectedOptionsIndices = selectedOptions.map(option => option.value)
 
@@ -86,12 +100,12 @@ export default function FilterControl({ label, filters, ranges, options, values 
 
         const newFilters: DeserializedFilters = {
             ...filters,
-            [label]: selectedOptions.map(option => option.label)
+            [label]: newSelectedOptions.map(option => option.label)
         }
 
         const newQuery = {
             ...router.query,
-            fil: stringifyFilters(newFilters,options),
+            fil: stringifyFilters(newFilters,options.values),
         }
         // console.log({ label, selectedOptions, oldFilters: filters, newFilters, newQuery, options })
         
@@ -101,20 +115,35 @@ export default function FilterControl({ label, filters, ranges, options, values 
     }
 
 
+    // const sel = query.fil
+
+    // console.log({ options })
+
+    let selectedOptions: { label: string, value: number }[] = []
+
+    const selectedOptionLabels = query.fil[label] || []
+        for(const optionKey of selectedOptionLabels) {
+        const index = options.indexOf(label, optionKey)
+        selectedOptions.push({ label: optionKey.toString(), value: index })
+    }
+
+    /*
     let selectedOptions: { label: string, value: number }[] | null = null
-    if(options[label] && filters[label]) {
+    if(options.getValues(label) && filters[label]) {
         // const optionsLabels = options[label]
         
-        selectedOptions = options[label]
-        .filter(option => filters[label].includes(option))
-        .map((option,i) => ({ label: option.toString(), value: i }))
+        selectedOptions = options.getValues(label)
+            .filter(option => filters[label].includes(option))
+            .map((option,i) => ({ label: option.toString(), value: i }))
         
         // console.log(label, options[label], filters[label], selectedOptions)
     }
+    */
 
-    const selectOptions = options[label].map((label,i) => ({ label: label.toString(), value: i }))
+    const selectOptions = options.getValues(label).map((label,i) => ({ label: label.toString(), value: i }))
 
-    const isNumericalOption = useMemo(() => values.length > 3 && isNumberColumn(values), [values])
+    const isNumericalOption = values.length > 3 && options.isNumerical(label)
+    // const isNumericalOption = useMemo(() => values.length > 3 && isNumberColumn(values), [values])
 
     // console.log(values,isNumericalOption)
 
@@ -144,7 +173,7 @@ export default function FilterControl({ label, filters, ranges, options, values 
 
         const newQuery = {
             ...router.query,
-            r: stringifyRange(newRanges, options),
+            r: stringifyRange(newRanges, options.values),
         }
 
         // console.log(values, newQuery)
@@ -156,15 +185,12 @@ export default function FilterControl({ label, filters, ranges, options, values 
         }
     }
 
+    // Render a slider
     if(isNumericalOption) {
-        
-
-        // console.log(label, ranges, selectedRange)
-        
         return <div css={ style } data-outline={ false }>
 
             <div>
-                <div className="label" title={ values.join(", ")+JSON.stringify({min,max,selectedRange,sliderValues}) }>{ label }</div>
+                <div className="label" title={ JSON.stringify({min,max,selectedRange,sliderValues},null,4) }>{ label }</div>
                 <label>
                     <input type="checkbox"/>
                     <small> Include unknown</small>
@@ -172,7 +198,9 @@ export default function FilterControl({ label, filters, ranges, options, values 
             </div>
 
             <div className="slider">
-                <small>{ sliderValues.map(value => value.toFixed(decimals)).join(" - ") }</small>
+                <small>
+                    { sliderValues.map(value => value.toFixed(decimals)).join(" - ") }
+                </small>
                 {/* <MultiSlider
                     domain={ [min, max] }
                     minValue={ selectedRange?.min || min }
@@ -193,9 +221,12 @@ export default function FilterControl({ label, filters, ranges, options, values 
         </div>
     }
 
+    // Render a dropdown menu
     return (
         <label css={ style } data-is-numerical={ isNumericalOption }>
-            <span className="label" title={ label }>{ label }</span>
+            <span className="label" title={ JSON.stringify({ values, selectedOptions }, null, 4) }>
+                { label }
+            </span>
             <Select
                 className="select-container"
                 instanceId="react-select-id"
