@@ -69,4 +69,9 @@ export const hiddenFilters = new Set([
     "8-pin (4+4) EPS Connectors",
     "PCIe (6+2) cable",
     "PCIe (6+2) Connectors",
+
+    // AIO
+    "12V RGB LED Connection",
+    "5V Addressable RGB LED Connection",
+    "AMD FM1 / FM2 (+) / AM2(+) / AM3(+)",
 ])

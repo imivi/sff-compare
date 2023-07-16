@@ -211,11 +211,13 @@ export default function FilterControl({ label, query, options, values }: Props) 
                 /> */}
                 <DualSlider
                     range={ [min, max] }
-                    values={ ranges[label] ? sliderValues : [min,max] }
+                    values={ ranges[label] ? sliderValues : undefined }
                     step={ step }
                     onChange={ (values) => handleChange(values) }
                     tickCount={ Math.min(values.length+1, 5) }
-                    onDrag={ (values) => setSliderValues(values) }
+                    // While the slider is dragged, update the indicators above it.
+                    // If there is no query string for the current range, create it.
+                    onDrag={ (values) => { setSliderValues(values); if(!ranges[label]) handleChange(values) } }
                 />
             </div>
         </div>

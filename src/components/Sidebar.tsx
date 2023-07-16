@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import FilterControl from "./FilterControl"
 import { useState } from "react"
 import Footer from "./Footer"
-import { blacklist, googleSheetsTabs, hiddenFilters } from "@/utils/googleSheetsUrls"
+import { blacklist, hiddenFilters } from "@/utils/googleSheetsUrls"
 import Image from "next/image"
 import Logo from "../../public/cube.png"
 import { GithubLink } from "./GithubLink"
@@ -11,16 +11,14 @@ import Link from "next/link"
 import { pages, tabNames } from "@/data"
 import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
+import Button from "./utility/Button"
+import Select from "./utility/Select"
 
 
-type Option = {
-    value: number,
-    label: string|number,
-}
-
-function isNumberColumn(values: (string|number)[]) {
-    return values.some(value => typeof value === "number")
-}
+// type Option = {
+//     value: number,
+//     label: string|number,
+// }
 
 function getMinMax(values: (string|number)[]) {
     let min = 0
@@ -97,7 +95,7 @@ export default function Sidebar({ query, options }: Props) {
     // console.log("Filters:", query.fil)
 
     const basicOptions  = options.getKeys().filter(option => !hiddenFilters.has(option)).sort()
-    const hiddenOptions = showAllOptions ? options.getKeys().filter(option => hiddenFilters.has(option)).sort() : []
+    const hiddenOptions = options.getKeys().filter(option => hiddenFilters.has(option)).sort()
 
     // const pages = Object.keys(googleSheetsTabs)
     // const pageLinks = pages.map(key => googleSheetsTabs[key])
@@ -115,12 +113,12 @@ export default function Sidebar({ query, options }: Props) {
 
                 {
                     process.env.NODE_ENV === "development" &&
-                    <button onClick={ () => console.info(options) }>Log options</button>
+                    <Button onClick={ () => console.info(options) }>Log options</Button>
                 }
 
                 <div className="controls">
 
-                    <select onChange={ (e) => router.push(e.target.value) }>
+                    <Select onChange={ (e) => router.push(e.target.value) }>
                         {
                             Object.entries(tabNames).map(([page,tabName]) => (
                                 <option value={ "/"+page } key={ page }>
@@ -128,11 +126,11 @@ export default function Sidebar({ query, options }: Props) {
                                 </option>
                             ))
                         }
-                    </select>
+                    </Select>
                     
                     {/* <MultiSlider domain={ [0,10] } minValue={ 1 } maxValue={ 10 } tickCount={ 1 } onChange={ (values) => console.log(values) }/> */}
                     {
-                        [...basicOptions, ...hiddenOptions]
+                        [...basicOptions, ...(showAllOptions ? hiddenOptions : []) ]
                             .filter(optionLabel => !blacklist.has(optionLabel))
                             .map(optionLabel => {
                                 return (
@@ -153,10 +151,10 @@ export default function Sidebar({ query, options }: Props) {
 
                     {
                         hiddenOptions.length > 0 &&
-                        <button className="btn-show-more" onClick={ () => setShowAllOptions(!showAllOptions) }>
+                        <Button onClick={() => setShowAllOptions(!showAllOptions)}>
                             {/* { showAllOptions ? <ChevronRight size={ 18 }/> : <ChevronDown size={ 18 }/> } */}
                             { showAllOptions ? "Show fewer options" : "Show more options" }
-                        </button>
+                        </Button>
                     }
 
                 </div>
@@ -228,22 +226,4 @@ const style = css`
         padding: 0 1em;
     }
 
-    .btn-show-more {
-        margin: 1em auto;
-        font-size: .9em;
-        font-family: inherit;
-        padding: .5em;
-        background-color: #0077ff;
-        border: none;
-        border-radius: .3em;
-        color: white;
-        position: relative;
-        z-index: 10;
-        display: flex;
-        cursor: pointer;
-
-        &:hover {
-            opacity: .8;
-        }
-    }
 `

@@ -1,5 +1,6 @@
 import { Row } from "@/data";
 import { getOptions } from "./getOptions";
+import { blacklist } from "./googleSheetsUrls";
 
 
 export class Options {
@@ -9,12 +10,17 @@ export class Options {
     numberColumns = new Set<string>()
 
     constructor(rows: Row[]) {
-        this.values = getOptions(rows)
+        // Ignore blacklisted options
+        this.values = getOptions(rows, blacklist)
 
+        // Check which options are numerical and which are text
         for(const [label,options] of Object.entries(this.values)) {
-            const optionIsNumerical = isNumberColumn(options)
-            if(optionIsNumerical) {
-                this.numberColumns.add(label)
+            if(!blacklist.has(label)) {
+                // 
+                const optionIsNumerical = isNumberColumn(options)
+                if(optionIsNumerical) {
+                    this.numberColumns.add(label)
+                }
             }
         }
     }

@@ -6,7 +6,7 @@ function sortAlphanumeric(a: string|number, b: string|number): number {
 }
 
 
-export function getOptions(rows: Array<Record<string,string|number>>): Options {
+export function getOptions(rows: Array<Record<string,string|number>>, blacklist: Set<string>): Options {
 
     const possibleValues: Record<string,Set<string|number>> = {}
 
@@ -16,6 +16,12 @@ export function getOptions(rows: Array<Record<string,string|number>>): Options {
             // if(value === "-" || value === "" || value === "?") {
             //     return
             // }
+
+            // Ignore blacklisted columns (options)
+            if(blacklist.has(key)) {
+                continue
+            }
+            
             if(!(key in possibleValues)) {
                 possibleValues[key] = new Set<string|number>()
             }
