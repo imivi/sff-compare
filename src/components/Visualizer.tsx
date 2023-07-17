@@ -1,11 +1,12 @@
 import { Row } from "@/data"
 import { css } from "@emotion/react"
-import { Grid, OrbitControls, Text } from "@react-three/drei"
+import { Grid, Line, OrbitControls, Text } from "@react-three/drei"
 import { Canvas, flushGlobalEffects } from "@react-three/fiber"
 import { useState } from "react"
 import * as THREE from "three"
 import { degToRad } from "three/src/math/MathUtils"
 import VisualizerControls from "./VisualizerControls"
+import { useVisualizerStore } from "@/store/useVisualizerStore"
 
 
 const ZERO = Object.freeze(new THREE.Vector3(0,0,0))
@@ -54,7 +55,9 @@ type Props = {
 export default function Visualizer({ rows }: Props) {
 
     const [fullscreen, setFullscreen] = useState(false)
-    const [hiddenCases, setHiddenCases] = useState(new Set<string>([]))
+    // const [hiddenCases, setHiddenCases] = useState(new Set<string>([]))
+    const hiddenCases = useVisualizerStore(store => store.hiddenCases)
+    const toggleHideCase = useVisualizerStore(store => store.toggleHideCase)
 
 
     if(!rows || rows.length === 0) {
@@ -62,6 +65,7 @@ export default function Visualizer({ rows }: Props) {
     }
 
     const caseMaterial = new THREE.MeshLambertMaterial()
+    const lineMaterial = new THREE.LineBasicMaterial()
 
     const selectedCubes: Cube[] = rows
         .filter(row => validPages.has(row.page))
@@ -101,39 +105,39 @@ export default function Visualizer({ rows }: Props) {
 
     // console.info(cubesToRender)
 
-    function hideOrUnhideCase(caseId: string) {
-        if(hiddenCases.has(caseId)) {
-            hiddenCases.delete(caseId)
-            setHiddenCases(new Set(hiddenCases))
-        }
-        else {
-            hiddenCases.add(caseId)
-            setHiddenCases(new Set(hiddenCases))
-        }
-    }
+    // function hideOrUnhideCase(caseId: string) {
+    //     if(hiddenCases.has(caseId)) {
+    //         hiddenCases.delete(caseId)
+    //         setHiddenCases(new Set(hiddenCases))
+    //     }
+    //     else {
+    //         hiddenCases.add(caseId)
+    //         setHiddenCases(new Set(hiddenCases))
+    //     }
+    // }
 
     return (
         <div css={ style } data-fullscreen={ fullscreen }>
 
-            <VisualizerControls cubes={ selectedCubes } onToggleHideCase={ hideOrUnhideCase } hiddenCubes={ hiddenCases }/>
+            <VisualizerControls cubes={ selectedCubes } onToggleHideCase={ toggleHideCase } hiddenCubes={ hiddenCases }/>
 
             {/* <button onClick={ () => setFullscreen(!fullscreen) }>fullscreen</button> */}
             <Canvas>
                 <OrbitControls/>
                 <ambientLight intensity={ 0.1 }/>
-                <directionalLight position={ new THREE.Vector3(-40,30,60) } intensity={ 0.5 } />
-                <directionalLight position={ new THREE.Vector3(40,30,60) } intensity={ 0.5 } />
+                <directionalLight position={ new THREE.Vector3(-casesWidth, 30, maxLength/2) } intensity={ 0.7 }/>
+                <directionalLight position={ new THREE.Vector3(casesWidth, 30, maxLength/2) } intensity={ 0.7 }/>
                 {/* <Grid sectionSize={ 10 }/> */}
                 
                 {/* <gridHelper args={ [gridSize, gridSize, "#aaa", "#ddd"] } position={ [0,0,0] }/> */}
 
                 {/* Ground plane */}
-                <Cube
+                {/* <Cube
                     // geometry={ new THREE.PlaneGeometry(100,10) }
                     size={ new THREE.Vector3(casesWidth, 0, maxLength) }
                     position={ new THREE.Vector3(0, -1, maxLength/2) }
                     material={ caseMaterial }
-                />
+                /> */}
 
                 <group position={ new THREE.Vector3(-offset, 0, 0) }>
                     
@@ -142,6 +146,8 @@ export default function Visualizer({ rows }: Props) {
                         size={ new THREE.Vector3(1,1,1) }
                         position={ new THREE.Vector3(0,0.5,0) }
                     /> */}
+
+                    {/* Render cases with names in front of them */}
                     {
                         cubesToRender.map((cube,i) => (
                             <group key={ i } position={ new THREE.Vector3(cubePositions[i], cube.size.y/2, cube.size.z/2) }>
@@ -153,11 +159,18 @@ export default function Visualizer({ rows }: Props) {
                                     fontSize={ 5 }
                                     rotation={ new THREE.Euler(degToRad(-90), 0, degToRad(90)) }
                                     color="black"
-                                    anchorX="center"
+                                    anchorX="right"
                                     anchorY="middle"
-                                    position={ new THREE.Vector3(0, -cube.size.y/2, maxLength) }
+                                    position={ new THREE.Vector3(0, -cube.size.y/2, cube.size.z) }
                                 > { cube.seller } { cube.name }
                                 </Text>
+                                <Line
+                                    points={[
+                                        new THREE.Vector3(2, -cube.size.y/2, 0),
+                                        new THREE.Vector3(2, -cube.size.y/2, cube.size.z + 30),
+                                    ]}
+                                    color="#ccc"
+                                />
                             </group>
                         ))
                     }
