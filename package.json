@@ -29,6 +29,7 @@
     "react-compound-slider": "^3.4.0",
     "react-dom": "18.2.0",
     "react-ranger": "^2.1.0",
+    "react-resizable-panels": "^0.0.54",
     "react-select": "^5.7.3",
     "sharp": "^0.32.3",
     "tabler-icons-react": "^1.56.0",

@@ -75,6 +75,25 @@ function filterRowByRange(row: Record<string,string|number>, ranges: Record<stri
 }
 
 
+const columnsFormatter: Record<string, Function> = {
+    "Volume (L)":  (n: number) => n.toFixed(1),
+    "Price (USD)": (n: number) => n.toFixed(2),
+    "Price (CNY)": (n: number) => n.toFixed(2),
+}
+
+function formatCellValue(value: string|number, column: string): string {
+    if(typeof value === "number") {
+
+        const formatter = columnsFormatter[column]
+        if(formatter) {
+            return formatter(value)
+        }
+        // return Math.round(value).toString()
+        return value.toString()
+    }
+    return value
+}
+
 
 type Props = {
     query: Query
@@ -190,7 +209,9 @@ export default function Table({ query, rows, applyFilters=false }: Props) {
                                 </td>
                                 {
                                     header.map((key,j) => (
-                                        <td key={ j }>{ row[key] || "-" }</td>
+                                        <td key={ j }>
+                                            { formatCellValue(row[key] || "-", key) }
+                                        </td>
                                     ))
                                 }
                             </tr>

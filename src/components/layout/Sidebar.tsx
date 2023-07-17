@@ -8,13 +8,13 @@ import Image from "next/image"
 import Logo from "@/../public/cube.png"
 import { GithubLink } from "../GithubLink"
 import Link from "next/link"
-import { pages, tabNames } from "@/data"
 import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
 import Button from "../utility/Button"
 import Select from "../utility/Select"
 import { ParsedUrlQueryInput } from "querystring"
 import Checkbox from "../utility/Checkbox"
+import { pages, tabNames } from "@/data/pages"
 
 
 

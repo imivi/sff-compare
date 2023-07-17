@@ -1,5 +1,5 @@
 import { css } from "@emotion/react"
-import { Row, tabNames } from "@/data"
+import { Row } from "@/data"
 import Layout from "./Layout"
 import Table from "./Table"
 import { useRouter } from "next/router"
@@ -13,6 +13,7 @@ import Button from "../utility/Button"
 import Visualizer from "../Visualizer"
 import Select from "../utility/Select"
 import Checkbox from "../utility/Checkbox"
+import { tabNames } from "@/data/pages"
 
 
 
@@ -163,7 +164,7 @@ const style = css`
 
         .visualizer {
             height: 0;
-            
+
             &[data-show=true] {
                 height: 50vh;
             }

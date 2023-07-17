@@ -3,7 +3,7 @@ import { googleSheetsId, googleSheetsTabs } from "../utils/googleSheetsUrls";
 import { Row } from "./index";
 import fs from "fs"
 import PublicGoogleSheetsParser from "public-google-sheets-parser";
-import { pages } from ".";
+import { pages } from "./pages";
 
 
 
@@ -39,7 +39,7 @@ async function fetchAll() {
         const rows = await get(page)
         // Add columns: "page" and "id"
         for(const row of rows) {
-            row.id = md5(JSON.stringify(row)).slice(16) // Keep only have the MD5 hash (32 -> 16 chars)
+            row.id = md5(JSON.stringify(row)).slice(0,8) // Keep only 1/4 of the MD5 hash (32 -> 8 chars)
             row.page = page
         }
         return rows as Row[]

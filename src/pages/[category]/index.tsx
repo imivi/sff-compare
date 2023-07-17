@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps } from "next"
 import { Row, data } from "@/data"
-import { pages } from "@/data"
 import Category from "@/components/layout/Category"
+import { pages } from "@/data/pages"
 
 
 
