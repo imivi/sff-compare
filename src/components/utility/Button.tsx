@@ -1,17 +1,27 @@
-import { type HTMLAttributes } from "react"
+import { ReactNode, type HTMLAttributes } from "react"
 import { css } from "@emotion/react"
 
 
 type Props = {
-    isInline?: boolean
-} & HTMLAttributes<HTMLButtonElement>
+    inline?: boolean
+    onClick?: () => unknown
+    children?: ReactNode
+    disabled?: boolean
+}// & HTMLAttributes<HTMLButtonElement>
 
-export default function Button(props: Props) {
+export default function Button({ inline, onClick, disabled=false, children }: Props) {
 
-    const inline = props?.isInline === true
+    // const inline = props?.isInline === true
 
     return (
-        <button css={ style } {...props} data-inline={ inline }/>
+        <button
+            css={ style }
+            onClick={ onClick }
+            data-inline={ inline }
+            disabled={ disabled }
+            data-disabled={ disabled }
+        > { children }
+        </button>
     )
 
 }
@@ -32,6 +42,11 @@ const style = css`
 
     &[data-inline=true] {
         display: inline-flex;
+    }
+
+    &[data-disabled=true] {
+        background-color: #aaa;
+        color: #555;
     }
 
     &:hover {

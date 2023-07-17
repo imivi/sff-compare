@@ -29,17 +29,14 @@ export class Query {
     // have changed since they were first parsed.
     // private recompute = new Set<keyof Query>()
 
-    constructor(query: Record<string,unknown>, options: Options) {
+    constructor(query: Record<string, string | string[] | undefined>, options: Options) {
         const { asc, col, fil, r } = parseQueryString(query, options.values)
         this.asc = asc
         this.col = col
         this.fil = fil
         this.r   = r
 
-        if(typeof query?.c === "string" && query.c !== "") {
-            const ids_to_compare = typeof query?.c === "string" ? query.c.split(",") : []
-            this.c = new Set<string>(ids_to_compare)
-        }
+        this.c = new Set(parseQueryStrings(query.c))
         
         this.options = options
     }
@@ -85,4 +82,14 @@ export class Query {
             return this
         }
     }
+}
+
+
+export function parseQueryStrings(queryString?: string | string[] | undefined): string[] {
+
+    if(queryString && typeof queryString === "string" && queryString !== "") {
+        return queryString.split(",")
+    }
+
+    return []
 }

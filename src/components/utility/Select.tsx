@@ -17,18 +17,20 @@ export default function Select(props: Props) {
 }
 
 const style = css`
-    margin: 1em auto;
     font-size: .9em;
     font-family: inherit;
-    padding: .5em;
-    background-color: #0077ff;
-    border: none;
+    padding: .6em;
+    /* border: 2px solid #0077ff; */
+    border: 1px solid #ccc;
     border-radius: .3em;
-    color: white;
+    background-color: white;
+    color: black;
     position: relative;
     z-index: 10;
     display: flex;
-    cursor: pointer;
+
+    option {
+    }
 
     &:hover {
         opacity: .8;

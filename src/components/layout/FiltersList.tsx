@@ -59,8 +59,8 @@ export default function FiltersList({ query, options }: Props) {
             {
                 process.env.NODE_ENV === "development" &&
                 <div style={{ display: "flex" }}>
-                    <Button isInline onClick={ () => console.info(options) }>Log options</Button>
-                    <Button isInline onClick={ () => console.info(query) }>Log query</Button>
+                    <button inline onClick={ () => console.info(options) }>Log options</button>
+                    <button inline onClick={ () => console.info(query) }>Log query</button>
                 </div>
             }
 
@@ -96,29 +96,6 @@ export default function FiltersList({ query, options }: Props) {
 }
 
 const style = css`
-    width: 100%;
-    height: 100%;
-    /* position: relative; */
-    /* z-index: 1; */
-    /* position: relative; */
-    background-color: #f4f4f4;
-
-    border-right: 1px solid #ddd;
-    box-shadow: 5px 0 15px rgba(0,0,0, 0.1);
-
-    display: grid;
-    grid-template-rows: 1fr auto;
-
-    overflow-y: auto;
-
-
-    & > div {
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        overflow-y: auto;
-        width: 100%;
-        height: 100%;
-    }
-
+    padding: 0 1em;
+    margin: 1em 0;
 `

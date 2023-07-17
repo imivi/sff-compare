@@ -5,9 +5,10 @@ import { css } from "@emotion/react"
 type Props = {
     checked: boolean
     onChange: (checked: boolean) => unknown
+    disabled?: boolean
 }
 
-export default function Checkbox({ checked, onChange }: Props) {
+export default function Checkbox({ checked, disabled, onChange }: Props) {
 
     // const [checked, setChecked] = useState(true)
 
@@ -18,6 +19,8 @@ export default function Checkbox({ checked, onChange }: Props) {
             data-checked={ checked }
             checked={ checked }
             onChange={ (e) => onChange(e.target.checked) }
+            disabled={ disabled }
+            data-disabled={ disabled }
         />
     )
 

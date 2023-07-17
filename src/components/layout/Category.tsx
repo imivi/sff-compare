@@ -1,19 +1,29 @@
 import { css } from "@emotion/react"
-import { Row } from "@/data"
+import { Row, tabNames } from "@/data"
 import Layout from "./Layout"
-import Table2 from "./Table2"
+import Table from "./Table"
 import { useRouter } from "next/router"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import Sidebar from "./Sidebar"
 import { blacklist } from "@/utils/googleSheetsUrls"
 import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
 import FiltersList from "./FiltersList"
+import Button from "../utility/Button"
+import Visualizer from "../Visualizer"
+import Select from "../utility/Select"
+import Checkbox from "../utility/Checkbox"
 
 
 
 
 
+
+
+function omit(obj: Record<string, any>, key: string) {
+    delete obj[key]
+    return obj
+}
 
 
 type Props = {
@@ -24,18 +34,19 @@ type Props = {
 
 export default function Category({ title, rows }: Props) {
 
+    const [hideUnselected, setHideUnselected] = useState(false)
+    const [showVisualizer, setShowVisualizer] = useState(false)
+    
     // Get filters and sorting from query string
     const router = useRouter()
 
     // const options = getOptions(rows)
     const options = useMemo(() => new Options(rows), [rows])
 
-    if(rows.length < 1) {
-        console.info("Rows:", rows)
+    if(rows.length === 0) {
         return <p>Error: table received zero rows</p>
     }
     
-    const header = Object.keys(rows[0]).filter(key => !blacklist.has(key))
 
 
     // const query = parseQueryString(router.query, options)
@@ -44,15 +55,83 @@ export default function Category({ title, rows }: Props) {
 
     // console.log(query)
 
+    // console.log({ hideUnselected })
 
+    const selectedRows = rows.filter(row => query.hasRowId(row.id))
+
+    // const path = router.asPath.slice(1) // Remove leading slash
+    // const pathWithoutQuery = (path.includes("?") ? path.split("?")[0] : path).replaceAll("/","")
+
+    // console.log({ path, pathWithoutQuery })
+
+    function handleCategoryChange(page: string) {
+        router.push(page)
+
+        // if(pathWithoutQuery.includes("compare")) {
+        //     router.push({
+        //         pathname: page+"/compare",
+        //         query: omit(router.query, "category"),
+        //     })
+        // }
+        // else {
+        //     router.push({
+        //         pathname: page,
+        //         query: omit(router.query, "category"),
+        //     })
+        // }
+    }
 
     return <>
         <div css={ style }>
             <Layout title={ title }>
+
                 <Sidebar>
+
+                    <fieldset>
+
+                        <label>
+                            <span>Category</span>
+                            <Select onChange={ (e) => handleCategoryChange(e.target.value) }>
+                                {
+                                    Object.entries(tabNames).map(([page,tabName]) => (
+                                        <option value={ "/"+page } key={ page }>
+                                            { tabName }
+                                        </option>
+                                    ))
+                                }
+                            </Select>
+                        </label>
+
+                        <label>
+                            <span>Hide unselected rows</span>
+                            <Checkbox
+                                checked={ hideUnselected }
+                                onChange={ () => setHideUnselected(!hideUnselected) }
+                                // disabled={ query.compareCount()===0 }
+                            />
+                        </label>
+
+                        <label>
+                            <span>Show 3D visualizer</span>
+                            <Checkbox
+                                checked={ showVisualizer }
+                                // disabled={ query.compareCount()===0 }
+                                onChange={ () => setShowVisualizer(!showVisualizer) }
+                            />
+                        </label>
+                    </fieldset>
+
                     <FiltersList query={ query } options={ options }/>
                 </Sidebar>
-                <Table2 rows={ rows } header={ header } query={ query }/>
+
+                <main>
+                    <Table rows={ (hideUnselected && selectedRows.length>0) ? selectedRows : rows } query={ query } applyFilters={ true }/>
+
+                    <div className="visualizer" data-show={ showVisualizer }>
+                        { showVisualizer && <Visualizer rows={ selectedRows }/> }
+                    </div>
+                </main>
+
             </Layout>
         </div>
     </>
@@ -63,8 +142,43 @@ const style = css`
     top: 0;
     left: 0;
     width: 100%;
-    display: grid;
-    /* grid-template-rows: calc(100vh - 3rem) 1fr; */
-    display: block;
     height: 100%;
+    display: grid;
+    display: block;
+    /* grid-template-rows: calc(100vh - 3rem) 1fr; */
+
+    main {
+        height: 100%;
+        position: relative;
+        overflow: auto;
+
+        display: grid;
+        grid-template-rows: 1fr auto;
+
+        &[data-split=true] {
+            /* display: grid; */
+            /* grid-template-rows: 1fr 1fr; */
+            /* gap: 0.5vw; */
+        }
+
+        .visualizer {
+            height: 0;
+            
+            &[data-show=true] {
+                height: 50vh;
+            }
+        }
+    }
+
+    fieldset {
+        border: none;
+
+        label {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            place-items: center;
+            padding: 1vh 0;
+            border-bottom: 1px solid #ddd;
+        }
+    }
 `

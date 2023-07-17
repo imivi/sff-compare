@@ -19,7 +19,7 @@ export default function Layout({ children, title }: Props) {
             <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <div className="container" css={ style }>
+        <div css={ style } id="viewport">
             { children }
         </div>
     </>
@@ -31,7 +31,7 @@ const style = css`
     /* overflow-x: auto; */
     display: grid;
     grid-template-columns: 25rem 1fr;
-    gap: 1vw;
+    /* gap: 1vw; */
     width: 100%;
     height: 100%;
 `

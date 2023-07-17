@@ -11,6 +11,7 @@ import { MouseEvent } from "react"
 import Link from "next/link"
 import { ArrowDown, ArrowUp } from "tabler-icons-react"
 import Checkbox from "../utility/Checkbox"
+import { blacklist } from "@/utils/googleSheetsUrls"
 
 
 
@@ -78,22 +79,34 @@ function filterRowByRange(row: Record<string,string|number>, ranges: Record<stri
 type Props = {
     query: Query
     rows: Row[]
-    header: string[]
+    applyFilters?: boolean
+    hideUnselected?: boolean
+    // header: string[]
 }
 
-export default function Table2({ query, rows, header }: Props) {
+export default function Table({ query, rows, applyFilters=false }: Props) {
+
+    // console.log("Table received rows:", rows)
 
     const router = useRouter()
 
+    const header = rows.length > 0 ? Object.keys(rows[0]).filter(key => !blacklist.has(key)) : []
     
     const sortKey = Object.values(header)[query.col] as keyof CoolerLP
 
-    const sortedRows = rows
-        .filter(row => filterRow(row, query.fil))
-        .filter(row => filterRowByRange(row, query.r))
-        .sort((a,b) => {
-            return compareValues(a[sortKey], b[sortKey], query.asc)
-        })
+
+    let sortedRows = rows
+    // if(hideUnselected) {
+    //     sortedRows = sortedRows.filter(row => query.hasRowId(row.id))
+    // }
+    if(applyFilters) {
+        sortedRows = rows
+            .filter(row => filterRow(row, query.fil))
+            .filter(row => filterRowByRange(row, query.r))
+            .sort((a,b) => {
+                return compareValues(a[sortKey], b[sortKey], query.asc)
+            })
+    }
 
     // console.log({ asc: sort.asc, col: sort.col, sortKey })
     // console.log(sortedRows)
@@ -115,7 +128,7 @@ export default function Table2({ query, rows, header }: Props) {
                     <tr>
 
                         <th>
-                            <span>Compare</span>
+                            <span>Show 3D</span>
                             {
                                 query.compareCount() > 0 &&
                                 <Button onClick={ () => {
@@ -191,6 +204,7 @@ export default function Table2({ query, rows, header }: Props) {
 
 
 const style = css`
+    position: relative;
     overflow: auto;
 
     table {

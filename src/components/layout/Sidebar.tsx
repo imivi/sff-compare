@@ -13,6 +13,9 @@ import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
 import Button from "../utility/Button"
 import Select from "../utility/Select"
+import { ParsedUrlQueryInput } from "querystring"
+import Checkbox from "../utility/Checkbox"
+
 
 
 type Props = {
@@ -23,10 +26,6 @@ export default function Sidebar({ children }: Props) {
 
     const router = useRouter()
 
-    const path = router.asPath.slice(1) // Remove leading slash
-    const pathWithoutQuery = (path.includes("?") ? path.split("?")[0] : path).replaceAll("/","")
-
-    // console.log({ path, pathWithoutQuery })
 
     return (
         <div css={ style }>
@@ -38,16 +37,6 @@ export default function Sidebar({ children }: Props) {
                     <Image src={ Logo } alt="SFF Compare logo" width={ 32 }/>
                     <Link href={ "/"+pages[0] }>SFF Compare</Link>
                 </h1>
-
-                <Select onChange={ (e) => router.push(pathWithoutQuery.includes("compare") ? e.target.value+"/compare" : e.target.value) }>
-                    {
-                        Object.entries(tabNames).map(([page,tabName]) => (
-                            <option value={ "/"+page } key={ page }>
-                                { tabName }
-                            </option>
-                        ))
-                    }
-                </Select>
 
                 { children }
 
@@ -81,7 +70,7 @@ const style = css`
     /* position: relative; */
     background-color: #f4f4f4;
 
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #bbb;
     box-shadow: 5px 0 15px rgba(0,0,0, 0.1);
 
     display: grid;

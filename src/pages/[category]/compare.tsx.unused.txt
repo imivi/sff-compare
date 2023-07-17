@@ -1,0 +1,100 @@
+import type { GetStaticPaths, GetStaticProps } from "next"
+import { CoolerLP } from "@/types"
+import Layout from "@/components/layout/Layout"
+import { Row, data } from "@/data"
+import { pages } from "@/data"
+import Sidebar from "@/components/layout/Sidebar"
+import FiltersList from "@/components/layout/FiltersList"
+import { css } from "@emotion/react"
+import Visualizer from "@/components/Visualizer"
+import useQueryString from "@/hooks/useQueryState"
+import { useRouter } from "next/router"
+import { useMemo } from "react"
+import { Options } from "@/utils/Options"
+import { Query, parseQueryStrings } from "@/utils/queryString/query"
+import Table from "@/components/layout/Table"
+import { getOptions } from "@/utils/getOptions"
+
+
+
+type Props = {
+    title: string
+    rows: Row[]
+}
+
+export default function Compare({ title, rows }: Props) {
+
+    // Get filters and sorting from query string
+    const router = useRouter()
+
+    const options = useMemo(() => new Options(rows), [rows])
+    const query = new Query(router.query, options)
+
+    // const query = parseQueryString(router.query, options)
+
+    const rowIdsToCompare = new Set(parseQueryStrings(router.query.c))
+
+    const rowsToCompare = rows.filter(row => rowIdsToCompare.has(row.id))
+    
+    return (
+        <Layout title={ "SFF Compare - comparison" }>
+            <Sidebar>
+                <p>Sidebar content</p>
+            </Sidebar>
+            <main css={ style } id="compare">
+                <Visualizer rows={ rowsToCompare }/>
+                <div className="table-container">
+                    {/* <h2>Rows to compare: { rowsToCompare.length }</h2> */}
+                    {/* <pre>{ JSON.stringify(rowsToCompare,null,4) }</pre> */}
+                    <Table rows={ rowsToCompare } query={ query }/>
+                </div>
+            </main>
+        </Layout>
+    )
+}
+
+const style = css`
+
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    overflow: auto;
+    gap: 1vh;
+
+    .table-container {
+        overflow: auto;
+    }
+`
+
+
+
+// https://stackoverflow.com/a/73884736
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+
+    const pageName = typeof params?.category === "string" ? params.category : null
+    const rows = data.filter(row => row.page === pageName)
+
+    return {
+        props: {
+            title: pageName,
+            rows,
+            // examples: await readSheet("example"),
+        },
+        // revalidate: 60 * 60, // 1 hour, in seconds (60s*60m)
+    }
+}
+
+// https://stackoverflow.com/a/73884736
+export const getStaticPaths: GetStaticPaths = async () => {
+
+    // const rows = await readSheet<CoolerLP>("CPU Cooler <70mm")
+
+    // const categories = Object.keys(googleSheetsTabs)
+
+
+    return {
+        paths: pages.map(category => ({ params: { category }})),
+        fallback: false,
+    }
+}
