@@ -6,15 +6,15 @@ import { pages } from "@/data/pages"
 
 
 type Props = {
-    title: string
+    page: string
     rows: Row[]
 }
 
-export default function Home({ title, rows }: Props) {
+export default function Home({ page, rows }: Props) {
 
     
     return (
-        <Category title={ "SFF Compare - "+title } rows={ rows }/>
+        <Category title={ "SFF Compare - "+page } page={ page } rows={ rows }/>
     )
 }
 

@@ -5,15 +5,15 @@ import Table from "./Table"
 import { useRouter } from "next/router"
 import { useMemo, useState } from "react"
 import Sidebar from "./Sidebar"
-import { blacklist } from "@/utils/googleSheetsUrls"
 import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
 import FiltersList from "./FiltersList"
-import Button from "../utility/Button"
 import Select from "../utility/Select"
 import Checkbox from "../utility/Checkbox"
 import { tabNames } from "@/data/pages"
 import dynamic from "next/dynamic"
+import { validPages } from "../Visualizer"
+import { ErrorBoundary } from "react-error-boundary"
 
 // Lazy load the react three fiber threejs 3D viewer
 const Visualizer = dynamic(() => import("../Visualizer"))
@@ -30,11 +30,12 @@ function omit(obj: Record<string, any>, key: string) {
 
 type Props = {
     title: string
+    page: string
     rows: Row[]
 }
 
 
-export default function Category({ title, rows }: Props) {
+export default function Category({ title, page, rows }: Props) {
 
     const [hideUnselected, setHideUnselected] = useState(false)
     const [showVisualizer, setShowVisualizer] = useState(false)
@@ -113,14 +114,17 @@ export default function Category({ title, rows }: Props) {
                             />
                         </label>
 
-                        <label>
-                            <span>Show 3D visualizer</span>
-                            <Checkbox
-                                checked={ showVisualizer }
-                                // disabled={ query.compareCount()===0 }
-                                onChange={ () => setShowVisualizer(!showVisualizer) }
-                            />
-                        </label>
+                        {
+                            validPages.has(page) &&
+                            <label>
+                                <span>Show 3D visualizer</span>
+                                <Checkbox
+                                    checked={ showVisualizer }
+                                    // disabled={ query.compareCount()===0 }
+                                    onChange={ () => setShowVisualizer(!showVisualizer) }
+                                />
+                            </label>
+                        }
                     </fieldset>
 
                     <FiltersList query={ query } options={ options }/>
@@ -130,7 +134,9 @@ export default function Category({ title, rows }: Props) {
                     <Table rows={ (hideUnselected && selectedRows.length>0) ? selectedRows : rows } query={ query } applyFilters={ true }/>
 
                     <div className="visualizer" data-show={ showVisualizer }>
-                        { showVisualizer && <Visualizer rows={ selectedRows }/> }
+                        <ErrorBoundary fallback={ <p>Error loading visualizer</p> }>
+                            { showVisualizer && <Visualizer rows={ selectedRows }/> }
+                        </ErrorBoundary>
                     </div>
                 </main>
 

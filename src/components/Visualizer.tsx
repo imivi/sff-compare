@@ -46,7 +46,7 @@ function getCubePositions(cubes: Cube[], spacing: number) {
 }
 
 
-const validPages = new Set(["cases1", "cases2", "cases3"])
+export const validPages = new Set(["cases1", "cases2", "cases3"])
 
 const sizeKeys = [
     "Case Width (mm)",

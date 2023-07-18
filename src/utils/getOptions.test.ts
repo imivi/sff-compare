@@ -1,4 +1,5 @@
 import { getOptions } from "./getOptions"
+import { blacklist } from "./googleSheetsUrls"
 import { Options } from "./queryString/deserializeFilters"
 
 
@@ -100,6 +101,6 @@ describe("get options", () => {
             "Cooler": ["Engine 17", "IS-20i", "Z22"],
         }
     
-        expect(getOptions(input)).toMatchObject(output)
+        expect(getOptions(input, blacklist)).toMatchObject(output)
     })
 })

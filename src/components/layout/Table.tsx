@@ -76,9 +76,10 @@ function filterRowByRange(row: Record<string,string|number>, ranges: Record<stri
 
 
 const columnsFormatter: Record<string, Function> = {
-    "Volume (L)":  (n: number) => n.toFixed(1),
-    "Price (USD)": (n: number) => n.toFixed(2),
-    "Price (CNY)": (n: number) => n.toFixed(2),
+    "Volume (L)":       (n: number) => n.toFixed(1),
+    "Price (USD)":      (n: number) => n.toFixed(2),
+    "Price (CNY)":      (n: number) => n.toFixed(2),
+    "Footprint (cm2)":  (n: number) => n.toFixed(2),
 }
 
 function formatCellValue(value: string|number, column: string): string {

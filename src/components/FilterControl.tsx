@@ -3,9 +3,8 @@ import { useRouter } from "next/router"
 import Select, { type MultiValue } from "react-select"
 import { stringifyFilters } from "@/utils/queryString/stringifyFilters"
 import { DeserializedFilters } from "@/utils/queryString/deserializeFilters"
-import { Range, stringifyRange } from "@/utils/queryString/range"
-import { useEffect, useMemo, useState } from "react"
-import Slider from "./slider/Slider"
+import { stringifyRange } from "@/utils/queryString/range"
+import { useMemo, useState } from "react"
 import DualSlider from "./slider/DualSlider"
 import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
@@ -61,12 +60,7 @@ type Props = {
 
 export default function FilterControl({ label, query, options, values }: Props) {
 
-    
     const router = useRouter()
-
-    if(!values) {
-        console.error("No values")
-    }
 
     const { min, max } = useMemo(() => getMinMax(values), [values])
 
@@ -191,10 +185,11 @@ export default function FilterControl({ label, query, options, values }: Props) 
 
             <div>
                 <div className="label" title={ JSON.stringify({min,max,selectedRange,sliderValues},null,4) }>{ label }</div>
-                <label>
+                {/* TODO: add feature */}
+                {/* <label>
                     <input type="checkbox"/>
                     <small> Include unknown</small>
-                </label>
+                </label> */}
             </div>
 
             <div className="slider">
