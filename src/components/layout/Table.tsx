@@ -7,7 +7,7 @@ import { DeserializedFilters } from "@/utils/queryString/deserializeFilters"
 import { Range } from "@/utils/queryString/range"
 import { compareValues } from "@/utils/compareValues"
 import { CoolerLP } from "@/types"
-import { MouseEvent } from "react"
+import { MouseEvent, useMemo } from "react"
 import Link from "next/link"
 import { ArrowDown, ArrowUp } from "tabler-icons-react"
 import Checkbox from "../utility/Checkbox"
@@ -80,6 +80,7 @@ const columnsFormatter: Record<string, Function> = {
     "Price (USD)":      (n: number) => n.toFixed(2),
     "Price (CNY)":      (n: number) => n.toFixed(2),
     "Footprint (cm2)":  (n: number) => n.toFixed(2),
+    "Slots":            (n: number) => n.toFixed(1),
 }
 
 function formatCellValue(value: string|number, column: string): string {
@@ -114,19 +115,18 @@ export default function Table({ query, rows, applyFilters=false }: Props) {
     
     const sortKey = Object.values(header)[query.col] as keyof CoolerLP
 
-
-    let sortedRows = rows
-    // if(hideUnselected) {
-    //     sortedRows = sortedRows.filter(row => query.hasRowId(row.id))
-    // }
-    if(applyFilters) {
-        sortedRows = rows
+    const sortedRows = useMemo(() => {
+        if(!applyFilters) {
+            return rows
+        }
+        return rows
             .filter(row => filterRow(row, query.fil))
             .filter(row => filterRowByRange(row, query.r))
             .sort((a,b) => {
                 return compareValues(a[sortKey], b[sortKey], query.asc)
             })
-    }
+    }, [rows, applyFilters, query.asc, query.fil, query.r, sortKey])
+    
 
     // console.log({ asc: sort.asc, col: sort.col, sortKey })
     // console.log(sortedRows)
@@ -198,6 +198,7 @@ export default function Table({ query, rows, applyFilters=false }: Props) {
                                 <td>
                                     <Checkbox
                                         checked={ query.hasRowId(row.id) }
+                                        center
                                         onChange={ () => {
                                             router.replace({
                                                 query: {

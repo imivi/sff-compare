@@ -36,13 +36,12 @@ export default function VisualizerControls({ cubes }: Props) {
             const newCube: Cube = {
                 name: data.name.toString(),
                 size: new Vector3(x,y,z),
-                seller: "",
                 custom: true,
                 // https://caniuse.com/?search=Web+Crypto
                 id: window.crypto.randomUUID(),
             }
             addCustomCube(newCube)
-            console.log("Adding cube:", newCube.name, newCube.id)
+            // console.log("Adding cube:", newCube.name, newCube.id)
         }
         catch (error) {
             console.error(error)
@@ -53,14 +52,14 @@ export default function VisualizerControls({ cubes }: Props) {
         <div css={ style }>
             {
                 cubes.map(cube => {
-                    const caseIsHidden = hiddenCases.has(cube.id)
+                    const caseIsHidden = hiddenCases.hasOwnProperty(cube.id)
                     return (
                         <div key={ cube.id } data-hidden={ caseIsHidden }>
                             <span className="btn" onClick={ () => toggleHideCase(cube.id) }>
                                 { caseIsHidden ? <EyeOff/> : <Eye/> }
                             </span>
                             <span onClick={ () => toggleHideCase(cube.id) }>
-                                <span>{ cube.seller } { cube.name } </span>
+                                <span>{ cube.name } </span>
                                 <small>{ [cube.size.x, cube.size.z, cube.size.y].map(n => Math.round(n)).join(" x ") } cm</small>
                             </span>
                             { 

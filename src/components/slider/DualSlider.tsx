@@ -1,5 +1,5 @@
 import { css } from "@emotion/react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Slider from "./Slider"
 
 // function sort(nums: [number,number]) {

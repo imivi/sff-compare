@@ -1,9 +1,9 @@
-import md5 from "md5";
-import { googleSheetsId, googleSheetsTabs } from "../utils/googleSheetsUrls";
-import { Row } from "./index";
+import md5 from "md5"
+import { googleSheetsId, googleSheetsTabs } from "../utils/googleSheetsUrls"
+import { Row } from "./index"
 import fs from "fs"
-import PublicGoogleSheetsParser from "public-google-sheets-parser";
-import { pages } from "./pages";
+import PublicGoogleSheetsParser from "public-google-sheets-parser"
+import { pages } from "./pages"
 
 
 

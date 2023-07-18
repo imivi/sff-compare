@@ -1,7 +1,9 @@
-import { Row } from "@/data"
+import Visualizer from "@/components/Visualizer"
 import { pages } from "@/data/pages"
+import { css } from "@emotion/react"
 import type { GetStaticProps } from "next"
 import Link from "next/link"
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels"
 
 
 
@@ -13,17 +15,71 @@ type Props = {
 export default function Home() {
 
     return (
-        <ul>
-        {
-            pages.map(page => (
-                <li key={ page }>
-                    <Link href={ "/"+page }>Go to { page }</Link>
-                </li>
-            ))
-        }
-        </ul>
+        <main>
+            <ul>
+            {
+                pages.map(page => (
+                    <li key={ page }>
+                        <Link href={ "/"+page }>Go to { page }</Link>
+                    </li>
+                ))
+            }
+            </ul>
+
+            {/* <div style={{ height: 700 }}>
+                <Visualizer rows={ [] }/>
+            </div> */}
+
+        </main>
     )
 }
+
+function PanelTest() {
+    return (
+        <div className="panel-test" css={ style }>
+        <h2>panels</h2>
+        <PanelGroup autoSaveId="panel-test" direction="vertical" className="panel-test">
+
+            <Panel defaultSize={ 25 }>
+                <p>top</p>
+                <p>top</p>
+                <p>top</p>
+                <p>top</p>
+                <p>top</p>
+            </Panel>
+
+            <PanelResizeHandle className="resize-handle"/>
+
+            <Panel>
+                <p>bottom</p>
+                <p>bottom</p>
+                <p>bottom</p>
+                <p>bottom</p>
+                <p>bottom</p>
+            </Panel>
+
+        </PanelGroup>
+    </div>
+    
+    )
+}
+
+const style = css`
+    border: 1px solid brown;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 500px;
+
+    .panel-test {
+        border: 1px solid darkblue;        
+    }
+
+    .resize-handle {
+        background-color: black;
+        width: 100%;
+        height: 3px;
+    }
+`
 
 
 

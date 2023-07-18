@@ -1,20 +1,12 @@
 import { css } from "@emotion/react"
 import { useRouter } from "next/router"
-import FilterControl from "../FilterControl"
-import { ReactNode, useState } from "react"
+import { ReactNode } from "react"
 import Footer from "./Footer"
-import { blacklist, hiddenFilters } from "@/utils/googleSheetsUrls"
 import Image from "next/image"
 import Logo from "@/../public/cube.png"
 import { GithubLink } from "../GithubLink"
 import Link from "next/link"
-import { Query } from "@/utils/queryString/query"
-import { Options } from "@/utils/Options"
-import Button from "../utility/Button"
-import Select from "../utility/Select"
-import { ParsedUrlQueryInput } from "querystring"
-import Checkbox from "../utility/Checkbox"
-import { pages, tabNames } from "@/data/pages"
+import { pages } from "@/data/pages"
 
 
 

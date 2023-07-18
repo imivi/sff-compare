@@ -4,8 +4,9 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 
 
 type Store = {
-    hiddenCases: Set<string>
+    hiddenCases: Record<string,any> // Used instead of a set because sets aren't serializable to JSON (for localstorage persist)
     toggleHideCase: (caseId: string) => void
+    caseIsHidden: (caseId: string) => boolean
 
     customCubes: Cube[]
     addCustomCube: (cube: Cube) => void
@@ -17,17 +18,21 @@ type Store = {
 export const useVisualizerStore = create<Store>()(
     persist((set, get) => ({
 
-        hiddenCases: new Set(),
+        hiddenCases: {},
 
         toggleHideCase(caseId) {
-            const { hiddenCases } = get()
-            if (hiddenCases.has(caseId)) {
-                hiddenCases.delete(caseId)
+            const { hiddenCases, caseIsHidden } = get()
+
+            if (caseIsHidden(caseId)) {
+                delete hiddenCases[caseId]
             }
             else {
-                hiddenCases.add(caseId)
+                hiddenCases[caseId] = null
             }
-            set({ hiddenCases: new Set(hiddenCases) })
+            set({ hiddenCases: { ...hiddenCases } })
+        },
+        caseIsHidden(caseId: string) {
+            return Object.keys(get().hiddenCases).includes(caseId)
         },
 
         customCubes: [],

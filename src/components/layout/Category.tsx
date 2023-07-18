@@ -14,6 +14,8 @@ import { tabNames } from "@/data/pages"
 import dynamic from "next/dynamic"
 import { validPages } from "../Visualizer"
 import { ErrorBoundary } from "react-error-boundary"
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels"
+import { Box, Eye } from "tabler-icons-react"
 
 // Lazy load the react three fiber threejs 3D viewer
 const Visualizer = dynamic(() => import("../Visualizer"))
@@ -22,15 +24,9 @@ const Visualizer = dynamic(() => import("../Visualizer"))
 
 
 
-function omit(obj: Record<string, any>, key: string) {
-    delete obj[key]
-    return obj
-}
-
-
 type Props = {
     title: string
-    page: string
+    page: string | null
     rows: Row[]
 }
 
@@ -84,6 +80,8 @@ export default function Category({ title, page, rows }: Props) {
         // }
     }
 
+    const enableVisualizer = page && validPages.has(page)
+
     return <>
         <div css={ style }>
             <Layout title={ title }>
@@ -92,8 +90,10 @@ export default function Category({ title, page, rows }: Props) {
 
                     <fieldset>
 
+                        {/* <h2>Page: { page }</h2> */}
+
                         <label>
-                            <span>Category</span>
+                            {/* <span>Category</span> */}
                             <Select onChange={ (e) => handleCategoryChange(e.target.value) }>
                                 {
                                     Object.entries(tabNames).map(([page,tabName]) => (
@@ -105,24 +105,28 @@ export default function Category({ title, page, rows }: Props) {
                             </Select>
                         </label>
 
-                        <label>
-                            <span>Hide unselected rows</span>
+                        <label data-disabled={ selectedRows.length===0 }>
                             <Checkbox
-                                checked={ hideUnselected }
+                                checked={ selectedRows.length===0 ? false : hideUnselected }
+                                disabled={ selectedRows.length===0 }
                                 onChange={ () => setHideUnselected(!hideUnselected) }
                                 // disabled={ query.compareCount()===0 }
                             />
+                            <span>Hide unselected rows</span>
+                            <Eye size={ 18 }/>
                         </label>
 
                         {
-                            validPages.has(page) &&
-                            <label>
-                                <span>Show 3D visualizer</span>
+                            enableVisualizer &&
+                            <label data-disabled={ !enableVisualizer }>
                                 <Checkbox
                                     checked={ showVisualizer }
-                                    // disabled={ query.compareCount()===0 }
+                                    disabled={ !enableVisualizer }
                                     onChange={ () => setShowVisualizer(!showVisualizer) }
                                 />
+                                <span>
+                                    Show 3D visualizer <Box size={18}/>
+                                </span>
                             </label>
                         }
                     </fieldset>
@@ -131,13 +135,32 @@ export default function Category({ title, page, rows }: Props) {
                 </Sidebar>
 
                 <main>
-                    <Table rows={ (hideUnselected && selectedRows.length>0) ? selectedRows : rows } query={ query } applyFilters={ true }/>
+                    <PanelGroup autoSaveId="panel-table-viewer" direction="vertical" className="panel-table-viewer">
 
-                    <div className="visualizer" data-show={ showVisualizer }>
-                        <ErrorBoundary fallback={ <p>Error loading visualizer</p> }>
-                            { showVisualizer && <Visualizer rows={ selectedRows }/> }
-                        </ErrorBoundary>
-                    </div>
+                        <Panel style={{ overflow: "auto" }}>
+                            <ErrorBoundary fallback={ <p>Error loading table</p> }>
+                                <Table rows={ (hideUnselected && selectedRows.length>0) ? selectedRows : rows } query={ query } applyFilters={ true }/>
+                            </ErrorBoundary>
+                        </Panel>
+
+                        {
+                            showVisualizer &&
+                            <>
+                                <PanelResizeHandle className="resize-handle"/>
+        
+                                <Panel>
+                                    <div className="visualizer" data-show={ showVisualizer }>
+                                        <ErrorBoundary fallback={ <p>Error loading visualizer</p> }>
+                                            { showVisualizer && <Visualizer rows={ selectedRows }/> }
+                                        </ErrorBoundary>
+                                    </div>
+                                </Panel>
+                            </>
+                        }
+
+                    </PanelGroup>
+
+
                 </main>
 
             </Layout>
@@ -155,13 +178,23 @@ const style = css`
     display: block;
     /* grid-template-rows: calc(100vh - 3rem) 1fr; */
 
+    .resize-handle {
+        background-color: #3190fd;
+        width: 100%;
+        height: 3px;
+    }
+    
     main {
         height: 100%;
         position: relative;
         overflow: auto;
 
-        display: grid;
-        grid-template-rows: 1fr auto;
+        .panel-table-viewer {
+            overflow: auto;
+        }
+
+        /* display: grid; */
+        /* grid-template-rows: 1fr auto; */
 
         &[data-split=true] {
             /* display: grid; */
@@ -170,23 +203,38 @@ const style = css`
         }
 
         .visualizer {
-            height: 0;
+            /* height: 0; */
+            height: 100%;
 
-            &[data-show=true] {
+            /* &[data-show=true] {
                 height: 50vh;
-            }
+            } */
         }
     }
 
     fieldset {
         border: none;
+        /* display: flex; */
+        /* flex-direction: column; */
+        /* place-items: center; */
+        margin: 0 auto;
 
         label {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            /* display: grid; */
+            /* grid-template-columns: 1fr 1fr; */
+            display: flex;
             place-items: center;
+            gap: .5em;
             padding: 1vh 0;
             border-bottom: 1px solid #ddd;
+            color: #1c6bc5;
+            cursor: pointer;
+
+            &[data-disabled=true] {
+                cursor: default;
+                color: black;
+                opacity: 0.4;
+            }
         }
     }
 `

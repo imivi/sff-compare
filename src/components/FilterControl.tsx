@@ -194,7 +194,7 @@ export default function FilterControl({ label, query, options, values }: Props) 
 
             <div className="slider">
                 <small>
-                    { sliderValues.map(value => value.toFixed(decimals)).join(" - ") }
+                    { sliderValues.map(value => value?.toFixed(decimals))?.join(" - ") }
                 </small>
                 {/* <MultiSlider
                     domain={ [min, max] }

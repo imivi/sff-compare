@@ -1,6 +1,6 @@
-import { Row } from "@/data";
-import { getOptions } from "./getOptions";
-import { blacklist } from "./googleSheetsUrls";
+import { Row } from "@/data"
+import { getOptions } from "./getOptions"
+import { blacklist } from "./googleSheetsUrls"
 
 
 export class Options {

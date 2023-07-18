@@ -6,9 +6,10 @@ type Props = {
     checked: boolean
     onChange: (checked: boolean) => unknown
     disabled?: boolean
+    center?: boolean
 }
 
-export default function Checkbox({ checked, disabled, onChange }: Props) {
+export default function Checkbox({ checked, disabled, onChange, center=false }: Props) {
 
     // const [checked, setChecked] = useState(true)
 
@@ -21,6 +22,7 @@ export default function Checkbox({ checked, disabled, onChange }: Props) {
             onChange={ (e) => onChange(e.target.checked) }
             disabled={ disabled }
             data-disabled={ disabled }
+            data-center={ center }
         />
     )
 
@@ -32,7 +34,6 @@ const style = css`
     -webkit-appearance: none;
     width: 1.2em;
     height: 1.2em;
-    margin: 0 auto;
     font-size: .9em;
     font-family: inherit;
     background-color: #c6dbf2;
@@ -42,6 +43,10 @@ const style = css`
     display: flex;
     cursor: pointer;
     position: relative;
+
+    &[data-center=true] {
+        margin: auto;
+    }
 
     &[data-checked=true] {
         background-color: #0077ff;

@@ -1,24 +1,14 @@
 import { css } from "@emotion/react"
-import { useRouter } from "next/router"
 import FilterControl from "../FilterControl"
 import { useState } from "react"
-import Footer from "./Footer"
 import { blacklist, hiddenFilters } from "@/utils/googleSheetsUrls"
-import Image from "next/image"
-import Logo from "@/../public/cube.png"
-import { GithubLink } from "../GithubLink"
-import Link from "next/link"
 import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
 import Button from "../utility/Button"
-import Select from "../utility/Select"
 
 
-// type Option = {
-//     value: number,
-//     label: string|number,
-// }
 
+/*
 function getMinMax(values: (string|number)[]) {
     let min = 0
     let max = 0
@@ -35,7 +25,7 @@ function getMinMax(values: (string|number)[]) {
     }
     return { min, max }
 }
-
+*/
 
 
 

@@ -1,7 +1,7 @@
 import { Row } from "@/data"
 import { css } from "@emotion/react"
-import { Grid, Line, OrbitControls, Text } from "@react-three/drei"
-import { Canvas, RootState, flushGlobalEffects } from "@react-three/fiber"
+import { Line, OrbitControls, Text } from "@react-three/drei"
+import { Canvas, RootState, useLoader } from "@react-three/fiber"
 import { Suspense, useState } from "react"
 import * as THREE from "three"
 import { degToRad } from "three/src/math/MathUtils"
@@ -15,7 +15,6 @@ const ZERO = Object.freeze(new THREE.Vector3(0,0,0))
 export type Cube = {
     id: string
     name: string
-    seller: string
     size: THREE.Vector3 // in centimeters
     custom: boolean
 }
@@ -26,46 +25,120 @@ function last<T>(array: T[]) {
 }
 
 /**
- * Arrange cubes along a single axis.
+ * Arrange cubes along a single axis with a certain space between them.
+ * Returns the positions along that axis.
  * @param cubes 
  */
-function getCubePositions(cubes: Cube[], spacing: number) {
+function getCubePositions(cubes: Cube[], spacing: number): number[] {
 
     if(cubes.length === 0) {
         return []
     }
+
+    if(cubes.length === 1) {
+        return [0]
+    }
     
-    const positions = []
-    let currentPosition = -cubes[0].size.x
-    for(const cube of cubes) {
-        currentPosition = currentPosition + cube.size.x + spacing
+    const positions = [0]
+    let currentPosition = 0
+    for(let i=1; i<cubes.length; i++) {
+        currentPosition += cubes[i-1].size.x + spacing
         positions.push(currentPosition)
     }
-
+    
+    // console.log(cubes.map(cube => cube.size.x), positions)
+    // console.log({ cubes, positions })
     return positions
 }
 
 
-export const validPages = new Set(["cases1", "cases2", "cases3"])
+export const validPages = new Set(["cases1", "cases2", "cases3", "gpu1", "gpu2"])
 
-const sizeKeys = [
+function rowType(row: Row) {
+    switch (row.page) {
+        case "cases1":
+        case "cases2":
+        case "cases3":
+            return "case"
+        case "gpu1":
+        case "gpu2":
+            return "gpu"
+    }
+    return null
+}
+
+
+const caseSizeKeys = [
     "Case Width (mm)",
     "Case Height (mm)",
     "Case Length (mm)",
 ]
 
-function rowHasValidSizes(row: Row) {
+const gpuSizeKeys = [
+    "Height / Thickness (mm)",
+    "Width (mm)",
+    "Length (mm)",
+]
 
-    for(const key of sizeKeys) {
-        if(typeof row[key] !== "number")
-            return false
+function rowIsValid(row: Row) {
+
+    const type = rowType(row)
+    if(type !== "case" && type !== "gpu") {
+        return false
     }
+
+    // Make sure all size columns have numbers rather than strings
+    const sizeKeys = type === "case" ? caseSizeKeys : gpuSizeKeys
+    const sizes = sizeKeys.filter(key => typeof row[key] === "number")
+
+
+    if(sizes.length < 3) {
+        return false
+    }
+    
     return true
 }
 
 
+
+
+function rowToCube(row: Row) {
+
+    const type = rowType(row)
+
+    // Convert case row to cube
+    if(type === "case") {
+        const name = [row["Seller"].toString(), row["Case"].toString()].join(" ").trim()
+        const size = new THREE.Vector3(
+            ...caseSizeKeys.map(key => Number(row[key]) / 10) // Convert mm to cm
+        )
+        return {
+            id: row.id,
+            name,
+            size,
+            custom: false,
+        }
+    }
+
+    // Convert GPU row to cube
+    else {
+        const name = row["Name"].toString()
+        const size = new THREE.Vector3(
+            ...gpuSizeKeys.map(key => Number(row[key]) / 10) // Convert mm to cm
+        )
+        return {
+            id: row.id,
+            name,
+            size,
+            custom: false,
+        }
+    }
+}
+
+
+
 type Props = {
-    rows?: Row[]
+    rows: Row[]
 }
 
 export default function Visualizer({ rows }: Props) {
@@ -73,36 +146,42 @@ export default function Visualizer({ rows }: Props) {
     const [fullscreen, setFullscreen] = useState(false)
     // const [hiddenCases, setHiddenCases] = useState(new Set<string>([]))
     const hiddenCases = useVisualizerStore(store => store.hiddenCases)
+    const caseIsHidden = useVisualizerStore(store => store.caseIsHidden)
     const customCubes = useVisualizerStore(store => store.customCubes)
     // const toggleHideCase = useVisualizerStore(store => store.toggleHideCase)
 
 
-    if(!rows || rows.length === 0) {
-        return <div>Nothing selected</div>
-    }
+    // if(!rows || rows.length === 0) {
+    //     return <div>Nothing selected</div>
+    // }
 
-    const caseMaterial = new THREE.MeshLambertMaterial()
     // const lineMaterial = new THREE.LineBasicMaterial()
 
+    const caseTexture = useLoader(THREE.TextureLoader, "/textures/mesh_w.jpg")
+    
+    const caseMaterial = new THREE.MeshBasicMaterial({
+        // color: "#049ef4",
+        color: "#999",
+        map: caseTexture,
+    })
+
     const selectedCubes: Cube[] = rows
-        .filter(row => validPages.has(row.page))
-        .filter(row => rowHasValidSizes(row))
-        .map(row => ({
-            id: row.id,
-            name: row?.Case?.toString() || "?",
-            seller: row?.Seller?.toString() || "?",
-            custom: false,
-            size: new THREE.Vector3(
-                Number(row["Case Width (mm)"])  / 10, // Convert mm to cm
-                Number(row["Case Height (mm)"]) / 10, // Convert mm to cm
-                Number(row["Case Length (mm)"]) / 10, // Convert mm to cm
-            ),
-        }))
+        .filter(row => rowIsValid(row))
+        .map(row => rowToCube(row))
+
+    // console.log({ rows, selectedCubes })
     
     // Add the user-defined cubes
     selectedCubes.push(...customCubes)
 
-    const cubesToRender = selectedCubes.filter(cube => !hiddenCases.has(cube.id))
+    let cubesToRender: Cube[] = []
+    try {
+        cubesToRender = selectedCubes.filter(cube => !caseIsHidden(cube.id))
+    }
+    catch (error) {
+        console.error({ hiddenCases })
+    }
+
 
 
     // console.log(rows, cubesToRender)
@@ -114,12 +193,15 @@ export default function Visualizer({ rows }: Props) {
     const cubePositions = getCubePositions(cubesToRender, spacing)
 
     // Center the positions around the middle element
-    const offset = last(cubePositions)/2
+    // const offset = last(cubePositions)/2
 
     // Calculate bounding box for all the cases rendered
-    const margin = 10
-    const maxLength  = margin + Math.max(...cubesToRender.map(cube => cube.size.z))
-    const casesWidth = margin + spacing * (cubesToRender.length-1) + cubesToRender.reduce((sum,cube) => sum+=cube.size.x, 0)
+    // const margin = 10
+    const maxLength  = Math.max(...cubesToRender.map(cube => cube.size.z))
+    // const casesWidth = margin + spacing * (cubesToRender.length-1) + cubesToRender.reduce((sum,cube) => sum+=cube.size.x, 0)
+
+    const casesWidth = cubesToRender.map(cube => cube.size.x).reduce((sum,n) => sum+n, 0) + spacing * (cubesToRender.length-1)
+    const offset = casesWidth/2
 
 
     // const tableMin = Math.min(...cubePositions)
@@ -150,11 +232,16 @@ export default function Visualizer({ rows }: Props) {
 
             {/* <button onClick={ () => setFullscreen(!fullscreen) }>fullscreen</button> */}
             <Canvas frameloop="demand" onCreated={ onLoadScene }>
-                <Suspense fallback={ <p>Loading...</p> }>
+                <Suspense fallback={ null }>
+                    {/* <PerspectiveCamera makeDefault fov={ 40 } position={ new THREE.Vector3(0, 100, 60) }/> */}
                     <OrbitControls/>
-                    <ambientLight intensity={ 0.1 }/>
-                    <directionalLight position={ new THREE.Vector3(-casesWidth, 30, maxLength/2) } intensity={ 0.7 }/>
-                    <directionalLight position={ new THREE.Vector3(casesWidth, 30, maxLength/2) } intensity={ 0.7 }/>
+
+                    <directionalLight position={ new THREE.Vector3(0, 100, 100) } intensity={ 0.7 }/>
+                    <ambientLight intensity={ 0.3 }/>
+                    {/* <hemisphereLight intensity={ 0.7 }/> */}
+
+                    {/* <directionalLight position={ new THREE.Vector3(-casesWidth, 30, maxLength/2) } intensity={ 0.7 }/> */}
+                    {/* <directionalLight position={ new THREE.Vector3(casesWidth, 30, maxLength/2) } intensity={ 0.7 }/> */}
                     {/* <Grid sectionSize={ 10 }/> */}
                     
                     {/* <gridHelper args={ [gridSize, gridSize, "#aaa", "#ddd"] } position={ [0,0,0] }/> */}
@@ -167,6 +254,19 @@ export default function Visualizer({ rows }: Props) {
                         material={ caseMaterial }
                     /> */}
 
+                    {
+                        selectedCubes.length === 0 &&
+                        <Text
+                            fontSize={ 8 }
+                            // rotation={ new THREE.Euler(degToRad(-90), 0, degToRad(90)) }
+                            color="black"
+                            anchorX="center"
+                            anchorY="middle"
+                            // position={ new THREE.Vector3(0, -cube.size.y/2, cube.size.z) }
+                        >No items selected
+                        </Text>
+                    }
+
                     <group position={ new THREE.Vector3(-offset, 0, 0) }>
                         
                         {/* <Cube
@@ -178,7 +278,7 @@ export default function Visualizer({ rows }: Props) {
                         {/* Render cases with names in front of them */}
                         {
                             cubesToRender.map((cube,i) => (
-                                <group key={ i } position={ new THREE.Vector3(cubePositions[i], cube.size.y/2, cube.size.z/2) }>
+                                <group key={ i } position={ new THREE.Vector3(cube.size.x/2 + cubePositions[i], cube.size.y/2, cube.size.z/2) }>
                                     <mesh
                                         material={ caseMaterial }
                                         geometry={ new THREE.BoxGeometry(cube.size.x, cube.size.y, cube.size.z) }
@@ -190,7 +290,7 @@ export default function Visualizer({ rows }: Props) {
                                         anchorX="right"
                                         anchorY="middle"
                                         position={ new THREE.Vector3(0, -cube.size.y/2, cube.size.z) }
-                                    > { cube.seller } { cube.name }
+                                    > { cube.name }
                                     </Text>
                                     <Line
                                         points={[
