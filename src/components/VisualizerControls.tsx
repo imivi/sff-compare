@@ -91,7 +91,7 @@ export default function VisualizerControls({ cubes }: Props) {
                 </label>
                 <Button type="submit">Add custom</Button>
             </form>
-            <button onClick={ () => console.log(customCubes) }>log custom cubes</button>
+            {/* <button onClick={ () => console.log(customCubes) }>log custom cubes</button> */}
         </div>
     )
 

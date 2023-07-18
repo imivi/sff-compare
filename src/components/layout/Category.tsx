@@ -16,6 +16,7 @@ import { validPages } from "../Visualizer"
 import { ErrorBoundary } from "react-error-boundary"
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels"
 import { Box, Eye } from "tabler-icons-react"
+// import Visualizer from "../Visualizer"
 
 // Lazy load the react three fiber threejs 3D viewer
 const Visualizer = dynamic(() => import("../Visualizer"))
@@ -137,7 +138,7 @@ export default function Category({ title, page, rows }: Props) {
                 <main>
                     <PanelGroup autoSaveId="panel-table-viewer" direction="vertical" className="panel-table-viewer">
 
-                        <Panel style={{ overflow: "auto" }}>
+                        <Panel style={{ overflow: "auto" }} id="table" order={ 0 }>
                             <ErrorBoundary fallback={ <p>Error loading table</p> }>
                                 <Table rows={ (hideUnselected && selectedRows.length>0) ? selectedRows : rows } query={ query } applyFilters={ true }/>
                             </ErrorBoundary>
@@ -148,7 +149,7 @@ export default function Category({ title, page, rows }: Props) {
                             <>
                                 <PanelResizeHandle className="resize-handle"/>
         
-                                <Panel>
+                                <Panel id="visualizer" order={ 1 }>
                                     <div className="visualizer" data-show={ showVisualizer }>
                                         <ErrorBoundary fallback={ <p>Error loading visualizer</p> }>
                                             { showVisualizer && <Visualizer rows={ selectedRows }/> }

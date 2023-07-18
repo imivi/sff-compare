@@ -2,7 +2,7 @@ import { Row } from "@/data"
 import { css } from "@emotion/react"
 import { Line, OrbitControls, Text } from "@react-three/drei"
 import { Canvas, RootState, useLoader } from "@react-three/fiber"
-import { Suspense, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import * as THREE from "three"
 import { degToRad } from "three/src/math/MathUtils"
 import VisualizerControls from "./VisualizerControls"
@@ -122,7 +122,7 @@ function rowToCube(row: Row) {
 
     // Convert GPU row to cube
     else {
-        const name = row["Name"].toString()
+        const name = ["Brand", "Model", "Name"].map(key => row[key].toString()).join(" ")
         const size = new THREE.Vector3(
             ...gpuSizeKeys.map(key => Number(row[key]) / 10) // Convert mm to cm
         )
@@ -150,6 +150,8 @@ export default function Visualizer({ rows }: Props) {
     const customCubes = useVisualizerStore(store => store.customCubes)
     // const toggleHideCase = useVisualizerStore(store => store.toggleHideCase)
 
+    const [caseTexture, setCaseTexture] = useState<THREE.Texture|null>(null)
+
 
     // if(!rows || rows.length === 0) {
     //     return <div>Nothing selected</div>
@@ -157,13 +159,22 @@ export default function Visualizer({ rows }: Props) {
 
     // const lineMaterial = new THREE.LineBasicMaterial()
 
-    const caseTexture = useLoader(THREE.TextureLoader, "/textures/mesh_w.jpg")
+    // const caseTexture = useLoader(THREE.TextureLoader, "/textures/mesh_w.jpg")
     
     const caseMaterial = new THREE.MeshBasicMaterial({
         // color: "#049ef4",
         color: "#999",
-        map: caseTexture,
+        // map: caseTexture,
     })
+
+    if(caseTexture) {
+        caseMaterial.map = caseTexture
+    }
+
+    useEffect(() => {
+        const caseTexture = new THREE.TextureLoader().load("/textures/mesh_w.jpg")
+        setCaseTexture(caseTexture)
+    }, [])
 
     const selectedCubes: Cube[] = rows
         .filter(row => rowIsValid(row))
