@@ -10,12 +10,13 @@ import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
 import FiltersList from "./FiltersList"
 import Button from "../utility/Button"
-import Visualizer from "../Visualizer"
 import Select from "../utility/Select"
 import Checkbox from "../utility/Checkbox"
 import { tabNames } from "@/data/pages"
+import dynamic from "next/dynamic"
 
-
+// Lazy load the react three fiber threejs 3D viewer
+const Visualizer = dynamic(() => import("../Visualizer"))
 
 
 

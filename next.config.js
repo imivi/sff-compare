@@ -5,4 +5,12 @@ const nextConfig = {
   transpilePackages: ["three"],
 }
 
+const shouldAnalyzeBundles = process.env.ANALYZE === true;
+
+if (shouldAnalyzeBundles) {
+  const withNextBundleAnalyzer =
+    require('next-bundle-analyzer')(/* options come there */);
+  nextConfig = withNextBundleAnalyzer(nextConfig);
+}
+
 module.exports = nextConfig

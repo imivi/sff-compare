@@ -8,7 +8,6 @@ import Image from "next/image"
 import Logo from "@/../public/cube.png"
 import { GithubLink } from "../GithubLink"
 import Link from "next/link"
-import { pages, tabNames } from "@/data"
 import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
 import Button from "../utility/Button"
@@ -59,8 +58,8 @@ export default function FiltersList({ query, options }: Props) {
             {
                 process.env.NODE_ENV === "development" &&
                 <div style={{ display: "flex" }}>
-                    <button inline onClick={ () => console.info(options) }>Log options</button>
-                    <button inline onClick={ () => console.info(query) }>Log query</button>
+                    <button onClick={ () => console.info(options) }>Log options</button>
+                    <button onClick={ () => console.info(query) }>Log query</button>
                 </div>
             }
 

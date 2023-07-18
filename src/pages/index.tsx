@@ -1,4 +1,5 @@
-import { Row, pages } from "@/data"
+import { Row } from "@/data"
+import { pages } from "@/data/pages"
 import type { GetStaticProps } from "next"
 import Link from "next/link"
 

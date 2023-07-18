@@ -7,9 +7,10 @@ type Props = {
     onClick?: () => unknown
     children?: ReactNode
     disabled?: boolean
+    type?: "submit" | "button"
 }// & HTMLAttributes<HTMLButtonElement>
 
-export default function Button({ inline, onClick, disabled=false, children }: Props) {
+export default function Button({ inline, onClick, disabled=false, type="button", children }: Props) {
 
     // const inline = props?.isInline === true
 
@@ -17,9 +18,10 @@ export default function Button({ inline, onClick, disabled=false, children }: Pr
         <button
             css={ style }
             onClick={ onClick }
-            data-inline={ inline }
+            data-is-inline={ inline }
             disabled={ disabled }
             data-disabled={ disabled }
+            type={ type }
         > { children }
         </button>
     )
@@ -27,7 +29,7 @@ export default function Button({ inline, onClick, disabled=false, children }: Pr
 }
 
 const style = css`
-    margin: 1em auto;
+    margin: 0 auto;
     font-size: .9em;
     font-family: inherit;
     padding: .5em;
@@ -40,7 +42,7 @@ const style = css`
     display: flex;
     cursor: pointer;
 
-    &[data-inline=true] {
+    &[data-is-inline=true] {
         display: inline-flex;
     }
 
