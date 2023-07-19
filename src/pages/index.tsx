@@ -1,4 +1,3 @@
-import Visualizer from "@/components/Visualizer"
 import { pages } from "@/data/pages"
 import { css } from "@emotion/react"
 import type { GetStaticProps } from "next"
@@ -34,6 +33,7 @@ export default function Home() {
     )
 }
 
+/*
 function PanelTest() {
     return (
         <div className="panel-test" css={ style }>
@@ -80,7 +80,7 @@ const style = css`
         height: 3px;
     }
 `
-
+*/
 
 
 // https://stackoverflow.com/a/73884736

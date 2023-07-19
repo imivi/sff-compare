@@ -1,17 +1,32 @@
-import { type HTMLAttributes, type ChangeEvent } from "react"
 import { css } from "@emotion/react"
 
 
 // The stock select attributes for <select> include an onChange event
 // of type "FormEvent" instead of "ChangeEvent". This fixes that.
 type Props = {
-    onChange?: (e: ChangeEvent<HTMLSelectElement>) => unknown
-} & Omit<HTMLAttributes<HTMLSelectElement>,"onChange">
+    // value: string|null,
+    onChange?: (e: string) => unknown
+    options: [string,string][] // [value, label]
+}// & Omit<HTMLAttributes<HTMLSelectElement>,"onChange">
 
-export default function Select(props: Props) {
+export default function Select({ options, onChange }: Props) {
+
+    // console.log({ options, value })
 
     return (
-        <select css={ style } {...props} onChange={ props?.onChange }/>
+        <select
+            css={ style }
+            onChange={ (e) => onChange && onChange(e.target.value) }
+            // defaultValue={ value || options[0][0] }
+            // value={ value || options[0][0] }
+        >   {
+                options.map(([value,label]) => (
+                    <option value={ "/"+value } key={ value }>
+                        { label }
+                    </option>
+                ))
+            }
+        </select>
     )
 
 }

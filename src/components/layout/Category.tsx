@@ -12,14 +12,14 @@ import Select from "../utility/Select"
 import Checkbox from "../utility/Checkbox"
 import { tabNames } from "@/data/pages"
 import dynamic from "next/dynamic"
-import { validPages } from "../Visualizer"
+import { validPages } from "../visualizer/Visualizer"
 import { ErrorBoundary } from "react-error-boundary"
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels"
 import { Box, Eye } from "tabler-icons-react"
 // import Visualizer from "../Visualizer"
 
 // Lazy load the react three fiber threejs 3D viewer
-const Visualizer = dynamic(() => import("../Visualizer"))
+const Visualizer = dynamic(() => import("../visualizer/Visualizer"))
 
 
 
@@ -48,37 +48,12 @@ export default function Category({ title, page, rows }: Props) {
     }
     
 
-
-    // const query = parseQueryString(router.query, options)
-
     const query = new Query(router.query, options)
-
-    // console.log(query)
-
-    // console.log({ hideUnselected })
 
     const selectedRows = rows.filter(row => query.hasRowId(row.id))
 
-    // const path = router.asPath.slice(1) // Remove leading slash
-    // const pathWithoutQuery = (path.includes("?") ? path.split("?")[0] : path).replaceAll("/","")
-
-    // console.log({ path, pathWithoutQuery })
-
     function handleCategoryChange(page: string) {
         router.push(page)
-
-        // if(pathWithoutQuery.includes("compare")) {
-        //     router.push({
-        //         pathname: page+"/compare",
-        //         query: omit(router.query, "category"),
-        //     })
-        // }
-        // else {
-        //     router.push({
-        //         pathname: page,
-        //         query: omit(router.query, "category"),
-        //     })
-        // }
     }
 
     const enableVisualizer = page && validPages.has(page)
@@ -91,19 +66,11 @@ export default function Category({ title, page, rows }: Props) {
 
                     <fieldset>
 
-                        {/* <h2>Page: { page }</h2> */}
-
                         <label>
-                            {/* <span>Category</span> */}
-                            <Select onChange={ (e) => handleCategoryChange(e.target.value) }>
-                                {
-                                    Object.entries(tabNames).map(([page,tabName]) => (
-                                        <option value={ "/"+page } key={ page }>
-                                            { tabName }
-                                        </option>
-                                    ))
-                                }
-                            </Select>
+                            <Select
+                                onChange={ handleCategoryChange }
+                                options={ Array.from(Object.entries(tabNames)) }
+                            />
                         </label>
 
                         <label data-disabled={ selectedRows.length===0 }>

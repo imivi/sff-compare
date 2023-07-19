@@ -3,7 +3,7 @@ import { css } from "@emotion/react"
 import { Cube } from "./Visualizer"
 import { Eye, EyeOff, X } from "tabler-icons-react"
 import { useVisualizerStore } from "@/store/useVisualizerStore"
-import Button from "./utility/Button"
+import Button from "../utility/Button"
 import { Vector3 } from "three"
 
 

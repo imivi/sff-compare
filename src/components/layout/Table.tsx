@@ -228,11 +228,13 @@ export default function Table({ query, rows, applyFilters=false }: Props) {
 
 const style = css`
     position: relative;
-    overflow: auto;
+    /* overflow: auto; */
 
     table {
         border-collapse: collapse;
         width: 100%;
+        position: relative;
+        overflow: auto;
 
         thead {
             position: sticky;

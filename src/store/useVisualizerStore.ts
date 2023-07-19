@@ -1,4 +1,4 @@
-import { Cube } from "@/components/Visualizer"
+import { Cube } from "@/components/visualizer/Visualizer"
 import { create } from "zustand"
 import { persist, createJSONStorage } from 'zustand/middleware'
 

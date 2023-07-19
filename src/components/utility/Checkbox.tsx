@@ -39,7 +39,6 @@ const style = css`
     background-color: #c6dbf2;
     border-radius: .3em;
     color: white;
-    z-index: 10;
     display: flex;
     cursor: pointer;
     position: relative;
