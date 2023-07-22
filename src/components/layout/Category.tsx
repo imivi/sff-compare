@@ -99,7 +99,7 @@ export default function Category({ title, page, rows }: Props) {
                         }
                     </fieldset>
 
-                    <FiltersList query={ query } options={ options }/>
+                    <FiltersList query={ query } options={ options } category={ page || "none" }/>
                 </Sidebar>
 
                 <main>

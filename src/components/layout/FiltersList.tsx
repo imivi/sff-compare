@@ -31,11 +31,12 @@ function getMinMax(values: (string|number)[]) {
 
 type Props = {
     // rows: Partial<CoolerLP>[],
-    query: Query,
-    options: Options,
+    query: Query
+    options: Options
+    category: string
 }
 
-export default function FiltersList({ query, options }: Props) {
+export default function FiltersList({ query, options, category }: Props) {
 
     const [showAllOptions, setShowAllOptions] = useState(false)
 
@@ -65,10 +66,8 @@ export default function FiltersList({ query, options }: Props) {
                                 values={ options.getValues(optionLabel) }
                                 options={ options }
                                 query={ query }
-                                // headerIndex={ headerIndex }
-                                // filters={query.fil}
-                                // ranges={query.r}
                                 key={ `${ i }-${ optionLabel }` }
+                                category={ category }
                                 // key_={ `${ i }-${ optionLabel }` }
                             />
                         )

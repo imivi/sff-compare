@@ -44,7 +44,15 @@ export default function Slider({ range, value, tickCount=1, onChange, step=1, de
 
     return (
         <div css={ style }>
-            <input type="range" min={ min } max={ max } step={ step } value={ value } onChange={ e => handleChange(Number(e.target.value)) }/>
+            <input
+                title={ value.toFixed(2) }
+                type="range"
+                min={ min }
+                max={ max }
+                step={ step }
+                value={ value }
+                onChange={ e => handleChange(Number(e.target.value)) }
+            />
         </div>
     )
 }

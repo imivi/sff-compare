@@ -9,14 +9,14 @@ export type SelectOption = {
 
 
 type Props = {
-    className: string
     closeMenuOnSelect: boolean
     options: SelectOption[]
     values: SelectOption[]
     onChange: (selectedOptions: SelectOption[]) => unknown
+    category: string
 }
 
-export default function MultiSelect({ className, closeMenuOnSelect, options, values, onChange }: Props) {
+export default function MultiSelect({ category, closeMenuOnSelect, options, values, onChange }: Props) {
 
     const [open, setOpen] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null)

@@ -16,6 +16,8 @@ type Props = {
     step?: number
     delayMs?: number
     controlled: boolean
+    category: string
+    decimals: number
     /**
      * Fires when a handle stops being dragged
      * @param the new values
@@ -34,7 +36,7 @@ function sort(a: number, b: number): [number,number] {
     return [a,b]
 }
 
-export default function DualSlider({ rangeMin, rangeMax, valueMin, valueMax, tickCount=1, onChange, step=1, delayMs=500, onDrag, controlled }: Props) {
+export default function DualSlider({ category, decimals, rangeMin, rangeMax, valueMin, valueMax, tickCount=1, onChange, step=1, delayMs=500, onDrag, controlled }: Props) {
 
     // These values are only used if the component is not controlled
     const [localValues, setLocalValues] = useState<[number,number]>([rangeMin, rangeMax])
@@ -87,39 +89,48 @@ export default function DualSlider({ rangeMin, rangeMax, valueMin, valueMax, tic
         }
     }
 
+
     return (
         <div css={ style }>
-            {/* <small>{ values.join(", ") }</small> */}
-            <Slider
-                onChange={ value => handleChange(value, getValues()[1]) }
-                value={ getValues()[0] }
-                range={ [rangeMin, rangeMax] }
-                step={ step }
-                delayMs={ delayMs }
-                tickCount={ tickCount }
-                // onDrag={ (value) => setValues([value, values[1]]) }
-                // onDrag={ value => { if(onDrag) onDrag([value,values[1]]) } }
-                onDrag={ value => handleDrag(value,getValues()[1]) }
-            />
-            <Slider
-                onChange={ value => handleChange(getValues()[0], value) }
-                value={ getValues()[1] }
-                range={ [rangeMin, rangeMax] }
-                step={ step }
-                delayMs={ delayMs }
-                tickCount={ tickCount }
-                // onDrag={ (value) => setValues([values[0], value]) }
-                // onDrag={ value => { if(onDrag) onDrag([values[0],value]) } }
-                onDrag={ value => handleDrag(getValues()[0],value) }
-            />
-            <div className="track" style={{ background: `linear-gradient: (transparent})` }}/>
+
+            <small>{ getValues().map(value => value?.toFixed(decimals))?.join(" - ") }</small>
+
+            <div className="sliders">
+                {/* <small>{ values.join(", ") }</small> */}
+                <Slider
+                    onChange={ value => handleChange(value, getValues()[1]) }
+                    value={ Math.max(rangeMin, getValues()[0]) }
+                    range={ [rangeMin, rangeMax] }
+                    step={ step }
+                    delayMs={ delayMs }
+                    tickCount={ tickCount }
+                    // onDrag={ (value) => setValues([value, values[1]]) }
+                    // onDrag={ value => { if(onDrag) onDrag([value,values[1]]) } }
+                    onDrag={ value => handleDrag(value,getValues()[1]) }
+                />
+                <Slider
+                    onChange={ value => handleChange(getValues()[0], value) }
+                    value={ Math.min(rangeMax, getValues()[1]) }
+                    range={ [rangeMin, rangeMax] }
+                    step={ step }
+                    delayMs={ delayMs }
+                    tickCount={ tickCount }
+                    // onDrag={ (value) => setValues([values[0], value]) }
+                    // onDrag={ value => { if(onDrag) onDrag([values[0],value]) } }
+                    onDrag={ value => handleDrag(getValues()[0],value) }
+                />
+                <div className="track" style={{ background: `linear-gradient: (transparent})` }}/>
+            </div>
+            
         </div>
     )
 }
 
 
 const style = css`
-    position: relative;
-    border-bottom: 2px solid #ddd;
-    margin: 10px 0;
+    .sliders {
+        position: relative;
+        border-bottom: 2px solid #ddd;
+        margin: 10px 0;
+    }
 `

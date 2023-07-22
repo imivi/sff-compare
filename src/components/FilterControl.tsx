@@ -57,10 +57,11 @@ type Props = {
     query: Query
     // onChange: (selectedOptions: MultiValue<Option>) => unknown
     options: Options
+    category: string
     // key_: string|number
 }
 
-export default function FilterControl({ label, query, options, values }: Props) {
+export default function FilterControl({ category, label, query, options, values }: Props) {
 
     const router = useRouter()
 
@@ -77,8 +78,8 @@ export default function FilterControl({ label, query, options, values }: Props) 
     const [sliderValueMax, setSliderValueMax] = useState(max)
     
     const step = (max-min > 10) ? 1 : 0.1
-    const decimals = (max-min < 3) ? 1 : 0
     const isNumericalOption = values.length > 3 && options.isNumerical(label)
+    const decimals = (max-min < 3) ? 1 : 0
 
     let selectedOptions: SelectOption[] = []
     const selectOptions = options
@@ -197,6 +198,8 @@ export default function FilterControl({ label, query, options, values }: Props) 
                     selectedRangeMax,
                     sliderValueMin,
                     sliderValueMax,
+                    controlled: ranges.hasOwnProperty(label),
+                    category,
                     // values: (ranges.hasOwnProperty(label) ? sliderValues : [min,max])
                 }, null, 4)}>
                     { label }
@@ -211,10 +214,9 @@ export default function FilterControl({ label, query, options, values }: Props) 
             <div className="slider">
                 {/* <div>Key: { key_ }</div> */}
                 {/* <div>controlled: { ranges.hasOwnProperty(label).toString() }</div> */}
-                <small>
-                    { [sliderValueMin,sliderValueMax].map(value => value?.toFixed(decimals))?.join(" - ") }
-                </small>
+
                 <DualSlider
+                    category={ category }
                     rangeMin={ min }
                     rangeMax={ max }
                     // valueMin={ sliderValueMin }
@@ -228,6 +230,7 @@ export default function FilterControl({ label, query, options, values }: Props) 
                     // While the slider is dragged, update the indicators above it.
                     // If there is no query string for the current range, create it.
                     onDrag={ handleDrag }
+                    decimals={ decimals }
                 />
             </div>
         </div>
@@ -244,19 +247,11 @@ export default function FilterControl({ label, query, options, values }: Props) 
                 { label }
             </span>
             <MultiSelect
-                className="select-container"
-                // instanceId="react-select-id"
-                // isMulti
                 closeMenuOnSelect={ values.length < 3 }
-                // isClearable={ false }
-                // options={ dummyValues }
                 options={ selectOptions }
-                // value={ [dummyValues[0]] }
                 values={ selectedOptions }
-                // defaultValue={ options }
-                // value={ options.map(option => option.value===1 || selectedOptions.includes(option.value)) }
-                // isOptionSelected={ (option) =>  }
                 onChange={ (selectedOptions) => handleSelect(selectedOptions) }
+                category={ category }
             />
         </label>
     )

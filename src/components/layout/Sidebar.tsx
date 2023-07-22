@@ -16,9 +16,6 @@ type Props = {
 
 export default function Sidebar({ children }: Props) {
 
-    const router = useRouter()
-
-
     return (
         <div css={ style }>
 
