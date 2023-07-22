@@ -69,7 +69,7 @@ export default function FiltersList({ query, options }: Props) {
                                 // filters={query.fil}
                                 // ranges={query.r}
                                 key={ `${ i }-${ optionLabel }` }
-                                key_={ `${ i }-${ optionLabel }` }
+                                // key_={ `${ i }-${ optionLabel }` }
                             />
                         )
                     })

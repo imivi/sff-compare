@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@emotion/react':
     specifier: ^11.11.1
@@ -55,6 +59,9 @@ dependencies:
   react-error-boundary:
     specifier: ^4.0.10
     version: 4.0.10(react@18.2.0)
+  react-onclickoutside:
+    specifier: ^6.13.0
+    version: 6.13.0(react-dom@18.2.0)(react@18.2.0)
   react-ranger:
     specifier: ^2.1.0
     version: 2.1.0(react@18.2.0)
@@ -87,6 +94,9 @@ devDependencies:
   '@types/md5':
     specifier: ^2.3.2
     version: 2.3.2
+  '@types/react-onclickoutside':
+    specifier: ^6.7.4
+    version: 6.7.4
   '@types/react-ranger':
     specifier: ^2.0.1
     version: 2.0.1
@@ -1502,6 +1512,12 @@ packages:
     dependencies:
       '@types/react': 18.2.14
     dev: false
+
+  /@types/react-onclickoutside@6.7.4:
+    resolution: {integrity: sha512-N7EnMhxqb+TaUOGJQUV8YJeL3n5qP5+cXwtWRS/FYW+DSEAb8T3xwNsgZ6wEJMHP4/QpfVHcBaFopFjJ9XBuOg==}
+    dependencies:
+      '@types/react': 18.2.14
+    dev: true
 
   /@types/react-ranger@2.0.1:
     resolution: {integrity: sha512-q+vEB4N38b/x3jpqUns05/7QoggT/A3WKVD7X153InQdlhuwYEZ1KxrlNoJLrMpQvB6sDru8+Gq9bGcndU6yMA==}
@@ -4535,6 +4551,16 @@ packages:
     resolution: {integrity: sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==}
     dev: false
 
+  /react-onclickoutside@6.13.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ty8So6tcUpIb+ZE+1HAhbLROvAIJYyJe/1vRrrcmW+jLsaM+/powDRqxzo6hSh9CuRZGSL1Q8mvcF5WRD93a0A==}
+    peerDependencies:
+      react: ^15.5.x || ^16.x || ^17.x || ^18.x
+      react-dom: ^15.5.x || ^16.x || ^17.x || ^18.x
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /react-ranger@2.1.0(react@18.2.0):
     resolution: {integrity: sha512-d8ezhyX3v/KlN8SkyoE5e8Dybsdmn94eUAqBDsAPrVhZde8sVt6pLJw4fC784KiMmS4LyAjvtjGxhAEqjjGYgw==}
     requiresBuild: true
@@ -5550,7 +5576,3 @@ packages:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

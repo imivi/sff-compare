@@ -8,12 +8,13 @@ import { useEffect, useMemo, useState } from "react"
 import DualSlider from "./slider/DualSlider"
 import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
+import MultiSelect, { SelectOption } from "./utility/MultiSelect"
 
 
-type SelectOption = {
-    value: number,
-    label: string|number,
-}
+// type SelectOption = {
+//     value: number,
+//     label: string|number,
+// }
 
 
 function getMinMax(values: (string|number)[]): { min: number, max: number } {
@@ -56,10 +57,10 @@ type Props = {
     query: Query
     // onChange: (selectedOptions: MultiValue<Option>) => unknown
     options: Options
-    key_: string|number
+    // key_: string|number
 }
 
-export default function FilterControl({ label, query, options, values, key_ }: Props) {
+export default function FilterControl({ label, query, options, values }: Props) {
 
     const router = useRouter()
 
@@ -77,16 +78,22 @@ export default function FilterControl({ label, query, options, values, key_ }: P
     
     const step = (max-min > 10) ? 1 : 0.1
     const decimals = (max-min < 3) ? 1 : 0
-
-    let selectedOptions: { label: string, value: number }[] = []
-
-    const selectOptions = options.getValues(label).map((label,i) => ({ label: label.toString(), value: i }))
     const isNumericalOption = values.length > 3 && options.isNumerical(label)
 
+    let selectedOptions: SelectOption[] = []
+    const selectOptions = options.getValues(label).map((label,i) => ({ label: label.toString(), value: i }))
+
     const selectedOptionLabels = query.fil[label] || []
-        for(const optionKey of selectedOptionLabels) {
-        const index = options.indexOf(label, optionKey)
-        selectedOptions.push({ label: optionKey.toString(), value: index })
+    for(const optionKey of selectedOptionLabels) {
+        if(optionKey) {
+            const index = options.indexOf(label, optionKey)
+            if(index) {
+                selectedOptions.push({ label: optionKey.toString(), value: index })
+            }
+        }
+        else {
+            console.info("ERROR", label, { optionKey, options, selectedOptionLabels })
+        }
     }
 
     /*
@@ -101,7 +108,7 @@ export default function FilterControl({ label, query, options, values, key_ }: P
     }, [min, max, setSliderValueMin, setSliderValueMax, label, ranges, options])
     */
 
-    function handleSelect(newSelectedOptions: MultiValue<SelectOption>) {
+    function handleSelect(newSelectedOptions: SelectOption[]) {
         const newFilters: DeserializedFilters = {
             ...filters,
             [label]: newSelectedOptions.map(option => option.label)
@@ -177,7 +184,7 @@ export default function FilterControl({ label, query, options, values, key_ }: P
 
             <div>
                 <div className="label" title={ JSON.stringify({
-                    key_,
+                    // key_,
                     min,
                     max,
                     selectedRangeMin,
@@ -186,7 +193,7 @@ export default function FilterControl({ label, query, options, values, key_ }: P
                     sliderValueMax,
                     // values: (ranges.hasOwnProperty(label) ? sliderValues : [min,max])
                 }, null, 4)}>
-                    { label } ({ key_ })
+                    { label }
                 </div>
                 {/* TODO: add feature */}
                 {/* <label>
@@ -196,7 +203,7 @@ export default function FilterControl({ label, query, options, values, key_ }: P
             </div>
 
             <div className="slider">
-                <div>Key: { key_ }</div>
+                {/* <div>Key: { key_ }</div> */}
                 {/* <div>controlled: { ranges.hasOwnProperty(label).toString() }</div> */}
                 <small>
                     { [sliderValueMin,sliderValueMax].map(value => value?.toFixed(decimals))?.join(" - ") }
@@ -226,16 +233,16 @@ export default function FilterControl({ label, query, options, values, key_ }: P
             <span className="label" title={ JSON.stringify({ values, selectedOptions }, null, 4) }>
                 { label }
             </span>
-            <Select
+            <MultiSelect
                 className="select-container"
-                instanceId="react-select-id"
-                isMulti
+                // instanceId="react-select-id"
+                // isMulti
                 closeMenuOnSelect={ values.length < 3 }
                 // isClearable={ false }
                 // options={ dummyValues }
                 options={ selectOptions }
                 // value={ [dummyValues[0]] }
-                value={ selectedOptions }
+                values={ selectedOptions }
                 // defaultValue={ options }
                 // value={ options.map(option => option.value===1 || selectedOptions.includes(option.value)) }
                 // isOptionSelected={ (option) =>  }
@@ -268,7 +275,7 @@ const style = css`
 
     &[data-is-numerical=false] {
         position: relative;
-        z-index: 100;
+        /* z-index: 1; */
     }
 
     .label {

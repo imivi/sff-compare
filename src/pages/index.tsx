@@ -1,7 +1,9 @@
+import MultiSelect, { SelectOption } from "@/components/utility/MultiSelect"
 import { pages } from "@/data/pages"
 import { css } from "@emotion/react"
 import type { GetStaticProps } from "next"
 import Link from "next/link"
+import { useState } from "react"
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels"
 
 
@@ -25,6 +27,9 @@ export default function Home() {
             }
             </ul>
 
+            <TestMultiSelect/>
+
+
             {/* <div style={{ height: 700 }}>
                 <Visualizer rows={ [] }/>
             </div> */}
@@ -32,6 +37,46 @@ export default function Home() {
         </main>
     )
 }
+
+
+function TestMultiSelect() {
+
+    const [selected, setSelected] = useState<SelectOption[]>([])
+
+    const options = [
+        {
+            label: "apple",
+            value: 1,
+        },
+        {
+            label: "banana",
+            value: 2,
+        },
+        {
+            label: "coconut",
+            value: 3,
+        },
+    ]
+    
+    return (<>
+        <MultiSelect
+            className="multiselect"
+            closeMenuOnSelect={ true }
+            options={ options }
+            values={ selected }
+            onChange={ (values) => setSelected(values) }
+        />
+        <p>lorems</p>
+        <p>lorems</p>
+        <p>lorems</p>
+        <p>lorems</p>
+        <p>lorems</p>
+        <p>lorems</p>
+        <p>lorems</p>
+        <p>lorems</p>
+    </>)
+}
+
 
 /*
 function PanelTest() {

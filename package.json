@@ -30,6 +30,7 @@
     "react-compound-slider": "^3.4.0",
     "react-dom": "18.2.0",
     "react-error-boundary": "^4.0.10",
+    "react-onclickoutside": "^6.13.0",
     "react-ranger": "^2.1.0",
     "react-resizable-panels": "^0.0.54",
     "react-select": "^5.7.3",
@@ -42,6 +43,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.3",
     "@types/md5": "^2.3.2",
+    "@types/react-onclickoutside": "^6.7.4",
     "@types/react-ranger": "^2.0.1",
     "@types/three": "^0.154.0",
     "jest": "^29.6.1",

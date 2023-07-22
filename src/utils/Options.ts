@@ -37,8 +37,9 @@ export class Options {
         return this.values[key] || []
     }
 
-    indexOf(key: string, value: string|number) {
-        return this.values[key].indexOf(value)
+    indexOf(key: string, value: string|number): number|null {
+        const index = this.values[key].indexOf(value)
+        return index < 0 ? null : index
     }
 }
 
