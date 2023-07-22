@@ -27,7 +27,7 @@ export default function MultiSelect({ className, closeMenuOnSelect, options, val
     const unselectedOptions = options.filter(option => !valuesSet.has(option.value))
 
     function handleSelect(option: SelectOption) {
-        console.info("Selected:", option)
+        // console.info("Selected:", option)
         onChange([ ...values, option ])
         if(closeMenuOnSelect) {
             setOpen(false)

@@ -7,7 +7,16 @@ export type NumericalFilters = Record<number, number[]>
  */
 export function stringifyFilters(filters: DeserializedFilters, options: Options): string {
     const numericalFilters = serializeFilters(filters, options)
-    return stringifyNumericalFilters(numericalFilters)
+    if(Object.values(numericalFilters).some(nums => nums.some(n => n < 0))) {
+        console.info("ERROR stringifying filters", {
+            filters,
+            options,
+            numericalFilters,
+        })
+    }
+    const stringifiedFilters = stringifyNumericalFilters(numericalFilters)
+    console.info({ filters, options, numericalFilters, stringifiedFilters })
+    return stringifiedFilters
 }
 
 export function stringifyNumericalFilters(numericalFilters: NumericalFilters): string {
@@ -38,7 +47,22 @@ export function serializeFilters(filters: DeserializedFilters, options: Options)
         if (allOptions) {
             const selectedLabels = filters[key]
             const index = Object.keys(options).indexOf(key)
-            const indices = selectedLabels.map(label => allOptions.indexOf(Number(label) || label))
+
+            const indices: number[] = []
+            
+            selectedLabels.forEach(label => {
+                let index = allOptions.indexOf(label)
+                if(index >= 0) {
+                    indices.push(index)
+                    return
+                }
+                index = allOptions.indexOf(Number(label))
+                if(index >= 0) {
+                    indices.push(index)
+                    return
+                }
+                console.info("ERROR: invalid option label:", label, { filters, options })
+            })
             // console.log({ selectedLabels, index, indices, allOptions }
             output[index] = indices
         }

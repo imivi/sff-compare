@@ -81,18 +81,22 @@ export default function FilterControl({ label, query, options, values }: Props) 
     const isNumericalOption = values.length > 3 && options.isNumerical(label)
 
     let selectedOptions: SelectOption[] = []
-    const selectOptions = options.getValues(label).map((label,i) => ({ label: label.toString(), value: i }))
+    const selectOptions = options
+        .getValues(label)
+        .map((label,i) => ({ label: label.toString(), value: i }))
+        // .sort((a,b) => a.label < b.label ? -1 : 1)
 
-    const selectedOptionLabels = query.fil[label] || []
-    for(const optionKey of selectedOptionLabels) {
+    for(const optionKey of filters[label] || []) {
         if(optionKey) {
             const index = options.indexOf(label, optionKey)
-            if(index) {
-                selectedOptions.push({ label: optionKey.toString(), value: index })
+
+            if(index != null) {
+                const option = { label: optionKey.toString(), value: index }
+                selectedOptions.push(option)
             }
         }
         else {
-            console.info("ERROR", label, { optionKey, options, selectedOptionLabels })
+            console.info("ERROR", label, { optionKey, options, filters: filters[label] })
         }
     }
 
@@ -113,6 +117,8 @@ export default function FilterControl({ label, query, options, values }: Props) 
             ...filters,
             [label]: newSelectedOptions.map(option => option.label)
         }
+
+        // console.info("newFilters:", newFilters)
 
         const newQuery = {
             ...router.query,
@@ -230,7 +236,11 @@ export default function FilterControl({ label, query, options, values }: Props) 
     // Render a dropdown menu
     return (
         <label css={ style } data-is-numerical={ isNumericalOption }>
-            <span className="label" title={ JSON.stringify({ values, selectedOptions }, null, 4) }>
+            <span className="label" title={ JSON.stringify({
+                values,
+                selectedOptions,
+                filters,
+            }, null, 4) }>
                 { label }
             </span>
             <MultiSelect
