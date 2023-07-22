@@ -1,5 +1,5 @@
 import { css } from "@emotion/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Slider from "./Slider"
 
 // function sort(nums: [number,number]) {
@@ -7,11 +7,15 @@ import Slider from "./Slider"
 // }
 
 type Props = {
-    range: [number,number]
-    values?: [number, number]
+    // range: [number,number]
+    rangeMin: number
+    rangeMax: number
+    valueMin: number
+    valueMax: number
     tickCount?: number
     step?: number
-    delayMs?: number,
+    delayMs?: number
+    controlled: boolean
     /**
      * Fires when a handle stops being dragged
      * @param the new values
@@ -30,35 +34,57 @@ function sort(a: number, b: number): [number,number] {
     return [a,b]
 }
 
-export default function DualSlider({ range, values, tickCount=1, onChange, step=1, delayMs=500, onDrag }: Props) {
+export default function DualSlider({ rangeMin, rangeMax, valueMin, valueMax, tickCount=1, onChange, step=1, delayMs=500, onDrag, controlled }: Props) {
 
-    // These values are only used if the component is not controlled ("values" prop is undefined)
-    const [localValues, setLocalValues] = useState<[number,number]>([...range])
+    // These values are only used if the component is not controlled
+    const [localValues, setLocalValues] = useState<[number,number]>([rangeMin, rangeMax])
+    
+    
+    // const [emitChange, setEmitChange] = useState(false)
+
+    // useEffect(() => {
+    //     setEmitChange(true)
+    // }, [])
+
+    // Reset values when range changes
+    // useEffect(() => {
+    //     console.log("new range:", range)
+    //     setLocalValues([...range])
+    // }, [range])
+
+    // Whenever the page changes, reset the slider to the default min/max
+    useEffect(() => {
+        if(!controlled) {
+            setLocalValues([rangeMin, rangeMax])
+        }
+    }, [rangeMin, rangeMax, controlled])
 
 
     function handleChange(a: number, b: number) {
-        if(onChange) {
-            onChange(sort(a,b))
-        }
-        if(localValues) {
-            setLocalValues([a,b])
-        }
+        // if(emitChange) {
+            if(onChange) {
+                onChange(sort(a,b))
+            }
+            // if(localValues) {
+            //     setLocalValues([a,b])
+            // }
+        // }
     }
 
     function handleDrag(a: number, b: number) {
+        setLocalValues([a,b])
         if(onDrag) {
             onDrag(sort(a,b))
-        }
-        if(localValues) {
-            setLocalValues([a,b])
         }
     }
 
     function getValues() {
-        if(values) {
-            return values
+        if(!controlled) {
+            return localValues
         }
-        return localValues
+        else {
+            return [valueMin, valueMax]
+        }
     }
 
     return (
@@ -67,7 +93,7 @@ export default function DualSlider({ range, values, tickCount=1, onChange, step=
             <Slider
                 onChange={ value => handleChange(value, getValues()[1]) }
                 value={ getValues()[0] }
-                range={ range }
+                range={ [rangeMin, rangeMax] }
                 step={ step }
                 delayMs={ delayMs }
                 tickCount={ tickCount }
@@ -78,7 +104,7 @@ export default function DualSlider({ range, values, tickCount=1, onChange, step=
             <Slider
                 onChange={ value => handleChange(getValues()[0], value) }
                 value={ getValues()[1] }
-                range={ range }
+                range={ [rangeMin, rangeMax] }
                 step={ step }
                 delayMs={ delayMs }
                 tickCount={ tickCount }

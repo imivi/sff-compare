@@ -30,7 +30,7 @@ const style = css`
     width: 100%;
     /* overflow-x: auto; */
     display: grid;
-    grid-template-columns: 25rem 1fr;
+    grid-template-columns: 22rem 1fr;
     /* gap: 1vw; */
     width: 100%;
     height: 100%;

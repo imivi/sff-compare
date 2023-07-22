@@ -25,7 +25,9 @@ example.com/ ?r=0:0,1,true;1:4,5
  */
 export function parseRangeQuery(queryString: string, options: Options): Record<string, Range> {
     const numericalRange = parseRangeQueryToNumerical(queryString)
-    return parseNumericalRange(numericalRange, options)
+    const ranges = parseNumericalRange(numericalRange, options)
+    // console.info({ queryString, options }, "-->", ranges)
+    return ranges
 }
 
 export function parseRangeQueryToNumerical(queryString: string): Record<number, Range> {

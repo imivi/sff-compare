@@ -4,7 +4,7 @@ import Select, { type MultiValue } from "react-select"
 import { stringifyFilters } from "@/utils/queryString/stringifyFilters"
 import { DeserializedFilters } from "@/utils/queryString/deserializeFilters"
 import { stringifyRange } from "@/utils/queryString/range"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import DualSlider from "./slider/DualSlider"
 import { Query } from "@/utils/queryString/query"
 import { Options } from "@/utils/Options"
@@ -56,42 +56,52 @@ type Props = {
     query: Query
     // onChange: (selectedOptions: MultiValue<Option>) => unknown
     options: Options
+    key_: string|number
 }
 
-export default function FilterControl({ label, query, options, values }: Props) {
+export default function FilterControl({ label, query, options, values, key_ }: Props) {
 
     const router = useRouter()
 
     const { min, max } = useMemo(() => getMinMax(values), [values])
 
-    // console.log({ min, max })
-
     const ranges = query.r
     const filters = query.fil
     
-    const selectedRange = label in ranges ? ranges[label] : { min, max }
-    const [sliderValues, setSliderValues] = useState<[number,number]>([selectedRange.min, selectedRange.max])
+    const selectedRangeMin = ranges.hasOwnProperty(label) ? ranges[label].min : min
+    const selectedRangeMax = ranges.hasOwnProperty(label) ? ranges[label].max : max
+    // const [sliderValues, setSliderValues] = useState<[number,number]>([selectedRange.min, selectedRange.max])
+
+    const [sliderValueMin, setSliderValueMin] = useState(min)
+    const [sliderValueMax, setSliderValueMax] = useState(max)
     
-
-
     const step = (max-min > 10) ? 1 : 0.1
-    // const step = 1
-
     const decimals = (max-min < 3) ? 1 : 0
 
-    // If the header index is in filters (from the query string),
-    // read the selected options. Otherwise, "selected options" is empty
-    // const selectedOptionsIndices = headerIndex in filters ? filters[headerIndex] : []
-    // const options = values.map((value,i) => ({ label: value, value: i }))
-    // const selectedOptions = selectedOptionsIndices.map(index => options[index])
+    let selectedOptions: { label: string, value: number }[] = []
 
+    const selectOptions = options.getValues(label).map((label,i) => ({ label: label.toString(), value: i }))
+    const isNumericalOption = values.length > 3 && options.isNumerical(label)
+
+    const selectedOptionLabels = query.fil[label] || []
+        for(const optionKey of selectedOptionLabels) {
+        const index = options.indexOf(label, optionKey)
+        selectedOptions.push({ label: optionKey.toString(), value: index })
+    }
+
+    /*
+    useEffect(() => {
+        if(!ranges.hasOwnProperty(label)) {
+            // const { min, max } = ranges[label]
+            const values = options.getValues(label)
+            const { min, max } = getMinMax(values)
+            setSliderValueMin(min)
+            setSliderValueMin(max)
+        }
+    }, [min, max, setSliderValueMin, setSliderValueMax, label, ranges, options])
+    */
 
     function handleSelect(newSelectedOptions: MultiValue<SelectOption>) {
-
-        // const selectedOptionsIndices = selectedOptions.map(option => option.value)
-
-        // filters[headerIndex] = selectedOptionsIndices
-
         const newFilters: DeserializedFilters = {
             ...filters,
             [label]: newSelectedOptions.map(option => option.label)
@@ -101,53 +111,22 @@ export default function FilterControl({ label, query, options, values }: Props) 
             ...router.query,
             fil: stringifyFilters(newFilters,options.values),
         }
-        // console.log({ label, selectedOptions, oldFilters: filters, newFilters, newQuery, options })
-        
+
         router.replace({
             query: newQuery,
         })
     }
 
 
-    // const sel = query.fil
-
-    // console.log({ options })
-
-    let selectedOptions: { label: string, value: number }[] = []
-
-    const selectedOptionLabels = query.fil[label] || []
-        for(const optionKey of selectedOptionLabels) {
-        const index = options.indexOf(label, optionKey)
-        selectedOptions.push({ label: optionKey.toString(), value: index })
-    }
-
-    /*
-    let selectedOptions: { label: string, value: number }[] | null = null
-    if(options.getValues(label) && filters[label]) {
-        // const optionsLabels = options[label]
-        
-        selectedOptions = options.getValues(label)
-            .filter(option => filters[label].includes(option))
-            .map((option,i) => ({ label: option.toString(), value: i }))
-        
-        // console.log(label, options[label], filters[label], selectedOptions)
-    }
-    */
-
-    const selectOptions = options.getValues(label).map((label,i) => ({ label: label.toString(), value: i }))
-
-    const isNumericalOption = values.length > 3 && options.isNumerical(label)
-    // const isNumericalOption = useMemo(() => values.length > 3 && isNumberColumn(values), [values])
-
-    // console.log(values,isNumericalOption)
-
-
-
-
     function handleChange(values: number[]) {
 
         // if(typeof document === "undefined") {
         //     return
+        // }
+
+        // if(!ranges.hasOwnProperty(label)) {
+        //     console.log("Setting range in query because it's empty")
+        //     handleChange(values)
         // }
 
         const newRanges = { ...ranges }
@@ -177,6 +156,19 @@ export default function FilterControl({ label, query, options, values }: Props) 
                 query: newQuery,
             })
         }
+        else {
+            console.info("document undefined")
+        }
+    }
+
+    function handleDrag(values: [number,number]) {
+        // setSliderValues([...values])
+        console.log("(Drag) setting new slider values:", values)
+        setSliderValueMin(values[0])
+        setSliderValueMax(values[1])
+        if(!ranges) {
+            handleChange(values)
+        }
     }
 
     // Render a slider
@@ -184,7 +176,18 @@ export default function FilterControl({ label, query, options, values }: Props) 
         return <div css={ style } data-outline={ false }>
 
             <div>
-                <div className="label" title={ JSON.stringify({min,max,selectedRange,sliderValues},null,4) }>{ label }</div>
+                <div className="label" title={ JSON.stringify({
+                    key_,
+                    min,
+                    max,
+                    selectedRangeMin,
+                    selectedRangeMax,
+                    sliderValueMin,
+                    sliderValueMax,
+                    // values: (ranges.hasOwnProperty(label) ? sliderValues : [min,max])
+                }, null, 4)}>
+                    { label } ({ key_ })
+                </div>
                 {/* TODO: add feature */}
                 {/* <label>
                     <input type="checkbox"/>
@@ -193,26 +196,25 @@ export default function FilterControl({ label, query, options, values }: Props) 
             </div>
 
             <div className="slider">
+                <div>Key: { key_ }</div>
+                {/* <div>controlled: { ranges.hasOwnProperty(label).toString() }</div> */}
                 <small>
-                    { sliderValues.map(value => value?.toFixed(decimals))?.join(" - ") }
+                    { [sliderValueMin,sliderValueMax].map(value => value?.toFixed(decimals))?.join(" - ") }
                 </small>
-                {/* <MultiSlider
-                    domain={ [min, max] }
-                    minValue={ selectedRange?.min || min }
-                    maxValue={ selectedRange?.max || max }
-                    onChange={ (values) => handleChange(values) }
-                    tickCount={ Math.min(values.length+1, 5) }
-                    onDrag={ (values) => setSliderValues(values) }
-                /> */}
                 <DualSlider
-                    range={ [min, max] }
-                    values={ ranges[label] ? sliderValues : undefined }
+                    rangeMin={ min }
+                    rangeMax={ max }
+                    // valueMin={ sliderValueMin }
+                    valueMin={ ranges.hasOwnProperty(label) ? sliderValueMin : min }
+                    // valueMax={ sliderValueMax }
+                    valueMax={ ranges.hasOwnProperty(label) ? sliderValueMax : max }
+                    controlled={ ranges.hasOwnProperty(label) }
                     step={ step }
                     onChange={ (values) => handleChange(values) }
                     tickCount={ Math.min(values.length+1, 5) }
                     // While the slider is dragged, update the indicators above it.
                     // If there is no query string for the current range, create it.
-                    onDrag={ (values) => { setSliderValues(values); if(!ranges[label]) handleChange(values) } }
+                    onDrag={ handleDrag }
                 />
             </div>
         </div>

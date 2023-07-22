@@ -50,13 +50,15 @@ export default function FiltersList({ query, options }: Props) {
                 <div style={{ display: "flex" }}>
                     <button onClick={ () => console.info(options) }>Log options</button>
                     <button onClick={ () => console.info(query) }>Log query</button>
+                    <button onClick={ () => console.info(options) }>Log options</button>
+                    <button onClick={ () => console.info(query.r) }>Log ranges</button>
                 </div>
             }
 
             {
                 [...basicOptions, ...(showAllOptions ? hiddenOptions : []) ]
                     .filter(optionLabel => !blacklist.has(optionLabel))
-                    .map(optionLabel => {
+                    .map((optionLabel,i) => {
                         return (
                             <FilterControl
                                 label={optionLabel}
@@ -66,7 +68,8 @@ export default function FiltersList({ query, options }: Props) {
                                 // headerIndex={ headerIndex }
                                 // filters={query.fil}
                                 // ranges={query.r}
-                                key={optionLabel}
+                                key={ `${ i }-${ optionLabel }` }
+                                key_={ `${ i }-${ optionLabel }` }
                             />
                         )
                     })
