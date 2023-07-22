@@ -202,6 +202,10 @@ export default function Visualizer({ rows }: Props) {
     const margin = 5
     const charWidth = 3
 
+    if(selectedCubes.length === 0) {
+        return <div css={ style }>No items selected</div>
+    }
+
     return (
         <div css={ style } data-fullscreen={ fullscreen }>
 
@@ -231,7 +235,7 @@ export default function Visualizer({ rows }: Props) {
                         material={ caseMaterial }
                     /> */}
 
-                    {
+                    {/*
                         selectedCubes.length === 0 &&
                         <Text
                             fontSize={ 8 }
@@ -242,7 +246,7 @@ export default function Visualizer({ rows }: Props) {
                             // position={ new THREE.Vector3(0, -cube.size.y/2, cube.size.z) }
                         >No items selected
                         </Text>
-                    }
+                    */}
 
                     <group position={ new THREE.Vector3(-offset, 0, 0) }>
                         {
@@ -268,10 +272,11 @@ const style = css`
     width: 100%;
     height: 100%;
     position: relative;
-    /* outline: 1px solid #ccc; */
-    /* width: calc(100% - 1em);
-    height: calc(100% - 2em);
-    margin-top: 1em; */
+
+    /* Center the message "No items selected" */
+    display: flex;
+    place-items: center;
+    place-content: center;
 
     &[data-fullscreen=true] {
         position: fixed;
