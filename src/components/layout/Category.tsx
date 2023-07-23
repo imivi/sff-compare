@@ -27,7 +27,7 @@ const Visualizer = dynamic(() => import("../visualizer/Visualizer"))
 
 type Props = {
     title: string
-    page: string | null
+    page: string
     rows: Row[]
 }
 
@@ -53,7 +53,7 @@ export default function Category({ title, page, rows }: Props) {
     const selectedRows = rows.filter(row => query.hasRowId(row.id))
 
     function handleCategoryChange(page: string) {
-        router.push(page)
+        router.push("/"+page)
     }
 
     const enableVisualizer = page && validPages.has(page)
@@ -70,6 +70,7 @@ export default function Category({ title, page, rows }: Props) {
                             <Select
                                 onChange={ handleCategoryChange }
                                 options={ Array.from(Object.entries(tabNames)) }
+                                value={ page }
                             />
                         </label>
 
@@ -149,7 +150,7 @@ const style = css`
     .resize-handle {
         background-color: #3190fd;
         width: 100%;
-        height: 3px;
+        height: 5px;
     }
     
     main {

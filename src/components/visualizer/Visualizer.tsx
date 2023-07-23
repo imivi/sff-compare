@@ -212,8 +212,8 @@ export default function Visualizer({ rows }: Props) {
             <VisualizerControls cubes={ selectedCubes }/>
 
             {/* <button onClick={ () => setFullscreen(!fullscreen) }>fullscreen</button> */}
-            <Canvas frameloop="demand" onCreated={ onLoadScene }>
-                <Suspense fallback={ null }>
+            <Suspense fallback={ null }>
+                <Canvas frameloop="demand" onCreated={ onLoadScene }>
                     {/* <PerspectiveCamera makeDefault fov={ 40 } position={ new THREE.Vector3(0, 100, 60) }/> */}
                     <OrbitControls/>
 
@@ -261,8 +261,8 @@ export default function Visualizer({ rows }: Props) {
                             ))
                         }
                     </group>
-                </Suspense>
-            </Canvas>
+                </Canvas>
+            </Suspense>
         </div>
     )
 }

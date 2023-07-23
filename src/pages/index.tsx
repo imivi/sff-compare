@@ -60,11 +60,11 @@ function TestMultiSelect() {
     
     return (<>
         <MultiSelect
-            className="multiselect"
             closeMenuOnSelect={ true }
             options={ options }
             values={ selected }
             onChange={ (values) => setSelected(values) }
+            category="test"
         />
         <p>lorems</p>
         <p>lorems</p>

@@ -1,6 +1,5 @@
 import { css } from "@emotion/react"
 import { useRouter } from "next/router"
-import Select, { type MultiValue } from "react-select"
 import { stringifyFilters } from "@/utils/queryString/stringifyFilters"
 import { DeserializedFilters } from "@/utils/queryString/deserializeFilters"
 import { stringifyRange } from "@/utils/queryString/range"

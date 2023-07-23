@@ -7,28 +7,28 @@ type Props = {
     // value: string|null,
     onChange?: (e: string) => unknown
     options: [string,string][] // [value, label]
+    value: string | number
 }// & Omit<HTMLAttributes<HTMLSelectElement>,"onChange">
 
-export default function Select({ options, onChange }: Props) {
+export default function Select({ options, onChange, value }: Props) {
 
     // console.log({ options, value })
 
-    return (
+    return (<>
+        {/* <div title={ JSON.stringify(options,null,4) }>Value: { value }</div> */}
         <select
             css={ style }
             onChange={ (e) => onChange && onChange(e.target.value) }
-            // defaultValue={ value || options[0][0] }
-            // value={ value || options[0][0] }
+            value={ value }
         >   {
                 options.map(([value,label]) => (
-                    <option value={ "/"+value } key={ value }>
+                    <option value={ value } key={ value }>
                         { label }
                     </option>
                 ))
             }
         </select>
-    )
-
+    </>)
 }
 
 const style = css`

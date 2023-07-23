@@ -6,7 +6,7 @@ import { pages } from "@/data/pages"
 
 
 type Props = {
-    page: string | null
+    page: string
     rows: Row[]
 }
 
@@ -26,7 +26,8 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     // const page = params?.category as keyof Pages
     // const sheetName = googleSheetsTabs[params.]
 
-    const pageName = typeof params?.category === "string" ? params.category : null
+    // const pageName = typeof params?.category === "string" ? params.category : null
+    const pageName = params?.category as string
 
     // const rows = pageName ? await readSheet(googleSheetsTabs[pageName], true) : []
     // const rows = pageName ? getPageRows(pageName) : []

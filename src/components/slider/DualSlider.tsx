@@ -81,12 +81,11 @@ export default function DualSlider({ category, decimals, rangeMin, rangeMax, val
     }
 
     function getValues() {
-        if(!controlled) {
-            return localValues
-        }
-        else {
-            return [valueMin, valueMax]
-        }
+        const [min, max] = controlled ? [valueMin, valueMax] : localValues
+        return [
+            Math.max(rangeMin, min),
+            Math.min(rangeMax, max),
+        ]
     }
 
 
@@ -99,7 +98,7 @@ export default function DualSlider({ category, decimals, rangeMin, rangeMax, val
                 {/* <small>{ values.join(", ") }</small> */}
                 <Slider
                     onChange={ value => handleChange(value, getValues()[1]) }
-                    value={ Math.max(rangeMin, getValues()[0]) }
+                    value={ getValues()[0] }
                     range={ [rangeMin, rangeMax] }
                     step={ step }
                     delayMs={ delayMs }
@@ -110,7 +109,7 @@ export default function DualSlider({ category, decimals, rangeMin, rangeMax, val
                 />
                 <Slider
                     onChange={ value => handleChange(getValues()[0], value) }
-                    value={ Math.min(rangeMax, getValues()[1]) }
+                    value={ getValues()[1] }
                     range={ [rangeMin, rangeMax] }
                     step={ step }
                     delayMs={ delayMs }

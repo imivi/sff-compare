@@ -1,9 +1,9 @@
 export const googleSheetsId = "1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4"
-export const googleSheetsLink = "https://docs.google.com/spreadsheets/d/"+googleSheetsId+"/edit#gid=0"
+export const googleSheetsLink = "https://docs.google.com/spreadsheets/d/"+googleSheetsId
 
 const googleSheetsTabsKeyed = {
     "cases1":       "SFF Case <10L",
-    "cases2":       "SFF Case 10-20L",
+    "cases2":       "SFF Case 10L-20L",
     "cases3":       "MFF Case >20L",
     "coolers1":     "CPU Cooler <70mm",
     "coolers2":     "CPU Cooler >70mm",
@@ -20,7 +20,7 @@ const googleSheetsTabsKeyed = {
     "psu":          "PSU",
     "cpu":          "CPU",
     "chipset":      "Chipset",
-    "oem":          "Console & Pre-Built",
+    // "oem":          "Console & Pre-Built",
 }
 export const googleSheetsTabs = googleSheetsTabsKeyed as Record<string, string>
 
@@ -38,12 +38,17 @@ export const blacklist = new Set([
     "id",
     "page",
     "Review by Aris",
+    "SFF.Net Link",
+    "SFFPC Wiki Link",
+    "Last Update",
 ])
 
 export const hiddenFilters = new Set([
 
     // General
     "Name",
+
+    // Cases3
 
     // CPU
     "AMD FM1 / FM2(+) / AM2(+) / AM3(+)",
