@@ -1,0 +1,191 @@
+@use "../styles/colors.scss";
+
+.container {
+
+    display: flex;
+
+    .slider_container {
+        width: 100%;
+        display: grid;
+        align-items: center;
+        grid-template-columns: 2em 1fr 2em;
+        gap: .2em;
+    }
+
+    .label_range_minmax {
+        font-size: .9em;
+        opacity: 0.8;
+        text-align: center;
+        // opacity: 0.3;
+        color: colors.$sidebar-text;
+
+        &:first-child {
+            // text-align: right;
+        }
+    }
+
+    .range_inputs {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        width: 100%;
+
+        .slider_track_full {
+            width: 100%;
+            height: 4px;
+            border-radius: 4px;
+            background-color: colors.$filter-bg;
+        }
+
+        .slider_track_active {
+            position: absolute;
+            background-color: colors.$bg-interactive;
+            height: 3px;
+            z-index: 2;
+        }
+
+        .label_min,
+        .label_max {
+            position: absolute;
+            // background-color: #eee;
+            top: 20px;
+            // border: 1px solid #ccc;
+            // display: flex;
+            // place-items: center;
+            // place-content: center;
+            // transform: translateY(-200%);·
+            transform: translateX(-50%);
+
+            span {
+                position: relative;
+                font-size: 14px;
+                outline: 1px solid brown;
+                background-color: white;
+            }
+        }
+
+        // input[type=range]::-ms-thumb
+        // input[type=range]::-webkit-slider-thumb,
+
+        input[type=range] {
+
+            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
+
+            appearance: none;
+            -webkit-appearance: none;
+            /* Hides the slider so that custom slider can be made */
+            width: 100%;
+            height: 100%;
+            /* Specific width is required for Firefox. */
+            background: transparent;
+            /* Otherwise white in Chrome */
+
+            pointer-events: none;
+            cursor: pointer;
+
+
+            // appearance: none;
+            // -webkit-appearance: none;
+
+            // height: 7px;
+            // background: rgba(255, 255, 255, 0.6);
+            // border-radius: 5px;
+
+            // background-image: linear-gradient(#ff4500, #ff4500);
+            // background-size: 70% 100%;
+            // background-repeat: no-repeat;
+
+            &::-moz-range-thumb {
+                -webkit-appearance: none;
+
+                height: 14px;
+                width: 14px;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                // border: 1px solid dodgerblue;
+                border: none;
+                background-color: colors.$bg-interactive;
+                cursor: pointer;
+                // box-shadow: 0 0 2px 0 #555;
+                // transition: background .3s ease-in-out;
+                // transform: translateX(-50%);
+
+                // pointer-events: auto;
+                pointer-events: all;
+            }
+
+            &::-webkit-slider-runnable-track,
+            &::-moz-range-track,
+            &::-ms-track {
+                -webkit-appearance: none;
+
+                box-shadow: none;
+                border: none;
+                background: transparent;
+
+                pointer-events: none;
+                pointer-events: all;
+            }
+
+            &:first-child {}
+        }
+    }
+
+    .inputs {
+        // margin-left: .5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // gap: .2em;
+        background-color: colors.$bg-interactive;
+        height: 2em;
+        border-radius: 2em;
+        max-width: 6em;
+    }
+
+    input[type=number] {
+        font-size: 0.9em;
+        // max-width: 5em;
+        // border: 1px solid #ddd;
+        // padding: .2em .4em;
+        // border-radius: 4px;
+        background: none;
+        border: none;
+        text-align: center;
+        // color: colors.$sidebar-text;
+        color: white;
+        // background-color: colors.$filter-bg;
+
+        // Hide spinbox
+        appearance: textfield;
+        -moz-appearance: textfield;
+        -webkit-appearance: textfield;
+        margin: 0;
+
+        // Hide spinbox on chrome/safari
+        &::-webkit-inner-spin-button {
+            display: none;
+            margin: 0;
+        }
+
+        &[data-error=true] {
+            border: 2px solid brown;
+            color: brown;
+        }
+    }
+
+    code {
+        background-color: cadetblue;
+        color: white;
+        font-size: 0.9em;
+        padding: .2em .4em;
+        border-radius: 3px;
+    }
+}

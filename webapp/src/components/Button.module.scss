@@ -1,0 +1,88 @@
+@use "../styles/colors.scss";
+
+.button {
+    background: dodgerblue;
+    border: none;
+    padding: .5em .8em;
+    border-radius: .2em;
+    cursor: pointer;
+    display: flex;
+    place-content: center;
+    place-items: center;
+    gap: .3em;
+
+    // box-shadow: 0 3px 6px 6px rgba($color: black, $alpha: 0.05);
+    transition: 50ms all;
+
+    height: 2em;
+    border-radius: 2em;
+    padding: 0 .8em;
+
+    &[data-inline=true] {
+        display: inline-flex;
+    }
+
+    &[data-style=standard] {
+        background-color: colors.$bg-interactive;
+        color: white;
+    }
+
+    &[data-style=special] {
+        background-color: colors.$bg-interactive-special;
+        color: colors.$text-interactive-special;
+    }
+
+    &:disabled {
+        background-color: #333;
+        color: gray;
+        cursor: default;
+    }
+
+    &:not(:disabled) {
+
+        &:hover {
+            // background: colors.$button-special-active-bg;
+            color: white;
+        }
+
+        &:active {
+            background: colors.$button-special-active-bg;
+            color: white;
+        }
+    }
+
+}
+
+/*
+.button {
+    background: dodgerblue;
+    color: white;
+    border: none;
+    padding: .5em .8em;
+    border-radius: .2em;
+    cursor: pointer;
+    display: flex;
+    place-content: center;
+    place-items: center;
+    gap: .3em;
+
+    // box-shadow: 0 3px 6px 6px rgba($color: black, $alpha: 0.05);
+    transition: 50ms all;
+
+    &:disabled {
+        background-color: rgb(52, 94, 133);
+        color: gray;
+        cursor: default;
+    }
+
+    &:not(:disabled) {
+        &:hover {
+            background: rgb(61, 158, 255);
+        }
+
+        &:active {
+            background: rgb(19, 130, 242);
+        }
+    }
+
+}*/

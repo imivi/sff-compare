@@ -1,0 +1,27 @@
+@use "../styles/constants.scss";
+
+.container {
+    // height: 100vh;
+    display: grid;
+    grid-template-rows: 3em 1fr;
+    position: relative;
+    color: white;
+
+    .horizontal_layout {
+        // height: 100%;
+        height: calc(100vh - constants.$header-height);
+        position: relative;
+
+        display: flex;
+        position: absolute;
+        left: 0;
+        top: constants.$header-height;
+        width: 100vw;
+
+        // On mobile, always show the sidebar
+        @media screen and (min-width: 960px) {
+            display: grid;
+            grid-template-columns: auto 1fr;
+        }
+    }
+}

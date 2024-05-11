@@ -1,0 +1,46 @@
+@use "../styles/colors.scss";
+
+.container {
+    // background-color: #111;
+    display: flex;
+    justify-content: center;
+
+    label {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: .5em;
+        align-items: center;
+        position: relative;
+
+        background-color: colors.$filter-bg;
+        color: white;
+        height: 2em;
+        border-radius: 2em;
+        padding: 0 .6em;
+        padding-right: 0.4em;
+        max-width: 10em;
+
+        transition: background-color 100ms;
+
+        border: 2px solid colors.$bg-interactive;
+
+        &[data-highlight=true] {
+            background-color: colors.$button-special-bg;
+            color: colors.$text-interactive-special;
+            border-color: transparent;
+        }
+
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    input[type=text] {
+        width: 100%;
+        background: none;
+        border: none;
+        // border-bottom: 1px solid white;
+        color: inherit;
+    }
+}

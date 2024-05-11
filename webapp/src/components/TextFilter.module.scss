@@ -1,0 +1,57 @@
+@use "../styles/colors.scss";
+
+.container {
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5em;
+
+    select {
+        width: 100%;
+        background-color: colors.$bg-interactive;
+        border: none;
+        color: white;
+        height: 2em;
+        border-radius: 2em;
+        padding: 0 .8em;
+        max-width: 6em;
+    }
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5em;
+        // margin-top: .5em;
+
+        li {
+            background-color: colors.$filter-bg;
+            color: white;
+            padding: 0 .5em;
+            display: flex;
+            place-content: center;
+            place-items: center;
+            font-size: .9em;
+            height: 1.6em;
+            border-radius: 0.8em;
+
+            span {
+                max-width: 4em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: normal;
+                white-space: nowrap;
+                display: inline-block;
+            }
+
+            button {
+                border: none;
+                background: none;
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+        }
+    }
+}

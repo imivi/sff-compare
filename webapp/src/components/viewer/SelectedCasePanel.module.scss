@@ -1,0 +1,25 @@
+.container {
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 60px;
+    max-height: 90%;
+    max-width: min(50%, 20rem);
+    background-color: rgba($color: black, $alpha: 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    tr {
+        border-bottom: 1px solid #444;
+
+        td:nth-of-type(2) {
+            color: lightblue;
+            font-weight: bold;
+        }
+    }
+}

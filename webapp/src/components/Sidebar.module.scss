@@ -1,0 +1,165 @@
+@use "../styles/colors.scss";
+@use "../styles/constants.scss";
+
+.container {
+    background-color: colors.$sidebar-bg;
+    // border: 1px solid #ddd;
+    color: colors.$sidebar-text;
+
+    height: calc(100vh - constants.$header-height);
+    display: grid;
+    grid-template-rows: 1fr auto;
+    z-index: 3;
+    // padding-right: 10px;
+    position: relative;
+
+    transition: all 300ms;
+
+    &[data-show=false] {
+        width: 0;
+        overflow: hidden;
+        transform: translateX(-200%);
+
+        // .filters,
+        // footer {
+        //     width: 0;
+        // }
+    }
+
+    &[data-show=true] {
+        width: min(600px, 50vw);
+
+        @media screen and (max-width: 960px) {
+            width: min(100vw);
+        }
+    }
+
+    /*
+    On mobile, hide the sidebar by default.
+    Only show it after clicking on the floating "filters" button.
+    Show the sidebar as an overlay that takes up most of the screen.
+    */
+    @media screen and (max-width: 960px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        transition: all 200ms ease-in-out;
+        // box-shadow: 0 0 200px 200px rgba($color: black, $alpha: 0.3);
+
+        &[data-show=false] {
+            transform: translateX(-100%);
+            box-shadow: none;
+        }
+
+        // Make space for the sticky header
+        top: constants.$header-height;
+        height: calc(100vh - constants.$header-height);
+    }
+
+
+    .filters {
+
+        height: 100%;
+        // width: 100%;
+        overflow: auto;
+        padding-bottom: 5vh;
+
+        .filter {}
+
+        .filter:nth-of-type(even) {
+            // background-color: #ddd;
+        }
+
+    }
+
+    footer {
+        // button {
+        //     background-color: dodgerblue;
+        //     color: white;
+        //     border: none;
+        //     padding: .5em 1em;
+        // }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #282d38e2;
+        color: white;
+        z-index: 3;
+
+        border-top: 2px solid colors.$filter-bg;
+        color: colors.$sidebar-text;
+
+        transition: max-height 200ms;
+
+        &[data-show=true] {
+            // padding: .5em;
+            max-height: 6em;
+        }
+
+
+        &[data-show=false] {
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        a {
+            margin: .5em auto;
+            text-decoration: none;
+            background: colors.$bg-interactive;
+            color: white;
+            border: none;
+            padding: 0 1em;
+            min-width: 10em;
+            height: 3em;
+            border-radius: 3em;
+            // border-radius: .2em;
+            cursor: pointer;
+            display: flex;
+            place-content: center;
+            place-items: center;
+            gap: .3em;
+
+            transition: 50ms all;
+
+            &[data-disabled=true] {
+                background-color: rgb(52, 94, 133);
+                color: gray;
+                cursor: default;
+            }
+
+            &[data-disabled=false] {
+                &:hover {
+                    background: rgb(61, 158, 255);
+                }
+
+                &:active {
+                    background: rgb(19, 130, 242);
+                }
+            }
+        }
+    }
+
+}
+
+.button_show_filters {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: dodgerblue;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    place-content: center;
+    place-items: center;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    cursor: pointer;
+
+    transition: all 200ms;
+
+    &[data-show=false] {
+        transform: translateX(-200%);
+    }
+}

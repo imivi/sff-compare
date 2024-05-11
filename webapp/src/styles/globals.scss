@@ -1,0 +1,43 @@
+@use "./colors.scss";
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5em;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  background-color: colors.$table-bg;
+}
+
+pre {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+input {
+  width: 100%;
+}
+
+.g-unstyled {
+  border: none;
+  background: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+
+input[type=checkbox] {
+  cursor: pointer;
+  min-width: .9rem;
+  min-height: .9rem;
+}

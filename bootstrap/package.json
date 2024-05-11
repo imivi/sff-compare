@@ -1,0 +1,32 @@
+{
+  "name": "sffcompare-bootstrap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx --watch src/index.ts",
+    "start_dev": "tsx src/index.ts",
+    "download": "tsx src/utils/get-rows-from-csv.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/papaparse": "^5.3.14",
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mongodb": "^6.5.0",
+    "papaparse": "^5.4.1",
+    "pino": "^8.20.0",
+    "pino-mongodb": "^4.3.0",
+    "zod": "^3.23.0"
+  }
+}

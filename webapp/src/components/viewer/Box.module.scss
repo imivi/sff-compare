@@ -1,0 +1,15 @@
+.box_label {
+    color: #555;
+    background-color: rgba($color: black, $alpha: 0.1);
+    // height: 1.5em;
+    // border-radius: 1.5em;
+    border-radius: .3em;
+    padding: 0 .5em;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+
+    // word-break: keep-all;
+    z-index: 1;
+}

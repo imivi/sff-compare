@@ -1,0 +1,6 @@
+node_modules
+db/data
+.env
+nextjs/public/original
+.directory
+README.untracked.md

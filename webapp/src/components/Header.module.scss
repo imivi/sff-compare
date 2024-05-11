@@ -1,0 +1,60 @@
+@use "../styles/colors.scss";
+@use "../styles/constants.scss";
+
+.container {
+    position: sticky;
+    top: 0;
+    width: calc(100vw - 2em);
+    z-index: 3;
+    background-color: colors.$sidebar-bg;
+    color: white;
+    // height: max(2em, 5vh);
+    height: constants.$header-height;
+    padding: 0 1em;
+
+    // display: flex;
+    // justify-content: center;
+
+    // display: flex;
+    align-items: center;
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    gap: 1vw;
+
+    @media screen and (max-width: 600px) {
+
+        .link_homepage {
+            display: none;
+        }
+
+        font-size: 0.9em;
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5em;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+    }
+
+    a,
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+        border: none;
+    }
+
+    @media screen and (max-width: 600px) {
+        font-size: 0.8em;
+    }
+
+}

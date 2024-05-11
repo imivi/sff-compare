@@ -1,0 +1,39 @@
+/* Color-based definitions (use them only in this file!) */
+
+$darkblue: #2B2D42; // dark bg
+$darkblue: #2B2D42; // light bg
+$lightblue: #478ec5ff; // for buttons and other interactive elements
+$darkerblue: #3a76a4; // for buttons and other interactive elements
+$bluish-white: #cdcfe0ff; // for text on dark blue bg
+$bluish-grey: #464b69; // for element fill on dark blue bg
+$bluish-grey-lighter: #525779; // for element fill on dark blue bg
+$yellow: #f5b41b;
+$darkeryellow: #d89d15;
+$darkyellow: #5c4e01;
+$coral: #eda162;
+$brown: #342308;
+
+
+/* Role-based definitions */
+
+$sidebar-bg: $darkblue;
+$sidebar-text: $bluish-white;
+$sidebar-header: $bluish-grey;
+
+$filter-bg: $bluish-grey;
+$filter-text: $bluish-white;
+
+$table-accent: $lightblue;
+$table-text: $bluish-white;
+$table-bg: $bluish-grey;
+$table-bg-alternate-row: $bluish-grey-lighter;
+
+$bg-interactive: $lightblue;
+$bg-interactive-special: $yellow;
+$text-interactive-special: $darkyellow;
+
+$button-standard-bg: $lightblue;
+$button-standard-active-bg: $darkerblue;
+
+$button-special-bg: $yellow;
+$button-special-active-bg: $darkeryellow;

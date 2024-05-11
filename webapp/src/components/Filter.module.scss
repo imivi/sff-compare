@@ -1,0 +1,68 @@
+@use "../styles/colors.scss";
+
+.container {
+    border-left: 4px solid transparent;
+    padding: 1vh;
+    // outline: 1px solid brown;
+    display: grid;
+    grid-template-columns: 12em 1fr;
+    // border-top: 1px solid #ddd;
+    gap: 1vw;
+
+    color: colors.$sidebar-text;
+
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+    }
+
+    label {
+        // border-right: 1px solid #ddd;
+        // padding-right: 1vw;
+        display: inline-block;
+        align-items: flex-start;
+        height: 2em;
+        background-color: colors.$filter-bg;
+        // padding: 0 .8em;
+        border-radius: 2em;
+        display: flex;
+        align-items: center;
+
+        span {
+            width: 100%;
+            margin: 0 .6em;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: normal;
+            white-space: nowrap;
+            // display: inline-flex;
+        }
+    }
+
+    button.btn_reset_filter {
+        background: none;
+        border: none;
+        padding: 0;
+        background-color: colors.$bg-interactive;
+        width: 1.4em;
+        height: 1.4em;
+        margin-left: .3em;
+        border-radius: 50%;
+        aspect-ratio: 1;
+        // margin-right: .5em;
+        cursor: pointer;
+
+        display: flex;
+        place-content: center;
+        place-items: center;
+    }
+
+    &[data-highlight=true] {
+        // background-color: rgb(218, 232, 245);
+        border-left-color: colors.$bg-interactive;
+        // border-top: 1px solid rgb(156, 197, 238);
+    }
+
+}
