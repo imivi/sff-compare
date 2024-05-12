@@ -31,5 +31,5 @@ This repository includes the following:
 SFF Compare uses the following 3D models as part of the 3D viewer:
 
 * https://grabcad.com/library/24-monitor-ecran-24-pouces-1
-* https://grabcad.com/library/24-monitor-ecran-24-pouces-1
+* https://grabcad.com/library/monitor-philips-27-272v8-1
 * https://grabcad.com/library/asus-rog-swift-pg348q-approximate-1
