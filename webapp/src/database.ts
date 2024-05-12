@@ -50,7 +50,7 @@ type UpdateDate = {
 }
 
 async function getLastUpdateDate(): Promise<Date> {
-    const lastUpdates = await database.collection<UpdateDate>(env.DB_COLLECTION_UPDATES).find().sort({ date: 1 }).limit(1).toArray()
+    const lastUpdates = await database.collection<UpdateDate>(env.DB_COLLECTION_UPDATES).find().sort({ date: -1 }).limit(1).toArray()
     return lastUpdates[0]?.date
 }
 
