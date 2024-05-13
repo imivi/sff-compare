@@ -6,18 +6,18 @@
 }
 
 html {
-    height: 100vh;
+    min-height: 100vh;
     // Required on mobile so that the page fits in the
     // entire viewport even with the address bar etc. are visible.
-    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
 }
 
 body {
     margin: 0;
     overflow: hidden;
     background-color: colors.$table-bg;
-    height: 100vh;
-    height: -webkit-fill-available;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
 }
 
 pre {
