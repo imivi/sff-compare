@@ -9,13 +9,19 @@
 
     .horizontal_layout {
         // height: 100%;
-        min-height: calc(100% - constants.$header-height);
+        // min-height: calc(100% - constants.$header-height);
+        padding-top: constants.$header-height;
         position: relative;
 
+        // min-height: 100vh;
+        // min-height: -webkit-fill-available;
+        height: 100%;
+
         display: flex;
-        position: absolute;
+        position: fixed;
+        top: 0;
         left: 0;
-        top: constants.$header-height;
+        // top: constants.$header-height;
         width: 100vw;
 
         // On mobile, always show the sidebar

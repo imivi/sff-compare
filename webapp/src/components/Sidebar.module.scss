@@ -6,12 +6,22 @@
     // border: 1px solid #ddd;
     color: colors.$sidebar-text;
 
-    height: calc(100% - constants.$header-height);
+    // height: calc(100% - constants.$header-height);
+
     display: grid;
     grid-template-rows: 1fr auto;
     z-index: 3;
     // padding-right: 10px;
     position: relative;
+    margin-top: calc(-1 * constants.$header-height);
+    padding-top: constants.$header-height;
+    left: 0;
+
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+
+    max-height: 100vh;
+    max-height: -webkit-fill-available;
 
     transition: all 300ms;
 
@@ -88,6 +98,8 @@
         background-color: #282d38e2;
         color: white;
         z-index: 3;
+
+        margin-bottom: constants.$header-height;
 
         border-top: 2px solid colors.$filter-bg;
         color: colors.$sidebar-text;
