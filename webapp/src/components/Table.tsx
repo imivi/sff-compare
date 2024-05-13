@@ -8,13 +8,13 @@ import { ColumnMetadata, Row } from "@/types"
 import { useRouter } from "next/router"
 import { useQueryParams } from "@/hooks/useQueryParams"
 import Link from "next/link"
-import { IconArrowDown, IconArrowUp, IconChevronLeft, IconChevronRight, IconChevronsLeft } from "@tabler/icons-react"
+import { IconArrowDown, IconArrowUp, IconChevronLeft, IconChevronRight, IconChevronsLeft, IconDownload } from "@tabler/icons-react"
 import Viewer from "./viewer/Viewer"
 import { useLayoutStore } from "@/store/useLayoutStore"
 import { sortRows } from "@/utils"
 import { useFuseSearch } from "@/hooks/useFuseSearch"
 import LoadingSpinner from "./LoadingSpinner"
-
+import { CSVLink } from "react-csv"
 
 
 function extractValidQueryResults<T>(results: { data?: T }[]): T[] {
@@ -144,6 +144,19 @@ export default function Table() {
 
     const showSearchCount = searchedCaseIds.length > 0
 
+    function getCsvRows(): unknown[][] {
+
+        if (!getColumnsQuery.data || !rowsToShow) {
+            return []
+        }
+
+        const headerRow = getColumnsQuery.data.map(value => value.label)
+        const headerKeys = getColumnsQuery.data.map(value => value.key)
+        const dataRows = rowsToShow.map(row => headerKeys.map(key => row[key] || ""))
+
+        return [headerRow, ...dataRows]
+    }
+
     return (
 
         <div className={s.container}>
@@ -154,7 +167,7 @@ export default function Table() {
 
             {getCasesQuery.data && getCasesQuery.data.length === 0 && <p>No cases found!</p>}
 
-            {!getColumnsQuery.data && <p>No columns data</p>}
+            {!getColumnsQuery.data && !getColumnsQuery.isLoading && <p>No columns data</p>}
 
             {getColumnsQuery.data && getColumnsQuery.data.length === 0 && <p>No results found!</p>}
 
@@ -296,6 +309,15 @@ export default function Table() {
                         </select>
                     </label>
                 }
+
+                <CSVLink
+                    data={getCsvRows()}
+                    target="_blank"
+                    className={s.btn_download_csv}
+                    filename="sff-cases.csv"
+                >
+                    <IconDownload size={18} /> CSV
+                </CSVLink>
 
             </footer>
 
