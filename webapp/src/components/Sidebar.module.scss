@@ -6,7 +6,7 @@
     // border: 1px solid #ddd;
     color: colors.$sidebar-text;
 
-    height: calc(100vh - constants.$header-height);
+    height: calc(100% - constants.$header-height);
     display: grid;
     grid-template-rows: 1fr auto;
     z-index: 3;
@@ -43,7 +43,8 @@
         position: fixed;
         top: 0;
         left: 0;
-        height: 100vh;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
         transition: all 200ms ease-in-out;
         // box-shadow: 0 0 200px 200px rgba($color: black, $alpha: 0.3);
 
@@ -54,7 +55,7 @@
 
         // Make space for the sticky header
         top: constants.$header-height;
-        height: calc(100vh - constants.$header-height);
+        min-height: calc(100% - constants.$header-height);
     }
 
 

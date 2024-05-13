@@ -20,6 +20,11 @@ body {
     min-height: -webkit-fill-available;
 }
 
+#__next {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+}
+
 pre {
     margin: 0;
 }

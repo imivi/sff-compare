@@ -14,7 +14,7 @@
     // align-items: stretch;
     // justify-content: stretch;
     // grid-template-rows: 1fr auto auto;
-    height: calc(100vh - constants.$header-height);
+    height: calc(100% - constants.$header-height);
 
     background-color: colors.$table-bg;
     // color: colors.$table-text;

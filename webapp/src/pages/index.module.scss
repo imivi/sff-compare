@@ -9,7 +9,7 @@
 
     .horizontal_layout {
         // height: 100%;
-        height: calc(100vh - constants.$header-height);
+        min-height: calc(100% - constants.$header-height);
         position: relative;
 
         display: flex;
