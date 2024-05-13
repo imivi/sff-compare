@@ -309,7 +309,6 @@ export default function Table() {
                         </select>
                     </label>
                 }
-
                 <CSVLink
                     data={getCsvRows()}
                     target="_blank"

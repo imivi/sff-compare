@@ -1,43 +1,51 @@
 @use "./colors.scss";
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5em;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5em;
+}
+
+html {
+    height: 100vh;
+    // Required on mobile so that the page fits in the
+    // entire viewport even with the address bar etc. are visible.
+    height: -webkit-fill-available;
 }
 
 body {
-  margin: 0;
-  overflow: hidden;
-  height: 100vh;
-  background-color: colors.$table-bg;
+    margin: 0;
+    overflow: hidden;
+    background-color: colors.$table-bg;
+    height: 100vh;
+    height: -webkit-fill-available;
 }
 
 pre {
-  margin: 0;
+    margin: 0;
 }
 
 ul {
-  margin: 0;
-  list-style: none;
-  padding-left: 0;
+    margin: 0;
+    list-style: none;
+    padding-left: 0;
 }
 
 input {
-  width: 100%;
+    width: 100%;
 }
 
 .g-unstyled {
-  border: none;
-  background: none;
-  outline: none;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
+    border: none;
+    background: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
 }
 
 
 input[type=checkbox] {
-  cursor: pointer;
-  min-width: .9rem;
-  min-height: .9rem;
+    cursor: pointer;
+    min-width: .9rem;
+    min-height: .9rem;
 }

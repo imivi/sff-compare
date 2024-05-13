@@ -4,11 +4,11 @@
 
 **Try it out here:** https://sffcompare.imivi.dev
 
+All data comes from the **SFF Master List** maintained by [u/prayogahs](https://reddit.com/u/prayogahs/) and [u/ermac-318](https://reddit.com/u/ermac-318/).
+
 <p align="center">
   <img src="docs/filters.jpg" />
 </p>
-
-SFF Compare is purely a frontend for the data provided by **SFF Master List** maintained by [u/prayogahs](https://reddit.com/u/prayogahs/) and [u/ermac-318](https://reddit.com/u/ermac-318/).
 
 ## 3D Viewer
 
