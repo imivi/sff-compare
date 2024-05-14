@@ -68,7 +68,7 @@ export default function RangeFilter({ columnMetadata }: Props) {
 
     return (
         <Filter filterKey={columnMetadata.key} highlight={filterIsAdjusted} label={columnMetadata.label}>
-            <div className={s.container} data-adjusted={filterIsAdjusted}>
+            <div className={s.container} data-adjusted={filterIsAdjusted} >
 
                 <div className={s.inputs}>
 

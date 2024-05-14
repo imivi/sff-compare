@@ -34,6 +34,7 @@ type Store = {
     // loadFiltersFromQueryString: (query: Record<string, string | string[] | undefined>, columnMetadata: ColumnMetadata[]) => void,
 
     resetFilter: (key: string) => void,
+    resetAllFilters: () => void,
 
     dirtyFilters: Set<string>,
     clearDirtyFilters: () => void,
@@ -57,13 +58,25 @@ export const useFilterStore = create<Store>((set, get) => ({
         })
     },
 
+    resetAllFilters: () => {
+        console.log("resetAllFilters")
+        set({
+            filters: {
+                "dummy": { min: 1, max: 2, numerical: true }
+            }
+        })
+    },
+
     resetFilter: (key: string) => {
-        const filters = get().filters
-        delete filters[key]
+        const oldFilters = get().filters
+        const newFilters = { ...oldFilters }
+        delete newFilters[key]
         // const dirtyFilters = get().dirtyFilters
         // dirtyFilters.delete(key)
+        console.log("Resetting filter:", { key, oldFilters, newFilters })
+
         set({
-            filters: { ...filters },
+            filters: newFilters,
             dirtyFilters: get().dirtyFilters.add(key),
         })
     },
@@ -241,14 +254,21 @@ export function createFiltersFromQueryString(query: Query, columnMetadata: Colum
     }
 
     // const queryParams = queryString.split("&")
+    const columnKeys = columnMetadata.map(col => col.key)
 
     const specialQueryFields = ["results", "page", "sort", "sel", "search"]
 
     const filters: Filters = {}
+
     Object.entries(query).forEach(([key, values]) => {
         if (specialQueryFields.includes(key)) {
             return
         }
+
+        if (!(key in columnKeys)) {
+            return
+        }
+
         if (typeof values === "string" && values !== "") {
             if (columnIsNumerical(key, columnMetadata)) {
                 const [min, max] = values.split(",").map(s => Number(s))

@@ -70,6 +70,7 @@ export default function Sidebar() {
             <div className={s.container} data-show={show}>
 
                 <ul className={s.filters}>
+                    {/* <pre style={{ height: 400, overflow: "auto" }}>{JSON.stringify(filters, null, 4)}</pre> */}
                     {
                         columns?.map(col => (
                             <div key={col.label}>
