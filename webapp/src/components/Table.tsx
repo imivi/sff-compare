@@ -15,6 +15,8 @@ import { sortRows } from "@/utils"
 import { useFuseSearch } from "@/hooks/useFuseSearch"
 import LoadingSpinner from "./LoadingSpinner"
 import { CSVLink } from "react-csv"
+import { ReactNode } from "react"
+import { calculateHue, higherIsBetter } from "@/column-colors"
 
 
 function extractValidQueryResults<T>(results: { data?: T }[]): T[] {
@@ -223,7 +225,7 @@ export default function Table() {
                                     </td>
                                     {
                                         columns && Object.values(columns).map((col, j) => (
-                                            <td key={j}>{row[col.key]}</td>
+                                            <Cell key={j} value={row[col.key]} column={col} />
                                         ))
                                     }
                                 </tr>
@@ -324,4 +326,24 @@ export default function Table() {
 
         </div>
     )
+}
+
+
+type CellProps = {
+    column: ColumnMetadata
+    value: number | string | null
+}
+
+function Cell({ column, value }: CellProps) {
+
+    // return <td>{JSON.stringify([column.key, value, higherIsBetter.hasOwnProperty(column.key)])}</td>
+
+    if (column.numerical && typeof value === "number" && higherIsBetter.hasOwnProperty(column.key)) {
+        // return <td style={{ backgroundColor: `hsla(${150}, 50%, 50%, 1)`, color: "white" }}>{value}</td>
+        const columnRange = column.max - column.min
+        const valuePercent = (value - column.min) / columnRange
+        const hue = calculateHue(valuePercent, higherIsBetter[column.key])
+        return <td style={{ backgroundColor: `hsla(${hue}, 70%, 50%, 0.3)`, color: "white" }}>{value}</td>
+    }
+    return <td>{value}</td>
 }
