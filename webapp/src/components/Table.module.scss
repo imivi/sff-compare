@@ -14,7 +14,8 @@
     // align-items: stretch;
     // justify-content: stretch;
     // grid-template-rows: 1fr auto auto;
-    height: calc(100% - constants.$header-height);
+    // height: calc(100% - constants.$header-height);
+    height: 100%;
 
     background-color: colors.$table-bg;
     // color: colors.$table-text;
@@ -181,6 +182,7 @@
         align-items: center;
         // justify-content: space-between;
         gap: .5em;
+        margin-top: auto;
 
         transition: height 300ms;
 

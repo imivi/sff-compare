@@ -63,6 +63,7 @@ export default function RangeFilter({ columnMetadata }: Props) {
     const rangePercent = endPercent - startPercent
 
     const filterIsAdjusted = min !== getDefaultMinValue() || max !== getDefaultMaxValue()
+    // const filterIsAdjusted = Math.abs(min - getDefaultMinValue()) > 1 || Math.abs(max - getDefaultMaxValue()) > 1
 
 
     return (

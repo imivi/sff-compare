@@ -18,7 +18,7 @@
     // left: 0;
 
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
 
     /*
     min-height: 100vh;
@@ -79,7 +79,7 @@
         height: 100%;
         // width: 100%;
         overflow: auto;
-        padding-bottom: 5vh;
+        // padding-bottom: 5vh;
 
         .filter {}
 
@@ -104,14 +104,14 @@
         color: white;
         z-index: 3;
 
-        margin-bottom: constants.$header-height;
 
-        border-top: 2px solid colors.$filter-bg;
         color: colors.$sidebar-text;
 
         transition: max-height 200ms;
 
         &[data-show=true] {
+            // margin-bottom: constants.$header-height;
+            border-top: 2px solid colors.$filter-bg;
             // padding: .5em;
             max-height: 6em;
         }
