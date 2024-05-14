@@ -91,6 +91,7 @@ export default function RangeFilter({ columnMetadata }: Props) {
                 </div>
 
                 <div className={s.slider_container}>
+
                     <span className={s.label_range_minmax}>{Math.floor(columnMetadata.min)}</span>
                     <div className={s.range_inputs}>
                         <input
