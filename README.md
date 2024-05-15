@@ -2,7 +2,9 @@
 
 **SFF Compare** is an online tool that lets you easily search for small form factor (SFF) PC cases.
 
-**Try it out here:** https://sffcompare.imivi.dev
+<p align="center">
+⚡ **Try it out here:** https://sffcompare.imivi.dev
+</p>
 
 All data comes from the **SFF Master List** maintained by [u/prayogahs](https://reddit.com/u/prayogahs/) and [u/ermac-318](https://reddit.com/u/ermac-318/).
 
@@ -10,13 +12,19 @@ All data comes from the **SFF Master List** maintained by [u/prayogahs](https://
   <img src="docs/filters.jpg" />
 </p>
 
-## 3D Viewer
+## Features
+
+### Parametric filtering
+
+### 3D Viewer
 
 <p align="center">
   <img src="docs/viewer.jpg" />
 </p>
 
 SFF Compare comes with a **3D viewer** to compare case sizes. Simply select any case by clicking on the table checkboxes, and open the **3D View** panel. You can add your own custom cases to the scene.
+
+### Download list of cases as CSV
 
 ## What is this repository?
 
