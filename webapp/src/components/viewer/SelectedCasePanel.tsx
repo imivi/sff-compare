@@ -4,18 +4,66 @@ import { useMemo } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { api } from "@/api"
 import { useFetchColumns } from "@/hooks/useFetchColumns"
+import { useCustomCases } from "@/hooks/useCustomCases"
+import { SffCase } from "@/types"
 
 type Props = {
     sffCaseId: string
+    customCases: SffCase[]
 }
 
-export default function SelectedCasePanel({ sffCaseId }: Props) {
+export default function SelectedCasePanel({ sffCaseId, customCases }: Props) {
+
+    const customCase = customCases.find(c => c.id === sffCaseId)
+
+    return (
+        <div className={s.container}>
+            {
+                customCase
+                    ? (
+                        <table>
+                            <tr>
+                                <td>Name</td>
+                                <td>{customCase.label}</td>
+                            </tr>
+                            <tr>
+                                <td>Case Length (mm)</td>
+                                <td>{customCase.size[2]}</td>
+                            </tr>
+                            <tr>
+                                <td>Case Width (mm)</td>
+                                <td>{customCase.size[0]}</td>
+                            </tr>
+                            <tr>
+                                <td>Case Height (mm)</td>
+                                <td>{customCase.size[1]}</td>
+                            </tr>
+                            <tr>
+                                <td>Volume (L)</td>
+                                <td>{customCase.volume}</td>
+                            </tr>
+                            <tr>
+                                <td>Footprint (cm2)</td>
+                                <td>{customCase.footprint}</td>
+                            </tr>
+                        </table>
+                    )
+                    : <RemoteQueryTable caseId={sffCaseId} />
+            }
+
+        </div >
+    )
+}
+
+
+
+function RemoteQueryTable({ caseId }: { caseId: string }) {
 
     const { data: columns, loading, error } = useFetchColumns()
 
     const getCaseQuery = useQuery({
-        queryKey: ["case", sffCaseId],
-        queryFn: () => api.getItem(sffCaseId),
+        queryKey: ["case", caseId],
+        queryFn: () => api.getItem(caseId),
     })
 
     const columnLabels = useMemo(() => {
@@ -31,22 +79,22 @@ export default function SelectedCasePanel({ sffCaseId }: Props) {
     }
 
     return (
-        <div className={s.container}>
-            <table>
-                {
-                    Object.keys(getCaseQuery.data).filter(col => col !== "id").map(column => {
-                        const value = getCaseQuery.data[column]
-                        if (!value)
-                            return null
-                        return (
-                            <tr key={column}>
-                                <td>{columnLabels[column]}</td>
-                                <td>{value}</td>
-                            </tr>
-                        )
-                    })
-                }
-            </table>
-        </div>
+        <table>
+            {
+                Object.keys(getCaseQuery.data).filter(col => col !== "id").map(column => {
+                    if (!getCaseQuery.data)
+                        return null
+                    const value = getCaseQuery.data[column]
+                    if (!value)
+                        return null
+                    return (
+                        <tr key={column}>
+                            <td>{columnLabels[column]}</td>
+                            <td>{value}</td>
+                        </tr>
+                    )
+                })
+            }
+        </table>
     )
 }

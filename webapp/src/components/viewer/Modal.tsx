@@ -31,7 +31,7 @@ export default function Modal({ show, onClose, onCreated }: Props) {
             label,
             id: MathUtils.generateUUID().slice(0, 8),
             size: [case_width_mm, case_height_mm, case_length_mm],
-            volume: (case_length_mm / 1000) * (case_width_mm / 1000) * (case_height_mm / 1000),
+            volume: (case_length_mm / 100) * (case_width_mm / 100) * (case_height_mm / 100),
             footprint: (case_length_mm / 10) * (case_width_mm / 10),
         }
 

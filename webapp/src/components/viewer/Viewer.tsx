@@ -29,47 +29,6 @@ const fetchedCaseSchema = z.object({
 })
 
 
-function getCaseXOffsets(xSizes: number[]) {
-    const xOffsets: number[] = []
-    const gapSize = 0.01
-    let xPos = 0
-    xSizes.forEach(xSize => {
-        xOffsets.push(xPos)
-        xPos = xPos + xSize + gapSize
-    })
-    return xOffsets
-}
-
-function parseFetchedCases(sffCases: (Row | undefined)[], rotatedCases: string[]): SffCase[] {
-    const cases: SffCase[] = []
-    for (const sffCase of sffCases) {
-        if (sffCase) {
-            const validationResult = fetchedCaseSchema.safeParse(sffCase)
-            if (validationResult.success) {
-                const { id, case: name, case_height_mm, case_width_mm, case_length_mm, volume_l, footprint_cm2 } = validationResult.data
-
-                let size: [number, number, number] = [case_width_mm, case_height_mm, case_length_mm]
-
-                if (rotatedCases.includes(id)) {
-                    size = [case_length_mm, case_height_mm, case_width_mm]
-                }
-                cases.push({
-                    id,
-                    label: name.toString(),
-                    size,
-                    volume: volume_l,
-                    footprint: footprint_cm2,
-                })
-            }
-            else {
-                console.log(validationResult.error)
-            }
-        }
-    }
-    return cases
-}
-
-
 const sortKeys = {
     case: "Name",
     volume: "Volume",
@@ -78,6 +37,7 @@ const sortKeys = {
     case_width_mm: "Width",
     case_height_mm: "Height",
 } as const
+
 
 type SortOption = keyof typeof sortKeys
 
@@ -124,28 +84,6 @@ export default function Viewer() {
         }))
     })
 
-    function sortingFn(a: SffCase, b: SffCase, sortKey: SortOption): number {
-        if (sortKey === "case") {
-            return a.label < b.label ? -1 : 1
-        }
-        else if (sortKey === "volume") {
-            return a.volume < b.volume ? -1 : 1
-        }
-        else if (sortKey === "footprint_cm2") {
-            return a.footprint < b.footprint ? -1 : 1
-        }
-        else if (sortKey === "case_width_mm") {
-            return a.size[0] < b.size[0] ? -1 : 1
-        }
-        else if (sortKey === "case_height_mm") {
-            return a.size[1] < b.size[1] ? -1 : 1
-        }
-        else if (sortKey === "case_length_mm") {
-            return a.size[2] < b.size[2] ? -1 : 1
-        }
-        return 0
-    }
-
     const { customCases, addCustomCase, deleteCustomCase } = useCustomCases()
 
     const allCases = useMemo(() => {
@@ -189,7 +127,7 @@ export default function Viewer() {
 
             {
                 selectedCase &&
-                <SelectedCasePanel sffCaseId={selectedCase} />
+                <SelectedCasePanel sffCaseId={selectedCase} customCases={customCases} />
             }
 
             <div className={s.selected_cases_list} data-show={allCases.length > 0}>
@@ -303,4 +241,69 @@ export default function Viewer() {
 
         </div>
     )
+}
+
+
+
+function getCaseXOffsets(xSizes: number[]) {
+    const xOffsets: number[] = []
+    const gapSize = 0.01
+    let xPos = 0
+    xSizes.forEach(xSize => {
+        xOffsets.push(xPos)
+        xPos = xPos + xSize + gapSize
+    })
+    return xOffsets
+}
+
+function parseFetchedCases(sffCases: (Row | undefined)[], rotatedCases: string[]): SffCase[] {
+    const cases: SffCase[] = []
+    for (const sffCase of sffCases) {
+        if (sffCase) {
+            const validationResult = fetchedCaseSchema.safeParse(sffCase)
+            if (validationResult.success) {
+                const { id, case: name, case_height_mm, case_width_mm, case_length_mm, volume_l, footprint_cm2 } = validationResult.data
+
+                let size: [number, number, number] = [case_width_mm, case_height_mm, case_length_mm]
+
+                if (rotatedCases.includes(id)) {
+                    size = [case_length_mm, case_height_mm, case_width_mm]
+                }
+                cases.push({
+                    id,
+                    label: name.toString(),
+                    size,
+                    volume: volume_l,
+                    footprint: footprint_cm2,
+                })
+            }
+            else {
+                console.log(validationResult.error)
+            }
+        }
+    }
+    return cases
+}
+
+
+function sortingFn(a: SffCase, b: SffCase, sortKey: SortOption): number {
+    if (sortKey === "case") {
+        return a.label < b.label ? -1 : 1
+    }
+    else if (sortKey === "volume") {
+        return a.volume < b.volume ? -1 : 1
+    }
+    else if (sortKey === "footprint_cm2") {
+        return a.footprint < b.footprint ? -1 : 1
+    }
+    else if (sortKey === "case_width_mm") {
+        return a.size[0] < b.size[0] ? -1 : 1
+    }
+    else if (sortKey === "case_height_mm") {
+        return a.size[1] < b.size[1] ? -1 : 1
+    }
+    else if (sortKey === "case_length_mm") {
+        return a.size[2] < b.size[2] ? -1 : 1
+    }
+    return 0
 }
