@@ -139,6 +139,17 @@
                 vertical-align: top;
             }
 
+            span[data-clickable=true] {
+                cursor: pointer;
+                transition: 50ms;
+                padding: .2em .4em;
+
+                &:hover {
+                    transition: 50ms;
+                    background-color: hsla(0, 0%, 100%, 0.2);
+                }
+            }
+
             tr {
                 &:nth-child(odd) {
                     background-color: colors.$table-bg-alternate-row;

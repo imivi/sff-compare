@@ -15,8 +15,8 @@ import { sortRows } from "@/utils"
 import { useFuseSearch } from "@/hooks/useFuseSearch"
 import LoadingSpinner from "./LoadingSpinner"
 import { CSVLink } from "react-csv"
-import { ReactNode } from "react"
 import { calculateHue, higherIsBetter } from "@/column-colors"
+import { CSSProperties } from "react"
 
 
 function extractValidQueryResults<T>(results: { data?: T }[]): T[] {
@@ -225,7 +225,12 @@ export default function Table() {
                                     </td>
                                     {
                                         columns && Object.values(columns).map((col, j) => (
-                                            <Cell key={j} value={row[col.key]} column={col} />
+                                            <Cell
+                                                onClick={(j == 0 || j == 1) ? () => handleClickCheckbox(row.id as string) : undefined}
+                                                key={j}
+                                                value={row[col.key]}
+                                                column={col}
+                                            />
                                         ))
                                     }
                                 </tr>
@@ -332,18 +337,28 @@ export default function Table() {
 type CellProps = {
     column: ColumnMetadata
     value: number | string | null
+    onClick?: () => void
 }
 
-function Cell({ column, value }: CellProps) {
+function Cell({ column, value, onClick }: CellProps) {
 
     // return <td>{JSON.stringify([column.key, value, higherIsBetter.hasOwnProperty(column.key)])}</td>
+    let cellStyle: CSSProperties = {}
 
     if (column.numerical && typeof value === "number" && higherIsBetter.hasOwnProperty(column.key)) {
         // return <td style={{ backgroundColor: `hsla(${150}, 50%, 50%, 1)`, color: "white" }}>{value}</td>
         const columnRange = column.max - column.min
         const valuePercent = (value - column.min) / columnRange
         const hue = calculateHue(valuePercent, higherIsBetter[column.key])
-        return <td style={{ backgroundColor: `hsla(${hue}, 70%, 50%, 0.3)`, color: "white" }}>{value}</td>
+        cellStyle = {
+            backgroundColor: `hsla(${hue}, 70%, 50%, 0.3)`,
+            color: "white",
+        }
     }
-    return <td>{value}</td>
+
+    return (
+        <td onClick={onClick} style={cellStyle}>
+            <span data-clickable={!!onClick}>{value}</span>
+        </td>
+    )
 }
