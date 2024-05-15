@@ -351,14 +351,16 @@ function Cell({ column, value, onClick }: CellProps) {
         const valuePercent = (value - column.min) / columnRange
         const hue = calculateHue(valuePercent, higherIsBetter[column.key])
         cellStyle = {
-            backgroundColor: `hsla(${hue}, 70%, 50%, 0.3)`,
+            // backgroundColor: `hsla(${hue}, 70%, 50%, 0.3)`,
+            backgroundColor: `hsl(${hue}, 20%, 40%)`,
+            border: `1px solid hsl(${hue}, 30%, 35%)`,
             color: "white",
         }
     }
 
     return (
         <td onClick={onClick} style={cellStyle}>
-            <span data-clickable={!!onClick}>{value}</span>
+            <span data-clickable={!!onClick}>{value ?? "-"}</span>
         </td>
     )
 }

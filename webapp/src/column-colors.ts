@@ -11,7 +11,7 @@ export const higherIsBetter: Record<string, boolean> = {
     "weight_kg": false,
     // "side_panel": false,
     // "case_material": false,
-    "cpu_cooler_height_mm": false,
+    "cpu_cooler_height_mm": true,
     // "aio_radiator_support": false,
     // "gpu_riser": false,
     "gpu_length_mm": true,
