@@ -6,7 +6,14 @@ import "@/styles/globals.scss";
 import { ErrorBoundary } from "react-error-boundary";
 import { GoogleAnalytics } from "@next/third-parties/google"
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      refetchOnWindowFocus: false,
+    }
+  }
+})
 
 export default function App({ Component, pageProps }: AppProps) {
   return <QueryClientProvider client={queryClient}>
