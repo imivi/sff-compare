@@ -45,12 +45,8 @@ export default function Sidebar() {
         }
     }, [columns, query, filters, setFilterState, queryClient])
 
-    if (loading) {
-        return <LoadingSpinner />
-    }
-
-    if (error) {
-        return <p>Error</p>
+    if (loading || error) {
+        return null
     }
 
     function applyFilters() {
