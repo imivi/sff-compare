@@ -42,33 +42,33 @@
      inkscape:window-maximized="1"
      inkscape:current-layer="svg16" />
   <circle
-     style="fill:#333333;stroke:none;stroke-width:1.70043;-inkscape-stroke:none;stop-color:#000000"
+     style="fill:#333333;stroke:none;stroke-width:2.00573;-inkscape-stroke:none;stop-color:#000000"
      id="path532"
      cx="12"
      cy="12"
-     r="10.173423" />
+     r="12" />
   <path
-     d="M 17.158288,12.288173 V 9.6891463 A 1.1412891,1.1412891 0 0 0 16.58188,8.6994527 L 12.54702,6.389207 a 1.1620397,1.1620397 0 0 0 -1.152819,0 L 7.3593419,8.6988763 C 7.002545,8.9035014 6.7829333,9.281049 6.7829333,9.6891463 V 14.31079 c 0,0.408674 0.2196117,0.785646 0.5764086,0.989695 l 4.0348591,2.310245 a 1.1620397,1.1620397 0 0 0 1.152819,0"
+     d="M 18.084428,12.339913 V 9.2742463 A 1.3462007,1.3462007 0 0 0 17.404529,8.1068592 L 12.645234,5.3818227 a 1.370677,1.370677 0 0 0 -1.359801,0 L 6.5261395,8.1061793 C 6.1052819,8.3475436 5.8462402,8.7928776 5.8462402,9.2742463 v 5.4514327 c 0,0.482048 0.2590417,0.926704 0.6798993,1.167388 l 4.7592935,2.725036 a 1.370677,1.370677 0 0 0 1.359801,0"
      id="path4"
-     style="stroke:#ffffff;stroke-width:0.75" />
+     style="stroke:#ffffff;stroke-width:0.884658" />
   <path
-     d="M 11.970611,17.764054 V 11.999969"
+     d="M 11.965334,18.798955 V 11.999963"
      id="path6"
-     style="stroke:#ffffff;stroke-width:0.75" />
+     style="stroke:#ffffff;stroke-width:0.884658" />
   <path
-     d="M 11.970611,11.999969 17.002658,9.0948691"
+     d="M 11.965334,11.999963 17.900855,8.5732702"
      id="path8"
-     style="stroke:#ffffff;stroke-width:0.75" />
+     style="stroke:#ffffff;stroke-width:0.884658" />
   <path
-     d="M 6.9385635,9.0948691 11.970611,11.999969"
+     d="M 6.0298129,8.5732702 11.965334,11.999963"
      id="path10"
-     style="stroke:#ffffff;stroke-width:0.75" />
+     style="stroke:#ffffff;stroke-width:0.884658" />
   <path
-     d="m 14.276245,16.03483 h 3.458452"
+     d="m 14.684931,16.75926 h 4.079397"
      id="path12"
-     style="stroke:#ffffff;stroke-width:0.75" />
+     style="stroke:#ffffff;stroke-width:0.884658" />
   <path
-     d="m 16.005472,14.305603 v 3.458451"
+     d="m 16.724631,14.71956 v 4.079395"
      id="path14"
-     style="stroke:#ffffff;stroke-width:0.75" />
+     style="stroke:#ffffff;stroke-width:0.884658" />
 </svg>
