@@ -211,7 +211,8 @@ export default function Table() {
 
                     <tbody>
                         {
-                            rowsToShow && rowsToShow.map((row, i) => (
+                            rowsToShow &&
+                            rowsToShow.map((row, i) => (
                                 <tr key={i}>
                                     <td>
                                         {
@@ -359,7 +360,7 @@ function Cell({ column, value, onClick }: CellProps) {
     }
 
     return (
-        <td onClick={onClick} style={cellStyle}>
+        <td onClick={onClick} style={cellStyle} data-clickable={!!onClick}>
             <span data-clickable={!!onClick}>{value ?? "-"}</span>
         </td>
     )

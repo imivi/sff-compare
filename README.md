@@ -1,4 +1,6 @@
-# SFF Compare
+<p align="center">
+  <h1>SFF Compare</h1>
+</p>
 
 <p align="center">
   <img src="docs/filters.jpg" />

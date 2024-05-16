@@ -23,7 +23,8 @@
 
     &>p,
     &>div {
-        height: 80vh;
+        // height: 80vh;
+        height: 100%;
         display: flex;
         place-content: center;
         align-items: center;
@@ -139,15 +140,21 @@
                 vertical-align: top;
             }
 
-            span[data-clickable=true] {
+            td[data-clickable=true] {
                 cursor: pointer;
-                transition: 50ms;
-                padding: .2em .4em;
 
-                &:hover {
+                span {
+                    cursor: pointer;
+                    transition: 50ms;
+                    padding: .2em .4em;
+
+                }
+
+                &:hover span {
                     transition: 50ms;
                     background-color: hsla(0, 0%, 100%, 0.2);
                 }
+
             }
 
             tr {
@@ -193,12 +200,12 @@
         align-items: center;
         // justify-content: space-between;
         gap: .5em;
-        margin-top: auto;
 
         transition: height 300ms;
 
         &[data-show=true] {
             padding: .5em 1em;
+            margin-top: auto;
         }
 
 
