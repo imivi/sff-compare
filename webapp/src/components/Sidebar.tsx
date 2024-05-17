@@ -36,9 +36,12 @@ export default function Sidebar() {
 
     // Whenever the query string changes, parse and load the filters state
     useEffect(() => {
+        // console.log("New query string:", query)
         if (columns && columns.length > 0 && Object.keys(filters).length === 0) {
             const filters = createFiltersFromQueryString(query, columns)
+            // console.log("Loading filters from query string", query, 'filters:', filters)
             Object.keys(filters).map(filterKey => {
+                // console.log("Setting filter:", filterKey, filters[filterKey])
                 setFilterState(filterKey, filters[filterKey])
             })
             queryClient.invalidateQueries({ queryKey: ["cases"] })

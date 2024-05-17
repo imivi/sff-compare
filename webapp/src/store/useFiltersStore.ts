@@ -265,7 +265,7 @@ export function createFiltersFromQueryString(query: Query, columnMetadata: Colum
             return
         }
 
-        if (!(key in columnKeys)) {
+        if (!columnKeys.includes(key)) {
             return
         }
 
