@@ -138,6 +138,9 @@
             td {
                 padding: 2px 4px;
                 vertical-align: top;
+                border: 1px solid colors.$table-bg-alternate-row;
+                border-top: none;
+                border-bottom: none;
             }
 
             td[data-clickable=true] {
@@ -160,6 +163,10 @@
             tr {
                 &:nth-child(odd) {
                     background-color: colors.$table-bg-alternate-row;
+
+                    td {
+                        border-color: colors.$table-bg;
+                    }
 
                     td:nth-child(1),
                     td:nth-child(3) {
