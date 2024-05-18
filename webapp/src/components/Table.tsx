@@ -43,11 +43,9 @@ export default function Table() {
     const selectedCaseIds = useSelectionStore(store => Array.from(store.selectedCaseIds))
     const showViewer = useLayoutStore(store => store.showViewer)
     const maximizeViewer = useLayoutStore(store => store.maximizeViewer)
-
     const toggleViewer = useLayoutStore(store => store.toggleViewer)
 
     const toggleSelectCase = useSelectionStore(store => store.toggleSelect)
-
     const onlyShowSelected = useSelectionStore(store => store.onlyShowSelected)
     const setOnlyShowSelected = useSelectionStore(store => store.setOnlyShowSelected)
 
@@ -140,7 +138,7 @@ export default function Table() {
 
     const rowsToShow = getRowsToShow()
 
-    const showSelectedButton = searchedCaseIds.length === 0 && selectedCaseIds.length > 0
+    const showSelectedButton = searchedCaseIds.length === 0 && selectedCaseIds.length > 1
     const showPageButtons = searchedCaseIds.length === 0 && !onlyShowSelected
     const resultCountSelect = !onlyShowSelected
 
