@@ -44,6 +44,7 @@ type SortOption = keyof typeof sortKeys
 export default function Viewer() {
 
     const show = useLayoutStore(store => store.showViewer)
+    const toggleViewer = useLayoutStore(store => store.toggleViewer)
 
     const [showModal, setShowModal] = useState(false)
 
@@ -114,9 +115,17 @@ export default function Viewer() {
                 onCreated={(newCase) => { addCustomCase(newCase); setSelectedCase(newCase.id) }}
             />
 
-            <button className={["g-unstyled", s.button_enlarge].join(" ")} onClick={toggleMaximizeViewer}>
-                {maximizeViewer ? <IconArrowsDiagonalMinimize2 size={36} /> : <IconArrowsDiagonal size={36} />}
-            </button>
+            <div className={s.buttons_top_left}>
+
+                <button className="g-unstyled" onClick={toggleMaximizeViewer}>
+                    {maximizeViewer ? <IconArrowsDiagonalMinimize2 size={30} /> : <IconArrowsDiagonal size={30} />}
+                </button>
+
+                <button className="g-unstyled" onClick={toggleViewer}>
+                    <IconX size={36} />
+                </button>
+
+            </div>
 
             {
                 selectedCases.length === 0 &&

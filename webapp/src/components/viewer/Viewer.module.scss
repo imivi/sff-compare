@@ -19,13 +19,19 @@
     }
 }
 
-.button_enlarge {
+.buttons_top_left {
     position: absolute;
     top: 10px;
     right: 10px;
     opacity: 0.7;
     z-index: 1;
-    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    button {
+        cursor: pointer;
+    }
 }
 
 .prompt_use_checkbox {
