@@ -70,8 +70,9 @@ export default function RangeFilter({ columnMetadata }: Props) {
         <Filter filterKey={columnMetadata.key} highlight={filterIsAdjusted} label={columnMetadata.label}>
             <div className={s.container} data-adjusted={filterIsAdjusted} >
 
-                <div className={s.inputs}>
+                <div className={s.slider_container}>
 
+                    {/* <span className={s.label_range_minmax}>{Math.floor(columnMetadata.min)}</span> */}
                     <NumberInput
                         defaultValue={columnMetadata.min}
                         value={min}
@@ -80,20 +81,6 @@ export default function RangeFilter({ columnMetadata }: Props) {
                         max={Math.ceil(columnMetadata.max)}
                         onValidChange={(n) => onChangeMin(n)}
                     />
-                    -
-                    <NumberInput
-                        defaultValue={columnMetadata.min}
-                        value={max}
-                        step={step}
-                        min={Math.floor(columnMetadata.min)}
-                        max={Math.ceil(columnMetadata.max)}
-                        onValidChange={(n) => onChangeMax(n)}
-                    />
-                </div>
-
-                <div className={s.slider_container}>
-
-                    <span className={s.label_range_minmax}>{Math.floor(columnMetadata.min)}</span>
                     <div className={s.range_inputs}>
                         <input
                             type="range"
@@ -119,7 +106,15 @@ export default function RangeFilter({ columnMetadata }: Props) {
                         <div className={s.slider_track_full}></div>
                         <div className={s.slider_track_active} style={{ width: `${rangePercent}%`, left: `${startPercent}%` }}></div>
                     </div>
-                    <span className={s.label_range_minmax}>{Math.ceil(columnMetadata.max)}</span>
+                    <NumberInput
+                        defaultValue={columnMetadata.min}
+                        value={max}
+                        step={step}
+                        min={Math.floor(columnMetadata.min)}
+                        max={Math.ceil(columnMetadata.max)}
+                        onValidChange={(n) => onChangeMax(n)}
+                    />
+                    {/* <span className={s.label_range_minmax}>{Math.ceil(columnMetadata.max)}</span> */}
                 </div>
 
             </div>

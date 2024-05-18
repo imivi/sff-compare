@@ -17,6 +17,16 @@
         border-radius: 2em;
         padding: 0 .8em;
         max-width: 6em;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.9;
+            transition: 50ms;
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
     }
 
     ul {
