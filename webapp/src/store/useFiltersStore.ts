@@ -21,6 +21,9 @@ export type Filters = Record<string, FilterState>
 type Store = {
     filters: Filters
 
+    appliedFilters: Filters
+    applyFilters: () => void
+
     // getFilterState: (key: string) => FilterState | undefined,
     setFilterState: (key: string, state: FilterState) => void,
 
@@ -43,6 +46,9 @@ type Store = {
 export const useFilterStore = create<Store>((set, get) => ({
     filters: {},
     dirtyFilters: new Set<string>(),
+
+    appliedFilters: {},
+    applyFilters: () => set({ appliedFilters: get().filters }),
 
     // getFilterState: (key: string) => {
     //     return get().filters[key]

@@ -49,7 +49,7 @@ export default function Table() {
     const onlyShowSelected = useSelectionStore(store => store.onlyShowSelected)
     const setOnlyShowSelected = useSelectionStore(store => store.setOnlyShowSelected)
 
-    const filters = useFilterStore(store => store.filters)
+    const filters = useFilterStore(store => store.appliedFilters)
 
     const router = useRouter()
 
@@ -59,7 +59,7 @@ export default function Table() {
 
     // (1) Fetch cases according to the active filters
     const getCasesQuery = useQuery({
-        queryKey: ["cases", currentPage, resultsPerPage, sort],
+        queryKey: ["cases", filters, currentPage, resultsPerPage, sort],
         queryFn: () => api.getItems(filters, currentPage, resultsPerPage, sort),
     })
 

@@ -29,6 +29,7 @@ export default function Sidebar() {
     const dirtyFilters = useFilterStore(store => store.dirtyFilters)
     const clearDirtyFilters = useFilterStore(store => store.clearDirtyFilters)
     const setFilterState = useFilterStore(store => store.setFilterState)
+    const applySearchFilters = useFilterStore(store => store.applyFilters)
 
     const { data: columns, loading, error } = useFetchColumns()
 
@@ -40,8 +41,9 @@ export default function Sidebar() {
 
     function applyFilters() {
         queryClient.invalidateQueries({ queryKey: ["cases"] })
-
+        applySearchFilters()
         clearDirtyFilters()
+
         if (window.innerWidth < 960) {
             hideSidebar()
         }
@@ -55,15 +57,10 @@ export default function Sidebar() {
                 Object.keys(filters).map(filterKey => {
                     setFilterState(filterKey, filters[filterKey])
                 })
-                queryClient.invalidateQueries({ queryKey: ["cases"] })
+                applyFilters()
             }
         }
     }, [columns, query, filters, setFilterState, queryClient])
-
-    useEffect(() => {
-        // Fetch on load
-        setTimeout(applyFilters, 1000)
-    }, [queryClient])
 
     return (
         <>
