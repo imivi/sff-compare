@@ -34,22 +34,8 @@ export default function Sidebar() {
 
     const { resultsPerPage, sort } = useQueryParams()
 
-    // Whenever the query string changes, parse and load the filters state
-    useEffect(() => {
-        // console.log("New query string:", query)
-        if (columns && columns.length > 0 && Object.keys(filters).length === 0) {
-            const filters = createFiltersFromQueryString(query, columns)
-            // console.log("Loading filters from query string", query, 'filters:', filters)
-            Object.keys(filters).map(filterKey => {
-                // console.log("Setting filter:", filterKey, filters[filterKey])
-                setFilterState(filterKey, filters[filterKey])
-            })
-            queryClient.invalidateQueries({ queryKey: ["cases"] })
-        }
-    }, [columns, query, filters, setFilterState, queryClient])
-
     if (loading || error) {
-        return null
+        <div className={s.container} data-show={false} />
     }
 
     function applyFilters() {
@@ -61,15 +47,31 @@ export default function Sidebar() {
         }
     }
 
-    const activeFilters = Object.keys(filters).length
+    // Whenever the query string changes, parse and load the filters state
+    useEffect(() => {
+        if (columns && columns.length > 0) {
+            if (Object.keys(filters).length === 0) {
+                const filters = createFiltersFromQueryString(query, columns)
+                Object.keys(filters).map(filterKey => {
+                    setFilterState(filterKey, filters[filterKey])
+                })
+                queryClient.invalidateQueries({ queryKey: ["cases"] })
+            }
+        }
+    }, [columns, query, filters, setFilterState, queryClient])
 
+    useEffect(() => {
+        // Fetch on load
+        setTimeout(applyFilters, 1000)
+    }, [queryClient])
 
     return (
         <>
             <div className={s.container} data-show={show}>
 
+                <button onClick={() => queryClient.invalidateQueries({ queryKey: ["cases"] })}>invalidate</button>
+
                 <ul className={s.filters}>
-                    {/* <pre style={{ height: 400, overflow: "auto" }}>{JSON.stringify(filters, null, 4)}</pre> */}
                     {
                         columns?.map(col => (
                             <div key={col.label}>
@@ -98,9 +100,9 @@ export default function Sidebar() {
                         }}>
                         <IconReload size={16} /> Update results
                     </Link>
-                    <small>
+                    {/* <small>
                         {activeFilters === 0 ? "No active filters" : `${activeFilters} active filters`}
-                    </small>
+                    </small> */}
 
                 </footer>
             </div>

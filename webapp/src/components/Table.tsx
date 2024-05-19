@@ -60,16 +60,14 @@ export default function Table() {
     // (1) Fetch cases according to the active filters
     const getCasesQuery = useQuery({
         queryKey: ["cases", currentPage, resultsPerPage, sort],
-        queryFn: () => {
-            return api.getItems(filters, currentPage, resultsPerPage, sort)
-        },
+        queryFn: () => api.getItems(filters, currentPage, resultsPerPage, sort),
     })
 
     // (2) Fetch cases according to the selection checkboxes
     const getSelectedCasesQuery = useQueries({
         queries: selectedCaseIds.map(caseId => ({
             queryKey: ["case", caseId],
-            queryFn: async () => await api.getItem(caseId),
+            queryFn: async () => api.getItem(caseId),
         })),
     })
 
@@ -77,7 +75,7 @@ export default function Table() {
     const getSearchedCasesQuery = useQueries({
         queries: searchedCaseIds.map(caseId => ({
             queryKey: ["case", caseId],
-            queryFn: async () => await api.getItem(caseId),
+            queryFn: async () => api.getItem(caseId),
         })),
     })
 
