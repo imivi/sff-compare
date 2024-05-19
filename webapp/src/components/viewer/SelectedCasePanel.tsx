@@ -4,7 +4,6 @@ import { useMemo } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { api } from "@/api"
 import { useFetchColumns } from "@/hooks/useFetchColumns"
-import { useCustomCases } from "@/hooks/useCustomCases"
 import { SffCase } from "@/types"
 
 type Props = {
