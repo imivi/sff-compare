@@ -13,9 +13,9 @@ import { api } from "@/api"
 import { Row, SffCase } from "@/types"
 import { z } from "zod"
 import Modal from "./Modal"
-import { useCustomCases } from "@/hooks/useCustomCases"
 import SelectedCasePanel from "./SelectedCasePanel"
 import { Prefabs, prefabs } from "./Prefabs"
+import { useCustomCasesStore } from "@/store/useCustomCasesStore"
 
 
 const fetchedCaseSchema = z.object({
@@ -85,11 +85,11 @@ export default function Viewer() {
         }))
     })
 
-    const { customCases, addCustomCase, deleteCustomCase } = useCustomCases()
+    const { customCases, addCustomCase, deleteCustomCase } = useCustomCasesStore()
 
     const allCases = useMemo(() => {
         const fetchedCases = parseFetchedCases(getCasesSelectedQuery.map(query => query.data), rotatedCases)
-        return [...fetchedCases, ...customCases].sort((a, b) => sortingFn(a, b, sortBy))
+        return [...fetchedCases, ...customCases.map(c => applyCaseRotation(c, rotatedCases))].sort((a, b) => sortingFn(a, b, sortBy))
 
     }, [getCasesSelectedQuery, sortBy, rotatedCases, customCases])
 
@@ -315,4 +315,16 @@ function sortingFn(a: SffCase, b: SffCase, sortKey: SortOption): number {
         return a.size[2] < b.size[2] ? -1 : 1
     }
     return 0
+}
+
+
+function applyCaseRotation(sffCase: SffCase, rotatedCases: string[]): SffCase {
+    if (!rotatedCases.includes(sffCase.id)) {
+        return sffCase
+    }
+    const [length, height, width] = sffCase.size
+    return {
+        ...sffCase,
+        size: [width, height, length],
+    }
 }
