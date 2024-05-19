@@ -115,7 +115,7 @@ export default function Viewer() {
                 onCreated={(newCase) => { addCustomCase(newCase); setSelectedCase(newCase.id) }}
             />
 
-            <div className={s.buttons_top_left}>
+            <div className={s.buttons_top_right}>
 
                 <button className="g-unstyled" onClick={toggleMaximizeViewer}>
                     {maximizeViewer ? <IconArrowsDiagonalMinimize2 size={30} /> : <IconArrowsDiagonal size={30} />}
@@ -188,7 +188,7 @@ export default function Viewer() {
                 <footer>
 
                     <button className={s.btn_add_custom} onClick={() => setShowModal(true)}>
-                        <IconPlus size={18} /> Add custom
+                        <IconPlus size={18} /> Custom
                     </button>
 
                     <label>
