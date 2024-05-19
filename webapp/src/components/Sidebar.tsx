@@ -69,8 +69,6 @@ export default function Sidebar() {
         <>
             <div className={s.container} data-show={show}>
 
-                <button onClick={() => queryClient.invalidateQueries({ queryKey: ["cases"] })}>invalidate</button>
-
                 <ul className={s.filters}>
                     {
                         columns?.map(col => (
