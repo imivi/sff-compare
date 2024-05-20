@@ -7,7 +7,7 @@ import RangeFilter from "./RangeFilter";
 import { createFiltersFromQueryString, useFilterStore } from "@/store/useFiltersStore";
 import { useLayoutStore } from "@/store/useLayoutStore";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import Link from "next/link";
 import { useQueryParams } from "@/hooks/useQueryParams";
 import { useFetchColumns } from "@/hooks/useFetchColumns";
@@ -39,7 +39,7 @@ export default function Sidebar() {
         <div className={s.container} data-show={false} />
     }
 
-    function applyFilters() {
+    const applyFilters = useCallback(() => {
         queryClient.invalidateQueries({ queryKey: ["cases"] })
         applySearchFilters()
         clearDirtyFilters()
@@ -47,7 +47,7 @@ export default function Sidebar() {
         if (window.innerWidth < 960) {
             hideSidebar()
         }
-    }
+    }, [queryClient, applySearchFilters, clearDirtyFilters, hideSidebar])
 
     // Whenever the query string changes, parse and load the filters state
     useEffect(() => {
@@ -60,7 +60,7 @@ export default function Sidebar() {
                 applyFilters()
             }
         }
-    }, [columns, query, filters, setFilterState, queryClient])
+    }, [columns, query, filters, setFilterState, queryClient, applyFilters])
 
     return (
         <>

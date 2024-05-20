@@ -30,6 +30,15 @@ function extractValidQueryResults<T>(results: { data?: T }[]): T[] {
 }
 
 
+function getRowIds(rows: Row[]): string[] {
+    const rowIds: string[] = []
+    rows.forEach(row => {
+        if (typeof row.id === "string")
+            rowIds.push(row.id.toString())
+    })
+    return rowIds
+}
+
 
 export default function Table() {
 
@@ -48,6 +57,8 @@ export default function Table() {
     const toggleSelectCase = useSelectionStore(store => store.toggleSelect)
     const onlyShowSelected = useSelectionStore(store => store.onlyShowSelected)
     const setOnlyShowSelected = useSelectionStore(store => store.setOnlyShowSelected)
+    const selectCases = useSelectionStore(store => store.selectCases)
+    const deselectCases = useSelectionStore(store => store.deselectCases)
 
     const filters = useFilterStore(store => store.appliedFilters)
 
@@ -135,6 +146,7 @@ export default function Table() {
     }
 
     const rowsToShow = getRowsToShow()
+    const rowIds = getRowIds(rowsToShow || [])
 
     const showSelectedButton = searchedCaseIds.length === 0 && selectedCaseIds.length > 1
     const showPageButtons = searchedCaseIds.length === 0 && !onlyShowSelected
@@ -195,8 +207,8 @@ export default function Table() {
                                         {
                                             searchedCaseIds.length === 0 &&
                                             <>
-                                                {(sort && sort.key === col.key && sort.ascending) && <IconArrowUp className={s.icon_sort} />}
-                                                {(sort && sort.key === col.key && !sort.ascending) && <IconArrowDown className={s.icon_sort} />}
+                                                {(sort && sort.key === col.key && sort.ascending) && <IconArrowUp />}
+                                                {(sort && sort.key === col.key && !sort.ascending) && <IconArrowDown />}
                                             </>
                                         }
                                     </Link>
@@ -237,7 +249,7 @@ export default function Table() {
                 </table>
             }
 
-            <footer className={s.pagination} data-show={!maximizeViewer || !showViewer}>
+            <footer className={s.footer} data-show={!maximizeViewer || !showViewer}>
 
                 {
                     showSearchCount &&
@@ -257,6 +269,21 @@ export default function Table() {
                             />
                             <span>Compare selected ({selectedCaseIds.length})</span>
                         </label>
+                }
+
+                {
+                    rowsToShow && rowsToShow.length > 0 &&
+                    <button className="g-unstyled" onClick={() => { selectCases(rowIds) }}>
+                        select all
+                    </button>
+                }
+
+                {
+                    rowsToShow && rowsToShow.length > 0 &&
+                    selectedCaseIds.length > 0 &&
+                    <button className="g-unstyled" onClick={() => { deselectCases(rowIds) }}>
+                        deselect all
+                    </button>
                 }
 
                 {
