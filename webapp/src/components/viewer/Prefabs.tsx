@@ -1,16 +1,16 @@
-import { TransformControls, useGLTF } from "@react-three/drei"
-import { useLoader, useThree } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { Prefab } from "./Prefab";
+import { TransformControls } from "@react-three/drei"
+import { useThree } from "@react-three/fiber";
 import { useViewerStore } from "@/store/useViewerStore";
 import { useMemo } from "react";
+import { type Prefab as PrefabType } from "@/types";
+import { Prefab } from "./Prefab";
 
 
-export const prefabs: Record<string, string> = {
-    "monitor-24": "/models/monitor-24.glb",
-    "monitor-27": "/models/monitor-27.glb",
-    "monitor-34": "/models/monitor-34.glb",
-}
+export const prefabs: PrefabType[] = [
+    { id: "monitor-24", label: 'Monitor - 24"', url: "/models/monitor-24.glb" },
+    { id: "monitor-27", label: 'Monitor - 27"', url: "/models/monitor-27.glb" },
+    { id: "monitor-34", label: 'Monitor - 34" (UW)', url: "/models/monitor-34.glb" },
+]
 
 type Props = {
     hidden: string[]
@@ -27,13 +27,13 @@ export function Prefabs({ hidden }: Props) {
         }
 
         {
-            Object.keys(prefabs).map((name, i) => (
+            prefabs.map((prefab, i) => (
                 <Prefab
-                    key={name}
-                    name={name}
-                    modelUrl={prefabs[name]}
+                    key={prefab.id}
+                    name={prefab.label}
+                    modelUrl={prefab.url}
                     defaultXPosition={i * 0.1}
-                    show={!hidden.includes(name)}
+                    show={!hidden.includes(prefab.id)}
                 />
             ))
         }

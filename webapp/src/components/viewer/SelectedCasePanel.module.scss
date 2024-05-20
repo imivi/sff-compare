@@ -4,7 +4,7 @@
     top: 50px;
     right: 10px;
     max-height: calc(90% - 50px);
-    max-width: min(50%, 20rem);
+    width: min(50%, 20rem);
     background-color: rgba($color: black, $alpha: 0.5);
     padding: 10px;
     border-radius: 10px;
@@ -18,8 +18,14 @@
         display: none;
     }
 
+    table {
+        width: 100%;
+    }
+
     tr {
         border-bottom: 1px solid #444;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
 
         td:nth-of-type(2) {
             color: lightblue;

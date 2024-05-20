@@ -56,3 +56,9 @@ export type SffCase = {
     volume: number
     footprint: number
 }
+
+export type Prefab = {
+    id: string
+    label: string
+    url: string
+}

@@ -6,7 +6,7 @@ import Grid from "./Grid"
 import { Canvas } from "@react-three/fiber"
 import { useMemo, useRef, useState } from "react"
 import Box from "./Box"
-import { IconArrowsDiagonal, IconArrowsDiagonalMinimize2, IconArrowsUpDown, IconEye, IconEyeOff, IconPlus, IconRotateClockwise, IconX } from "@tabler/icons-react"
+import { IconArrowsDiagonal, IconArrowsDiagonalMinimize2, IconArrowsUpDown, IconEye, IconEyeOff, IconPlus, IconRotateClockwise, IconTag, IconTagOff, IconX } from "@tabler/icons-react"
 import { useSelectionStore } from "@/store/useSelectionStore"
 import { useQueries } from "@tanstack/react-query"
 import { api } from "@/api"
@@ -48,12 +48,13 @@ export default function Viewer() {
 
     const [showModal, setShowModal] = useState(false)
 
+    const [showCaseLabels, setShowCaseLabels] = useState(true)
     const selectedCases = useSelectionStore(store => Array.from(store.selectedCaseIds))
     const toggleSelect = useSelectionStore(store => store.toggleSelect)
     const maximizeViewer = useLayoutStore(store => store.maximizeViewer)
     const toggleMaximizeViewer = useLayoutStore(store => store.toggleMaximizeViewer)
 
-    const [hiddenCases, setHiddenCases] = useState<string[]>(Object.keys(prefabs)) // Hide the prefabs by defaults
+    const [hiddenCases, setHiddenCases] = useState<string[]>(prefabs.map(prefab => prefab.id)) // Hide the prefabs by defaults
     const [rotatedCases, setRotatedCases] = useState<string[]>([])
     const [selectedCase, setSelectedCase] = useState<string | null>(null)
     const [hoveredCase, setHoveredCase] = useState<string | null>(null)
@@ -166,17 +167,17 @@ export default function Viewer() {
                             </button>
                         </li>
                     ))}
-                    {Object.keys(prefabs).map(name => (
-                        <li key={name}
-                            data-visible={!hiddenCases.includes(name)}
-                            data-highlight={name === selectedCase}
+                    {prefabs.map(prefab => (
+                        <li key={prefab.id}
+                            data-visible={!hiddenCases.includes(prefab.id)}
+                            data-highlight={prefab.id === selectedCase}
                         >
 
-                            <label onClick={() => setSelectedCase(name)}>{name}</label>
+                            <label onClick={() => setSelectedCase(prefab.id)}>{prefab.label}</label>
 
-                            <button className="g-unstyled" onClick={() => toggleShowCase(name)}>
+                            <button className="g-unstyled" onClick={() => toggleShowCase(prefab.id)}>
                                 {
-                                    hiddenCases.includes(name)
+                                    hiddenCases.includes(prefab.id)
                                         ? <IconEyeOff size={18} />
                                         : <IconEye size={18} />
                                 }
@@ -191,8 +192,8 @@ export default function Viewer() {
                         <IconPlus size={18} /> Custom
                     </button>
 
-                    <label>
-                        <IconArrowsUpDown size={18} />
+                    <label className={s.select_sort}>
+                        <IconArrowsUpDown size={16} />
                         <select value={sortBy} onChange={(e) => setSortBy(e.target.value as SortOption)}>
                             {
                                 Object.keys(sortKeys).map(opt => (
@@ -201,6 +202,11 @@ export default function Viewer() {
                             }
                         </select>
                     </label>
+
+                    <button className="g-unstyled" onClick={() => setShowCaseLabels(!showCaseLabels)}>
+                        {showCaseLabels ? <IconTag size={18} /> : <IconTagOff size={18} />}
+                    </button>
+
                 </footer>
 
 
@@ -224,6 +230,7 @@ export default function Viewer() {
                                     posXY={[xOffsets[i], 0]}
                                     sizeMM={box.size}
                                     label={box.label}
+                                    showLabel={showCaseLabels || selectedCase === box.id}
                                     highlight={selectedCase === box.id || hoveredCase === box.id}
                                     onClick={() => setSelectedCase(box.id)}
                                     onHover={() => setHoveredCase(box.id)}

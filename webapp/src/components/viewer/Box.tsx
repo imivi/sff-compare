@@ -9,13 +9,14 @@ type Props = {
     posXY: Num2D
     sizeMM: Num3D
     label: string
+    showLabel: boolean
     onClick: () => void
     onPointerOut: () => void
     onHover: () => void
     highlight: boolean
 }
 
-export default function Box({ posXY, sizeMM, label, highlight, onClick, onPointerOut, onHover }: Props) {
+export default function Box({ posXY, sizeMM, label, showLabel, highlight, onClick, onPointerOut, onHover }: Props) {
 
     const size: Num3D = [sizeMM[0] / 1000, sizeMM[1] / 1000, sizeMM[2] / 1000]
 
@@ -40,7 +41,10 @@ export default function Box({ posXY, sizeMM, label, highlight, onClick, onPointe
                 <boxGeometry args={size} />
                 <meshStandardMaterial color={highlight ? "coral" : "white"} />
             </mesh>
-            <Html className={s.box_label} zIndexRange={[1, 2]} center>{label}</Html>
+            {
+                showLabel &&
+                <Html className={s.box_label} zIndexRange={[1, 2]} center>{label}</Html>
+            }
         </group>
     )
 }
