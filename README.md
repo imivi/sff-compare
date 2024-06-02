@@ -1,9 +1,9 @@
 <p align="center">
-  <h1>SFF Compare</h1>
+  <img src="docs/banner.jpg" />
 </p>
 
 <p align="center">
-  <img src="docs/filters.jpg" />
+  <h1>SFF Compare</h1>
 </p>
 
 **SFF Compare** is an online tool that lets you easily search for small form factor (SFF) PC cases.
@@ -13,6 +13,10 @@
 </p>
 
 All data comes from the **[SFF Master List](https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4)** maintained by [u/prayogahs](https://reddit.com/u/prayogahs/) and [u/ermac-318](https://reddit.com/u/ermac-318/).
+
+<p align="center">
+  <img src="docs/filters.jpg" />
+</p>
 
 ## Features
 
