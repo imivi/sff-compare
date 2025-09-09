@@ -3,29 +3,17 @@ import { Row } from "../types"
 import { readGoogleSheetAsCsv } from "./download-google-sheet-csv"
 import Papaparse from "papaparse"
 import { utils } from "./utils"
-import { ColumnMismatchError, MissingColumnError } from "../exceptions"
+import { ColumnMismatchError } from "../exceptions"
 import { env } from "../env"
 import { logger } from "../logger"
 
 
-/*
-to get all rows,
-read every sheet and save to csv (return 3 csvs)
-then read the 3 csvs and parse them
-then merge them
-*/
-
 async function getRowsFromCsvSheet(sheetName: string): Promise<Row[]> {
-    // const USE_JSON_INSTEAD_OF_FETCHING_CSV = false
-    // if (USE_JSON_INSTEAD_OF_FETCHING_CSV) {
-    //     const rows: Row[] = JSON.parse(fs.readFileSync('Notes/SFF PC Master List - SFF Case 10L.json', { encoding: 'utf-8' }))
-    //     return rows
-    // }
 
-    // sheetNames
+    const csvFilename = sheetName.replace(">", "gt").replace("<", "lt")
 
     let csv = ""
-    const cachedCsvPath = `cache/${sheetName}.csv`
+    const cachedCsvPath = `cache/${csvFilename}.csv`
     if (env.DEVELOPMENT && fs.existsSync(cachedCsvPath)) {
         csv = fs.readFileSync(cachedCsvPath, { encoding: "utf-8" })
         console.log("Using cached csv file:", sheetName)
@@ -39,16 +27,12 @@ async function getRowsFromCsvSheet(sheetName: string): Promise<Row[]> {
         fs.writeFileSync(cachedCsvPath, csv, { encoding: 'utf-8' })
     }
 
-    // Parse CSV
-
     const parseResult = Papaparse.parse<Row>(csv, {
         header: true, // Each returned row is a object instead of an array
         dynamicTyping: true, // Attempt to parse strings into numbers
     })
 
     const { data } = parseResult
-
-    // fs.writeFileSync('cache/parsed_csv_sff_case_10l.json', JSON.stringify(data, null, 4))
 
     return data
 }
@@ -67,12 +51,3 @@ export async function getRowsFromCsvSheets(sheetNames: string[]): Promise<Row[]>
 
     return allRows
 }
-
-
-// const sheetNames = [
-//     'SFF Case <10L',
-//     'SFF Case 10L-20L',
-//     'MFF Case >20L',
-// ]
-
-// getRowsFromCsvSheets(sheetNames)
