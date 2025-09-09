@@ -19,6 +19,7 @@ export default function Home() {
         <meta name="description" content="SFF Compare" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <script defer async src="https://analytics.imivi.dev/script.js" data-website-id="e008aa17-b10b-45f9-89b6-11bc1e417399"></script>
       </Head>
 
       <div className={[s.container, inter.className].join(" ")}>
